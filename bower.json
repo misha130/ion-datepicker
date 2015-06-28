@@ -1,0 +1,31 @@
+{
+  "name": "ionic-datepicker",
+  "version": "0.3.0",
+  "authors": [
+    "Celso Marques"
+  ],
+  "description": "A date picker component for ionic framework",
+  "main": [
+    "./dist/templates.js",
+    "./dist/ionic-datepicker.js",
+    "./dist/style.css"
+  ],
+  "keywords": [
+    "ionic-datepicker",
+    "ionic",
+    "datepicker",
+    "datepicker for ionic",
+    "datepicker for ionic framework"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0"
+  }
+}
