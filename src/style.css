@@ -1,69 +1,72 @@
 /* Empty. Add your own CSS if you like */
 
-.color_blue {
-    color: rgb(56, 126, 245) !important;
+.center {
+  text-align: center;
 }
 
-.bg_color_blue {
-    background-color: rgb(56, 126, 245);
+.bold {
+  font-weight: bold;
 }
 
-.date_col:hover {
-    background-color: rgba(56, 126, 245, 0.5);
-    cursor: pointer;
+.month, .day-of-month, .year {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: #fff;
+  cursor: pointer;
 }
 
-.date_col:active {
-    background-color: rgba(56, 126, 245, 1);
-    cursor: pointer;
+.month, .year {
+  font-size: 14px;
 }
 
-.no_padding {
-    padding: 0;
+.day-of-month {
+  font-size: 60px;
+  font-weight: bold;
 }
 
-.date_cell {
-    padding: 5px;
+.bar-balanced {
+  background-color: rgb(0, 141, 127) !important;
 }
 
-.error_msg {
-    color: #cc0000 !important;
-    font-size: 12px;
+.balanced-light {
+  background-color: rgb(0, 150, 136);
 }
 
-.date_selected {
-    background-color: rgba(56, 126, 245, 1) !important;
+.color-balanced-light {
+  color: rgb(0, 150, 136) !important;
+}
+
+.popup-body {
+  padding: 0px !important;
+}
+
+.popup-buttons button {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.date-col:hover {
+  background-color: rgba(56, 126, 245, 0.5);
+  cursor: pointer;
+}
+
+.date-col:active {
+  background-color: rgba(56, 126, 245, 1);
+  cursor: pointer;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.date-cell {
+  padding: 5px;
+}
+
+.selected-date {
+  background-color: rgba(182, 217, 214, 1) !important;
 }
 
 .today {
-    background-color: rgba(186, 186, 186, 1);
-}
-
-.pointer_events_none {
-    pointer-events: none !important;
-    color: #AAAAAA;
-}
-
-.select_section{
-    padding: 0;
-}
-.select_section label {
-  padding: 12px;
-}
-
-.select_section select {
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px;
-    direction: ltr;
-    left: 0;
-    width: 100%;
-    max-width: 100%;
-}
-
-.select_section .item-select:after {
-  right: 4px;
-  border-top: 4px solid;
-  border-right: 4px solid rgba(0, 0, 0, 0);
-  border-left: 4px solid rgba(0, 0, 0, 0);
+  color: rgba(60, 170, 159, 1);
 }
