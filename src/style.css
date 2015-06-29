@@ -1,5 +1,10 @@
 /* Empty. Add your own CSS if you like */
 
+.content {
+  height: 220px;
+  overflow: auto;
+}
+
 .center {
   text-align: center;
 }
@@ -63,10 +68,10 @@
   padding: 5px;
 }
 
-.selected-date {
+.selected {
   background-color: rgba(182, 217, 214, 1) !important;
 }
 
-.today {
+.current {
   color: rgba(60, 170, 159, 1);
 }

@@ -23,31 +23,53 @@ angular
     },
     link: function (scope, element, attrs) {
 
+      scope.type = 'date';
       scope.daysOfWeek = DatepickerService.daysOfWeek;
+      scope.years = DatepickerService.years;
 
       scope.selectedDate = new Date();
       if (scope.date) scope.selectedDate = scope.date;
 
       scope.today = new Date();
-      scope.isToday = function(date) {
+      scope.isCurrentDate = function(date) {
         if (!date) return false;
         return date.getDate() === scope.today.getDate()
           && date.getMonth() === scope.today.getMonth()
           && date.getFullYear() === scope.today.getFullYear();
       };
 
-      scope.isSelected = function(date) {
+      scope.isCurrentYear = function(year) {
+        if (!year) return false;
+        return year === scope.today.getFullYear();
+      };
+
+      scope.isSelectedDate = function(date) {
         if (!date || !scope.selectedDate) return false;
         return date.getDate() === scope.selectedDate.getDate()
           && date.getMonth() === scope.selectedDate.getMonth()
           && date.getFullYear() === scope.selectedDate.getFullYear();
       };
 
+      scope.isSelectedYear = function(year) {
+        if (!year || !scope.selectedDate) return false;
+        return year === scope.selectedDate.getFullYear();
+      };
+
+      scope.changeType = function(type) {
+        scope.type = type;
+      };
+
       scope.selectDate = function (date) {
         scope.selectedDate = date;
       };
 
-      var refreshDateList = function (currentDate) {
+      scope.changeYear = function(year) {
+        scope.selectedDate.setFullYear(year);
+        refreshDateList(scope.selectedDate);
+        scope.changeType('date');
+      };
+
+      var refreshDateList = function(currentDate) {
 
         scope.selectedDate = angular.copy(currentDate);
 
@@ -65,11 +87,9 @@ angular
           scope.dayList.unshift(undefined);
         }
 
-        scope.cols = [];
-        scope.rows = [];
         scope.numColumns = scope.daysOfWeek.length;
-        scope.cols.length = scope.numColumns;
-        scope.rows.length = parseInt(scope.dayList.length / scope.cols.length) + 1;
+        scope.rows = new Array(parseInt(scope.dayList.length / scope.numColumns) + 1);
+        scope.cols = new Array(scope.numColumns);
       };
 
       element.on('click', function () {
@@ -84,29 +104,29 @@ angular
           scope: scope,
           buttons: [
             {
-              text: 'CANCEL',
-              type: 'button-clear col-offset-33',
-              onTap: function (e) {
-                scope.callback(undefined);
-              }
-            },
-            {
-              text: 'OK',
-              type: 'button-clear color-balanced-light',
-              onTap: function (e) {
-
-                scope.selectedDate.setHours(0);
-                scope.selectedDate.setMinutes(0);
-                scope.selectedDate.setSeconds(0);
-                scope.selectedDate.setMilliseconds(0);
-
-                scope.date = angular.copy(scope.selectedDate);
-                scope.callback(scope.date);
-              }
+            text: 'CANCEL',
+            type: 'button-clear col-offset-33',
+            onTap: function (e) {
+              scope.callback(undefined);
             }
+          },
+          {
+            text: 'OK',
+            type: 'button-clear color-balanced-light',
+            onTap: function (e) {
+
+              scope.selectedDate.setHours(0);
+              scope.selectedDate.setMinutes(0);
+              scope.selectedDate.setSeconds(0);
+              scope.selectedDate.setMilliseconds(0);
+
+              scope.date = angular.copy(scope.selectedDate);
+              scope.callback(scope.date);
+            }
+          }
           ]
-        })
-      })
+        });
+      });
     }
   }
 }]);
