@@ -19,8 +19,9 @@ gulp.task('html2js', function () {
 });
 
 gulp.task('build', [ 'html2js', 'cssminify' ], function () {
-  gulp.src(['./src/ionic-datepicker.js'])
+  gulp.src(['./src/*.js'])
   // .pipe(uglify())
+  .pipe(concat("ionic-datepicker.js"))
   .pipe(gulp.dest("./dist"));
 });
 
@@ -35,7 +36,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch([ './src/ionic-datepicker.js', './src/date-picker-modal.html' ], [ 'build' ]);
+  gulp.watch([ './src/*.js', './src/template.html' ], [ 'build' ]);
 });
 
 gulp.task('default', [ 'clean', 'build' ]);

@@ -4,19 +4,19 @@
 
 <div class="row center balanced-light">
   <div class="col">
-    <div class="month" ng-click="changeType('month')">
+    <div class="month" ng-click="change('month')">
       {{selectedDate | date: 'MMM' | uppercase}}
     </div>
-    <div class="day-of-month" ng-click="changeType('date')">
+    <div class="day-of-month" ng-click="change('date')">
       {{selectedDate | date: 'd'}}
     </div>
-    <div class="year" ng-click="changeType('year')">
+    <div class="year" ng-click="change('year')">
       {{selectedDate | date: 'yyyy'}}
     </div>
   </div>
 </div>
 
-<div class="content" ng-show="type === 'date'">
+<div class="content" ng-show="show('date')">
   <div class="row center">
     <div class="col bold" ng-repeat="dayOfWeek in daysOfWeek track by $index">
       {{dayOfWeek}}
@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div class="content" ng-show="type === 'year'">
+<div class="content" ng-show="show('year')">
   <div class="row center" ng-repeat="year in years track by $index">
     <div class="col" ng-class="{ 'selected': isSelectedYear(year), 'current': isCurrentYear(year) }"
                    ng-click="changeYear(year)">

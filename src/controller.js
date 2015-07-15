@@ -1,9 +1,5 @@
 'use strict';
 
-var app = angular.module('ionic-datepicker', ['ionic', 'ionic-datepicker.templates']);
-
-'use strict';
-
 app
 .controller('DatepickerController', ['$scope', 'DatepickerService', function ($scope, DatepickerService) {
 
@@ -65,8 +61,8 @@ app
 
     $scope.selectedDate = angular.copy(currentDate);
 
-    var firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDate();
-    var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    var firstDay  = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDate()
+      , lastDay   = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
 
     $scope.dayList = [];
     for (var i = firstDay; i <= lastDay; i++) {
@@ -85,73 +81,3 @@ app
   };
 
 }]);
-
-'use strict';
-
-app
-.directive('ionicDatepicker', ['$ionicPopup', function ($ionicPopup) {
-
-  return {
-    restrict: 'AE',
-    replace: true,
-    controller: 'DatepickerController',
-    controllerAs: 'DatepickerCtrl',
-    scope: {
-      date: '=date',
-      callback: '=callback'
-    },
-    link: function (scope, element, attrs) {
-
-      var controller = scope.DatepickerCtrl;
-
-      element.on('click', function () {
-        if (!scope.date) {
-          controller.refreshDateList(new Date());
-        } else {
-          controller.refreshDateList(angular.copy(scope.date));
-        }
-
-        $ionicPopup.show({
-          templateUrl: 'template.html',
-          scope: scope,
-          buttons: [
-            {
-            text: 'CANCEL',
-            type: 'button-clear col-offset-33',
-            onTap: function (e) {
-              scope.callback(undefined);
-            }
-          },
-          {
-            text: 'OK',
-            type: 'button-clear color-balanced-light',
-            onTap: function (e) {
-
-              scope.selectedDate.setHours(0);
-              scope.selectedDate.setMinutes(0);
-              scope.selectedDate.setSeconds(0);
-              scope.selectedDate.setMilliseconds(0);
-
-              scope.date = angular.copy(scope.selectedDate);
-              scope.callback(scope.date);
-            }
-          }
-          ]
-        });
-      });
-    }
-  }
-}]);
-
-'use strict';
-
-app
-.service('DatepickerService', function () {
-
-  this.daysOfWeek = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];
-  this.years = [];
-  this.populateYears = function() {
-    for (var i = 1900; i < 2101; i++) this.years.push(i);
-  };
-  this.populateYears();
-});
