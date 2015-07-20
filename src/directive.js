@@ -1,8 +1,8 @@
-(function() {
+(function(module) {
 
   'use strict';
 
-  app
+  angular.module('ionic-datepicker')
   .directive('ionicDatepicker', ['$ionicPopup', function ($ionicPopup) {
 
     return {

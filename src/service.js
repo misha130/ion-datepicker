@@ -1,8 +1,8 @@
-(function() {
+(function(module) {
 
   'use strict';
 
-  app
+  angular.module('ionic-datepicker')
   .service('DatepickerService', function () {
 
     this.daysOfWeek = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];

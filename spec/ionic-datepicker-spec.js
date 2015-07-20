@@ -3,7 +3,8 @@
 describe('ionicDatepickerSpec', function() {
 
   var elm
-    , scope;
+    , scope
+    , today = new Date();
 
   beforeEach(module('ionic-datepicker'));
   beforeEach(module('ionic-datepicker.templates'));
@@ -22,38 +23,64 @@ describe('ionicDatepickerSpec', function() {
     scope = elm.isolateScope();
   }
 
-  describe('#link', function() {
+  describe('validate actual date', function() {
 
-    describe('when do not pass date to datepicker', function() {
-
-      beforeEach(function() {
-        compileDirective();
-      });
-
-      it('should have currentMonth equals today\'s month', function() {
-        expect(scope.currentMonth).to.equals(new Date().getMonth());
-      });
-
-      it('should have currentYear equals today\'s year', function() {
-        expect(scope.currentYear).to.equals(new Date().getFullYear());
-      });
+    beforeEach(function() {
+      compileDirective();
     });
 
-    describe('when pass date to datepicker', function() {
+    it('$scope#isActualDate should be true', function() {
+      expect(scope.isActualDate(today)).to.be.true;
+    });
 
-      beforeEach(function() {
-        scope.date = new Date(1982, 0, 28);
-        var tpl = '<ionic-datepicker date="date" callback="callback"></ionic-datepicker>';
-        compileDirective(tpl);
-      });
+    it('$scope#isActualMonth should be true', function() {
+      expect(scope.isActualMonth(today.getMonth())).to.be.true;
+    });
 
-      it('should have currentMonth equals January', function() {
-        expect(scope.currentMonth).to.equals(0);
-      });
+    it('$scope#isActualYear should be true', function() {
+      expect(scope.isActualYear(today.getFullYear())).to.be.true;
+    });
+  });
 
-      it('should have currentYear equals 1982', function() {
-        expect(scope.currentYear).to.equals(1982);
-      });
+  describe('when do not pass date to datepicker', function() {
+
+    beforeEach(function() {
+      compileDirective();
+    });
+
+    it('$scope#currentDate should be equals today', function() {
+      expect(scope.currentDate.getDate()).to.be.eq(today.getDate());
+      expect(scope.currentDate.getMonth()).to.be.eq(today.getMonth());
+      expect(scope.currentDate.getFullYear()).to.be.eq(today.getFullYear());
+    });
+
+    it('$scope#selectedDate should be equals today', function() {
+      expect(scope.selectedDate.getDate()).to.be.eq(today.getDate());
+      expect(scope.selectedDate.getMonth()).to.be.eq(today.getMonth());
+      expect(scope.selectedDate.getFullYear()).to.be.eq(today.getFullYear());
+    });
+  });
+
+  describe('when pass date to datepicker', function() {
+
+    var date;
+    beforeEach(function() {
+      date = new Date(1982, 0, 28);
+      scope.date = date;
+      var tpl = '<ionic-datepicker date="date" callback="callback"></ionic-datepicker>';
+      compileDirective(tpl);
+    });
+
+    it('$scope#currentDate should be equals specific date', function() {
+      expect(scope.currentDate.getDate()).to.be.eq(date.getDate());
+      expect(scope.currentDate.getMonth()).to.be.eq(date.getMonth());
+      expect(scope.currentDate.getFullYear()).to.be.eq(date.getFullYear());
+    });
+
+    it('$scope#selectedDate should be equals specifc date', function() {
+      expect(scope.selectedDate.getDate()).to.be.eq(date.getDate());
+      expect(scope.selectedDate.getMonth()).to.be.eq(date.getMonth());
+      expect(scope.selectedDate.getFullYear()).to.be.eq(date.getFullYear());
     });
   });
 });

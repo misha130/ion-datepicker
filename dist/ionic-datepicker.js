@@ -1,12 +1,14 @@
-'use strict';
+(function(module) {
 
-var app = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templates' ]);
+  'use strict';
+  module = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templates' ]);
+})();
 
-(function() {
+(function(module) {
 
   'use strict';
 
-  app
+  angular.module('ionic-datepicker')
   .controller('DatepickerController', [ '$scope', 'DatepickerService', function ($scope, DatepickerService) {
 
     var self  = this
@@ -25,26 +27,24 @@ var app = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templa
       $scope.currentDate = angular.copy($scope.date);
     }
 
-    $scope.isToday = function(date) {
+    $scope.isActualDate = function(date) {
       if (!date) return false;
-      return
-        date.getDate() === today.getDate() &&
+      return date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
         date.getFullYear() === today.getFullYear();
     };
 
-    $scope.isCurrentMonth = function(month) {
+    $scope.isActualMonth = function(month) {
       return month === today.getMonth();
     };
 
-    $scope.isCurrentYear = function(year) {
+    $scope.isActualYear = function(year) {
       return year === today.getFullYear();
     };
 
     $scope.isSelectedDate = function(date) {
       if (!date) return false;
-      return
-        date.getDate() === $scope.selectedDate.getDate() &&
+      return date.getDate() === $scope.selectedDate.getDate() &&
         date.getMonth() === $scope.selectedDate.getMonth() &&
         date.getFullYear() === $scope.selectedDate.getFullYear();
     };
@@ -93,11 +93,11 @@ var app = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templa
   }]);
 })();
 
-(function() {
+(function(module) {
 
   'use strict';
 
-  app
+  angular.module('ionic-datepicker')
   .directive('ionicDatepicker', ['$ionicPopup', function ($ionicPopup) {
 
     return {
@@ -151,11 +151,11 @@ var app = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templa
   }]);
 })();
 
-(function() {
+(function(module) {
 
   'use strict';
 
-  app
+  angular.module('ionic-datepicker')
   .service('DatepickerService', function () {
 
     this.daysOfWeek = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];

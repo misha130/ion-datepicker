@@ -1,3 +1,5 @@
-'use strict';
+(function(module) {
 
-var app = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templates' ]);
+  'use strict';
+  module = angular.module('ionic-datepicker', [ 'ionic', 'ionic-datepicker.templates' ]);
+})();
