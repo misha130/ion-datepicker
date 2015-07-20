@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker)
+[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/gpa.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/feed) [![Test Coverage](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/coverage.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/coverage)
 
 ##Introduction:
 
