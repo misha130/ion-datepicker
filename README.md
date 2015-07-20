@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker)
+
 ##Introduction:
 
 This is a `ionic-datepicker` bower component which can be used with any Ionic framework's application.
