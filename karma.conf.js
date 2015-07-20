@@ -18,7 +18,7 @@ module.exports = function(config) {
     ],
     exclude: [
     ],
-    reporters: ['progress'],
+    reporters: [ 'progress', 'coverage' ],
     port: 9876,
     runnerPort: 9100,
 
@@ -35,8 +35,19 @@ module.exports = function(config) {
       moduleName: 'ionic-datepicker.templates'
     },
 
+    coverageReporter: {
+      dir: './dist/coverage/',
+      reporters: [
+        { type: 'html' },
+        { type: 'lcov' },
+        { type: 'text-summary' },
+        { type: 'lcovonly' }
+      ]
+    },
+
     preprocessors: {
-      './src/*.html': [ 'ng-html2js' ]
+      './src/*.html': [ 'ng-html2js' ],
+      './dist/*.js': [ 'coverage' ]
     }
   });
 };
