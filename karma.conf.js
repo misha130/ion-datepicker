@@ -3,7 +3,7 @@ module.exports = function(config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['mocha', 'chai'],
+    frameworks: [ 'mocha', 'sinon-chai', 'chai' ],
 
     files: [
       './bower_components/angular/angular.js',
@@ -18,6 +18,15 @@ module.exports = function(config) {
     ],
     exclude: [
     ],
+
+    plugins: [
+      'karma-coverage',
+      'karma-mocha',
+      'karma-chai',
+      'karma-sinon-chai',
+      'karma-chrome-launcher'
+    ],
+
     reporters: [ 'progress', 'coverage' ],
     port: 9876,
     runnerPort: 9100,
@@ -36,7 +45,7 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      dir: './dist/coverage/',
+      dir: './coverage/',
       reporters: [
         { type: 'html' },
         { type: 'lcov' },

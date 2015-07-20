@@ -63,13 +63,13 @@
       $scope.currentDate = date;
     };
 
-    $scope.changeMonth = function(month) {
+    $scope.selectMonth = function(month) {
       $scope.selectedDate.setMonth(month);
       self.createDateList($scope.selectedDate);
       $scope.change('date');
     };
 
-    $scope.changeYear = function(year) {
+    $scope.selectYear = function(year) {
       $scope.selectedDate.setFullYear(year);
       self.createDateList($scope.selectedDate);
       $scope.change('date');
