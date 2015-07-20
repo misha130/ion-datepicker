@@ -17,6 +17,10 @@
     "gulp-minify-html": "^1.0.3",
     "gulp-ng-html2js": "^0.2.0",
     "gulp-uglify": "^1.2.0",
-    "karma": "^0.13.2"
+    "karma": "^0.13.2",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "mocha": "^2.2.5",
+    "ng-html2js": "^2.0.0"
   }
 }
