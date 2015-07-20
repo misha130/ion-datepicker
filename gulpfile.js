@@ -1,11 +1,19 @@
 var path        = require('path')
   , gulp        = require('gulp')
+  , plugins     = require('gulp-load-plugins')()
   , del         = require('del')
   , concat      = require('gulp-concat')
   , uglify      = require('gulp-uglify')
   , ngHtml2Js   = require("gulp-ng-html2js")
   , minifyHtml  = require("gulp-minify-html")
   , minifycss   = require("gulp-minify-css");
+
+gulp.task('lint', function() {
+  return gulp.src([ './src/*.js' ])
+  .pipe(plugins.jshint('.jshintrc'))
+  .pipe(plugins.jshint.reporter('jshint-stylish'))
+  .pipe(plugins.jshint.reporter('fail'));
+});
 
 gulp.task('html2js', function () {
   gulp.src([ './src/*.html' ])

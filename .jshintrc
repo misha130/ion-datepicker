@@ -1,6 +1,6 @@
 {
-  "laxcomma": false,
-  "laxbreak": false,
+  "laxcomma": true,
+  "laxbreak": true,
   "globals": {
     "angular": true
   }
