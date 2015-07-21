@@ -15,16 +15,14 @@
       , type  = 'date'
       , today = new Date();
 
-    $scope.currentDate = new Date();
     $scope.selectedDate = new Date();
 
-    $scope.daysOfWeek = DatepickerService.daysOfWeek;
-    $scope.months = DatepickerService.months;
-    $scope.years = DatepickerService.years;
+    $scope.daysOfWeek = DatepickerService.getDaysOfWeek();
+    $scope.months = DatepickerService.getMonths();
+    $scope.years = DatepickerService.getYears();
 
     if ($scope.date) {
       $scope.selectedDate = angular.copy($scope.date);
-      $scope.currentDate = angular.copy($scope.date);
     }
 
     $scope.isActualDate = function(date) {
@@ -57,7 +55,7 @@
       return year === $scope.selectedDate.getFullYear();
     };
 
-    $scope.change = function(val) {
+    $scope.changeType = function(val) {
       type = val;
     };
 
@@ -66,28 +64,30 @@
     };
 
     $scope.selectDate = function (date) {
-      $scope.currentDate = date;
+      $scope.selectedDate = date;
     };
 
     $scope.selectMonth = function(month) {
       $scope.selectedDate.setMonth(month);
+      if ($scope.selectedDate.getMonth() !== month) {
+        $scope.selectedDate.setDate(0);
+      }
       self.createDateList($scope.selectedDate);
-      $scope.change('date');
+      $scope.changeType('date');
     };
 
     $scope.selectYear = function(year) {
       $scope.selectedDate.setFullYear(year);
       self.createDateList($scope.selectedDate);
-      $scope.change('date');
+      $scope.changeType('date');
     };
 
-    this.createDateList = function(currentDate) {
+    this.createDateList = function(selectedDate) {
 
-      $scope.dateList = DatepickerService.createDateList(currentDate);
+      $scope.dateList = DatepickerService.createDateList(selectedDate);
 
-      $scope.numColumns = 7;
-      $scope.rows = new Array(parseInt($scope.dateList.length / $scope.numColumns) + 1);
-      $scope.cols = new Array($scope.numColumns);
+      $scope.cols = new Array(7);
+      $scope.rows = new Array(parseInt($scope.dateList.length / $scope.cols.length) + 1);
     };
 
   }]);
@@ -127,6 +127,7 @@
               text: 'CANCEL',
               type: 'button-clear col-offset-33',
               onTap: function (e) {
+                scope.selectedDate = angular.copy(scope.date || new Date());
                 scope.callback(undefined);
               }
             },
@@ -135,12 +136,12 @@
               type: 'button-clear color-balanced-light',
               onTap: function (e) {
 
-                scope.currentDate.setHours(0);
-                scope.currentDate.setMinutes(0);
-                scope.currentDate.setSeconds(0);
-                scope.currentDate.setMilliseconds(0);
+                scope.selectedDate.setHours(0);
+                scope.selectedDate.setMinutes(0);
+                scope.selectedDate.setSeconds(0);
+                scope.selectedDate.setMilliseconds(0);
 
-                scope.date = angular.copy(scope.currentDate);
+                scope.date = angular.copy(scope.selectedDate);
                 scope.callback(scope.date);
               }
             }]
@@ -158,24 +159,35 @@
   angular.module('ionic-datepicker')
   .service('DatepickerService', function () {
 
-    this.daysOfWeek = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];
-    this.months = [];
-    this.years = [];
+    var locale = window.navigator.userLanguage || window.navigator.language;
 
-    this.populateMonths = function() {
+    this.getDaysOfWeek = function() {
+      var today     = new Date()
+        , days      = []
+        , firstDay  = today.getDate() - today.getDay()
+        , lastDay   = firstDay + 6;
+      for (var i = firstDay; i <= lastDay; i++) {
+        today.setDate(i);
+        days.push(today.toLocaleString(locale, { weekday: 'long' }));
+      }
+      return days;
+    };
 
+    this.getMonths = function() {
       var today   = new Date()
-        , locale  = window.navigator.userLanguage || window.navigator.language;
-
+        , months  = [];
       for (var i = 0; i < 12; i++) {
         today.setDate(1);
         today.setMonth(i);
-        this.months.push(today.toLocaleString(locale, { month: 'long' }));
+        months.push(today.toLocaleString(locale, { month: 'long' }));
       }
+      return months;
     };
 
-    this.populateYears = function() {
-      for (var i = 1900; i < 2101; i++) this.years.push(i);
+    this.getYears = function() {
+      var years = [];
+      for (var i = 1900; i < 2101; i++) years.push(i);
+      return years;
     };
 
     this.createDateList = function(currentDate) {
@@ -195,12 +207,5 @@
       }
       return dateList;
     };
-
-    this.initialize = function() {
-      this.populateMonths();
-      this.populateYears();
-    };
-
-    this.initialize();
   });
 })();

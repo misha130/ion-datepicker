@@ -1,35 +1,39 @@
 'use strict';
 
-describe('ionicDatepickerSpec', function() {
+describe('DatepickerControllerSpec', function() {
 
-  var elm
-    , $controller
+  var controller
+    , DatepickerService
     , scope
     , today = new Date();
 
   beforeEach(module('ionic-datepicker'));
-  beforeEach(module('ionic-datepicker.templates'));
 
-  beforeEach(inject(function(_$controller_, $rootScope) {
-    $controller = _$controller_;
+  beforeEach(inject(function(_$controller_, _DatepickerService_,  $rootScope) {
     scope = $rootScope.$new();
+    controller = _$controller_('DatepickerController', {
+      $scope: scope,
+      DatepickerService: _DatepickerService_
+    });
+    DatepickerService = _DatepickerService_;
   }));
 
-  function compileDirective(tpl) {
+  describe('initialize', function() {
 
-    if (!tpl) tpl = '<ionic-datepicker date="currentDate" callback="callback"></ionic-datepicker>';
-    inject(function($rootScope, $compile) {
-      elm = $compile(tpl)(scope);
+    it('should have daysOfWeek defined', function() {
+      expect(scope.daysOfWeek).to.be.ok;
     });
-    scope.$apply();
-    scope = elm.isolateScope();
-  }
+
+    it('should have months defined', function() {
+      expect(scope.months).to.be.ok;
+    });
+
+    it('should have years defined', function() {
+      expect(scope.years).to.be.ok;
+    });
+  });
 
   describe('validate actual date', function() {
-
-    beforeEach(function() {
-      compileDirective();
-    });
 
     it('$scope#isActualDate should be true', function() {
       expect(scope.isActualDate(today)).to.be.true;
@@ -42,112 +46,106 @@ describe('ionicDatepickerSpec', function() {
     it('$scope#isActualYear should be true', function() {
       expect(scope.isActualYear(today.getFullYear())).to.be.true;
     });
-  });
 
-  describe('when do not pass date to datepicker', function() {
+    describe('when do NOT pass date', function() {
 
-    beforeEach(function() {
-      compileDirective();
+      it('selectedDate should be equals today', function() {
+        expect(scope.selectedDate.getDate()).to.be.eq(today.getDate());
+        expect(scope.selectedDate.getMonth()).to.be.eq(today.getMonth());
+        expect(scope.selectedDate.getFullYear()).to.be.eq(today.getFullYear());
+      });
+
+      it('$scope#isSelectedDate() should be true', function() {
+        expect(scope.isSelectedDate(today)).to.be.true;
+      });
+
+      it('$scope#isSelectedMonth() should be true', function() {
+        expect(scope.isSelectedMonth(today.getMonth())).to.be.true;
+      });
+
+      it('$scope#isSelectedYear() should be true', function() {
+        expect(scope.isSelectedYear(today.getFullYear())).to.be.true;
+      });
     });
 
-    it('$scope#currentDate should be equals today', function() {
-      expect(scope.currentDate.getDate()).to.be.eq(today.getDate());
-      expect(scope.currentDate.getMonth()).to.be.eq(today.getMonth());
-      expect(scope.currentDate.getFullYear()).to.be.eq(today.getFullYear());
-    });
+    describe('when pass date to datepicker', function() {
 
-    it('$scope#isSelectedDate() should be true', function() {
-      expect(scope.isSelectedDate(today)).to.be.true;
-    });
+      var date;
+      beforeEach(inject(function(_$controller_, _DatepickerService_, $rootScope) {
+        date = new Date(1982, 0, 28);
+        scope = $rootScope.$new();
+        scope.date = date;
+        controller = _$controller_('DatepickerController', {
+          $scope: scope,
+          DatepickerService: _DatepickerService_
+        });
+      }));
 
-    it('$scope#isSelectedMonth() should be true', function() {
-      expect(scope.isSelectedMonth(today.getMonth())).to.be.true;
-    });
+      it('$scope#isSelectedDate() should be equals specifc date', function() {
+        expect(scope.isSelectedDate(date)).to.be.true;
+      });
 
-    it('$scope#isSelectedYear() should be true', function() {
-      expect(scope.isSelectedYear(today.getFullYear())).to.be.true;
-    });
-  });
+      it('$scope#isSelectedMonth() should be true', function() {
+        expect(scope.isSelectedMonth(date.getMonth())).to.be.true;
+      });
 
-  describe('when pass date to datepicker', function() {
-
-    var date;
-    beforeEach(function() {
-      date = new Date(1982, 0, 28);
-      scope.date = date;
-      var tpl = '<ionic-datepicker date="date" callback="callback"></ionic-datepicker>';
-      compileDirective(tpl);
-    });
-
-    it('$scope#currentDate should be equals specific date', function() {
-      expect(scope.currentDate.getDate()).to.be.eq(date.getDate());
-      expect(scope.currentDate.getMonth()).to.be.eq(date.getMonth());
-      expect(scope.currentDate.getFullYear()).to.be.eq(date.getFullYear());
-    });
-
-    it('$scope#isSelectedDate() should be equals specifc date', function() {
-      expect(scope.isSelectedDate(date)).to.be.true;
-    });
-
-    it('$scope#isSelectedMonth() should be true', function() {
-      expect(scope.isSelectedMonth(date.getMonth())).to.be.true;
-    });
-
-    it('$scope#isSelectedYear() should be true', function() {
-      expect(scope.isSelectedYear(date.getFullYear())).to.be.true;
+      it('$scope#isSelectedYear() should be true', function() {
+        expect(scope.isSelectedYear(date.getFullYear())).to.be.true;
+      });
     });
   });
 
   describe('#show', function() {
-
-    beforeEach(function() {
-      compileDirective();
-    });
 
     it('should have initialize with date', function() {
       expect(scope.show('date')).to.be.true;
     });
 
     it('should show month', function() {
-      scope.change('month');
+      scope.changeType('month');
       expect(scope.show('month')).to.be.true;
     });
 
     it('should show year', function() {
-      scope.change('year');
+      scope.changeType('year');
       expect(scope.show('year')).to.be.true;
     });
 
     it('should show date', function() {
-      scope.change('date');
+      scope.changeType('date');
       expect(scope.show('date')).to.be.true;
     });
   });
 
   describe('', function() {
 
-    var controller
-      , spy;
-
+    var spy;
     beforeEach(function() {
-      compileDirective();
-
-      controller = $controller('DatepickerController', { $scope: scope });
       spy = sinon.spy(controller, 'createDateList');
     });
 
     it('#selectDate', function() {
       var date = new Date(1987, 9, 5);
       scope.selectDate(date);
-      expect(scope.currentDate.getDate()).to.be.eq(date.getDate());
-      expect(scope.currentDate.getMonth()).to.be.eq(date.getMonth());
-      expect(scope.currentDate.getFullYear()).to.be.eq(date.getFullYear());
+      expect(scope.selectedDate.getDate()).to.be.eq(date.getDate());
+      expect(scope.selectedDate.getMonth()).to.be.eq(date.getMonth());
+      expect(scope.selectedDate.getFullYear()).to.be.eq(date.getFullYear());
     });
 
-    it('#selectMonth', function() {
+    it('#selectMonth when it is first day of month', function() {
+      scope.selectedDate.setDate(1);
       scope.selectMonth(0);
       expect(spy).to.have.been.called;
       expect(scope.selectedDate.getMonth()).to.be.eq(0);
+      expect(scope.show('date')).to.be.true;
+    });
+
+    it('#selectMonth when it is last day of month', function() {
+      scope.selectedDate = new Date(2015, 6, 31);
+      scope.selectMonth(1);
+      expect(spy).to.have.been.called;
+      expect(scope.selectedDate.getDate()).to.be.eq(28);
+      expect(scope.selectedDate.getMonth()).to.be.eq(1);
       expect(scope.show('date')).to.be.true;
     });
 
@@ -156,6 +154,15 @@ describe('ionicDatepickerSpec', function() {
       expect(spy).to.have.been.called;
       expect(scope.selectedDate.getFullYear()).to.be.eq(0);
       expect(scope.show('date')).to.be.true;
+    });
+
+    it('#createDateList', function() {
+      var date = new Date(2015, 6, 1);
+      var spyService = sinon.spy(DatepickerService, 'createDateList');
+      controller.createDateList(date);
+      expect(spyService).to.have.been.calledWith(date);
+      expect(scope.cols.length).to.eq(7);
+      expect(scope.rows.length).to.eq(5);
     });
   });
 });

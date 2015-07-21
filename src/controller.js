@@ -9,16 +9,14 @@
       , type  = 'date'
       , today = new Date();
 
-    $scope.currentDate = new Date();
     $scope.selectedDate = new Date();
 
-    $scope.daysOfWeek = DatepickerService.daysOfWeek;
-    $scope.months = DatepickerService.months;
-    $scope.years = DatepickerService.years;
+    $scope.daysOfWeek = DatepickerService.getDaysOfWeek();
+    $scope.months = DatepickerService.getMonths();
+    $scope.years = DatepickerService.getYears();
 
     if ($scope.date) {
       $scope.selectedDate = angular.copy($scope.date);
-      $scope.currentDate = angular.copy($scope.date);
     }
 
     $scope.isActualDate = function(date) {
@@ -51,7 +49,7 @@
       return year === $scope.selectedDate.getFullYear();
     };
 
-    $scope.change = function(val) {
+    $scope.changeType = function(val) {
       type = val;
     };
 
@@ -60,28 +58,30 @@
     };
 
     $scope.selectDate = function (date) {
-      $scope.currentDate = date;
+      $scope.selectedDate = date;
     };
 
     $scope.selectMonth = function(month) {
       $scope.selectedDate.setMonth(month);
+      if ($scope.selectedDate.getMonth() !== month) {
+        $scope.selectedDate.setDate(0);
+      }
       self.createDateList($scope.selectedDate);
-      $scope.change('date');
+      $scope.changeType('date');
     };
 
     $scope.selectYear = function(year) {
       $scope.selectedDate.setFullYear(year);
       self.createDateList($scope.selectedDate);
-      $scope.change('date');
+      $scope.changeType('date');
     };
 
-    this.createDateList = function(currentDate) {
+    this.createDateList = function(selectedDate) {
 
-      $scope.dateList = DatepickerService.createDateList(currentDate);
+      $scope.dateList = DatepickerService.createDateList(selectedDate);
 
-      $scope.numColumns = 7;
-      $scope.rows = new Array(parseInt($scope.dateList.length / $scope.numColumns) + 1);
-      $scope.cols = new Array($scope.numColumns);
+      $scope.cols = new Array(7);
+      $scope.rows = new Array(parseInt($scope.dateList.length / $scope.cols.length) + 1);
     };
 
   }]);

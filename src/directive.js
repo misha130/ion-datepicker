@@ -32,6 +32,7 @@
               text: 'CANCEL',
               type: 'button-clear col-offset-33',
               onTap: function (e) {
+                scope.selectedDate = angular.copy(scope.date || new Date());
                 scope.callback(undefined);
               }
             },
@@ -40,12 +41,12 @@
               type: 'button-clear color-balanced-light',
               onTap: function (e) {
 
-                scope.currentDate.setHours(0);
-                scope.currentDate.setMinutes(0);
-                scope.currentDate.setSeconds(0);
-                scope.currentDate.setMilliseconds(0);
+                scope.selectedDate.setHours(0);
+                scope.selectedDate.setMinutes(0);
+                scope.selectedDate.setSeconds(0);
+                scope.selectedDate.setMilliseconds(0);
 
-                scope.date = angular.copy(scope.currentDate);
+                scope.date = angular.copy(scope.selectedDate);
                 scope.callback(scope.date);
               }
             }]

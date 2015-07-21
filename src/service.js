@@ -5,24 +5,35 @@
   angular.module('ionic-datepicker')
   .service('DatepickerService', function () {
 
-    this.daysOfWeek = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];
-    this.months = [];
-    this.years = [];
+    var locale = window.navigator.userLanguage || window.navigator.language;
 
-    this.populateMonths = function() {
+    this.getDaysOfWeek = function() {
+      var today     = new Date()
+        , days      = []
+        , firstDay  = today.getDate() - today.getDay()
+        , lastDay   = firstDay + 6;
+      for (var i = firstDay; i <= lastDay; i++) {
+        today.setDate(i);
+        days.push(today.toLocaleString(locale, { weekday: 'long' }));
+      }
+      return days;
+    };
 
+    this.getMonths = function() {
       var today   = new Date()
-        , locale  = window.navigator.userLanguage || window.navigator.language;
-
+        , months  = [];
       for (var i = 0; i < 12; i++) {
         today.setDate(1);
         today.setMonth(i);
-        this.months.push(today.toLocaleString(locale, { month: 'long' }));
+        months.push(today.toLocaleString(locale, { month: 'long' }));
       }
+      return months;
     };
 
-    this.populateYears = function() {
-      for (var i = 1900; i < 2101; i++) this.years.push(i);
+    this.getYears = function() {
+      var years = [];
+      for (var i = 1900; i < 2101; i++) years.push(i);
+      return years;
     };
 
     this.createDateList = function(currentDate) {
@@ -42,12 +53,5 @@
       }
       return dateList;
     };
-
-    this.initialize = function() {
-      this.populateMonths();
-      this.populateYears();
-    };
-
-    this.initialize();
   });
 })();
