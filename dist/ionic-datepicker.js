@@ -197,12 +197,11 @@
         , dateList  = [];
 
       for (var i = firstDay; i <= lastDay; i++) {
-        var tempDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-        dateList.push(tempDate);
+        dateList.push(new Date(currentDate.getFullYear(), currentDate.getMonth(), i));
       }
 
       firstDay = dateList[0].getDay();
-      for (var j = 0; j < firstDay; j++) {
+      for (var i = 0; i < firstDay; i++) {
         dateList.unshift(undefined);
       }
       return dateList;
