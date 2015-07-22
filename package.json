@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "A date picker for IONIC framework",
   "main": "",
-  "scripts": {
-    "test": "karma start --single-run"
-  },
   "author": "Celso Marques",
   "license": "MIT",
   "dependencies": {},

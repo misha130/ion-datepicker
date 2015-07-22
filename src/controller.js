@@ -5,83 +5,82 @@
   angular.module('ionic-datepicker')
   .controller('DatepickerController', [ '$scope', 'DatepickerService', function ($scope, DatepickerService) {
 
-    var self  = this
-      , type  = 'date'
+    var type  = 'date'
       , today = new Date();
 
-    $scope.selectedDate = new Date();
+    this.selectedDate = new Date();
 
-    $scope.daysOfWeek = DatepickerService.getDaysOfWeek();
-    $scope.months = DatepickerService.getMonths();
-    $scope.years = DatepickerService.getYears();
+    this.getDaysOfWeek = DatepickerService.getDaysOfWeek;
+    this.getMonths = DatepickerService.getMonths;
+    this.getYears = DatepickerService.getYears;
 
     if ($scope.date) {
-      $scope.selectedDate = angular.copy($scope.date);
+      this.selectedDate = angular.copy($scope.date);
     }
 
-    $scope.isActualDate = function(date) {
+    this.isActualDate = function(date) {
       if (!date) return false;
       return date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
         date.getFullYear() === today.getFullYear();
     };
 
-    $scope.isActualMonth = function(month) {
+    this.isActualMonth = function(month) {
       return month === today.getMonth();
     };
 
-    $scope.isActualYear = function(year) {
+    this.isActualYear = function(year) {
       return year === today.getFullYear();
     };
 
-    $scope.isSelectedDate = function(date) {
+    this.isSelectedDate = function(date) {
       if (!date) return false;
-      return date.getDate() === $scope.selectedDate.getDate() &&
-        date.getMonth() === $scope.selectedDate.getMonth() &&
-        date.getFullYear() === $scope.selectedDate.getFullYear();
+      return date.getDate() === this.selectedDate.getDate() &&
+        date.getMonth() === this.selectedDate.getMonth() &&
+        date.getFullYear() === this.selectedDate.getFullYear();
     };
 
-    $scope.isSelectedMonth = function(month) {
-      return month === $scope.selectedDate.getMonth();
+    this.isSelectedMonth = function(month) {
+      return month === this.selectedDate.getMonth();
     };
 
-    $scope.isSelectedYear = function(year) {
-      return year === $scope.selectedDate.getFullYear();
+    this.isSelectedYear = function(year) {
+      return year === this.selectedDate.getFullYear();
     };
 
-    $scope.changeType = function(val) {
+    this.changeType = function(val) {
       type = val;
     };
 
-    $scope.show = function(val) {
+    this.show = function(val) {
       return type === val;
     };
 
-    $scope.selectDate = function (date) {
-      $scope.selectedDate = date;
+    this.selectDate = function (date) {
+      this.selectedDate = date;
     };
 
-    $scope.selectMonth = function(month) {
-      $scope.selectedDate.setMonth(month);
-      if ($scope.selectedDate.getMonth() !== month) {
-        $scope.selectedDate.setDate(0);
+    this.selectMonth = function(month) {
+      this.selectedDate.setMonth(month);
+      if (this.selectedDate.getMonth() !== month) {
+        this.selectedDate.setDate(0);
       }
-      self.createDateList($scope.selectedDate);
-      $scope.changeType('date');
+      this.createDateList(this.selectedDate);
+      this.changeType('date');
     };
 
-    $scope.selectYear = function(year) {
-      $scope.selectedDate.setFullYear(year);
-      self.createDateList($scope.selectedDate);
-      $scope.changeType('date');
+    this.selectYear = function(year) {
+      this.selectedDate.setFullYear(year);
+      this.createDateList(this.selectedDate);
+      this.changeType('date');
     };
 
     this.createDateList = function(selectedDate) {
 
-      $scope.dateList = DatepickerService.createDateList(selectedDate);
+      this.dateList = DatepickerService.createDateList(selectedDate);
 
-      $scope.cols = new Array(7);
-      $scope.rows = new Array(parseInt($scope.dateList.length / $scope.cols.length) + 1);
+      this.cols = new Array(7);
+      this.rows = new Array(parseInt(this.dateList.length / this.cols.length) + 1);
     };
 
   }]);

@@ -4,3 +4,8 @@ dependencies:
     - bower install
   cache_directories:
     - ~/nvm
+
+test:
+  override:
+    - npm test
+    - CODECLIMATE_REPO_TPKEN=$CodeClimateToken codeclimate-test-reporter < ./coverage/**/lcov.info
