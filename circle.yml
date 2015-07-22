@@ -7,5 +7,5 @@ dependencies:
 
 test:
   override:
-    - npm test
-    - CODECLIMATE_REPO_TPKEN=$CodeClimateToken codeclimate-test-reporter < ./coverage/**/lcov.info
+    - karma start --single-run
+    - CODECLIMATE_REPO_TOKEN=$CodeClimateToken codeclimate-test-reporter < ./coverage/**/lcov.info
