@@ -4,14 +4,16 @@ describe('DatepickerDirectiveSpec', function() {
 
   var elm
     , scope
-    , $ionicPopup;
+    , controller;
 
   beforeEach(module('ionic-datepicker'));
   beforeEach(module('ionic-datepicker.templates'));
 
-  beforeEach(inject(function(_$ionicPopup_) {
-    compileDirective();
-    $ionicPopup = _$ionicPopup_;
+  beforeEach(inject(function(ionicDatepickerDirective) {
+    ionicDatepickerDirective[0].controller = function() {
+      this.show = function() {};
+      controller = this;
+    };
   }));
 
   function compileDirective(tpl) {
@@ -22,31 +24,18 @@ describe('DatepickerDirectiveSpec', function() {
       elm = $compile(tpl)(scope);
     });
     scope.$digest();
-    scope = elm.isolateScope();
   }
 
-  describe('', function() {
+  describe('when element is clicked', function() {
 
     beforeEach(function() {
       compileDirective();
     });
 
     it('should show Popup', function() {
-      var spy = sinon.spy($ionicPopup, 'show');
+      var spy = sinon.spy(controller, 'show');
       elm.triggerHandler('click');
       expect(spy).to.have.been.called;
     });
-  });
-
-  describe('when pass date to datepicker', function() {
-
-    var date;
-    beforeEach(function() {
-      date = new Date(1982, 0, 28);
-      scope.date = date;
-      var tpl = '<ionic-datepicker date="date" callback="callback"></ionic-datepicker>';
-      compileDirective(tpl);
-    });
-
   });
 });

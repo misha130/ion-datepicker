@@ -8,8 +8,9 @@
 
   'use strict';
 
-  angular.module('ionic-datepicker')
-  .controller('DatepickerController', [ '$scope', 'DatepickerService', function ($scope, DatepickerService) {
+  angular
+  .module('ionic-datepicker')
+  .controller('DatepickerCtrl', [ '$scope', '$ionicPopup', 'DatepickerService', function ($scope, $ionicPopup, DatepickerService) {
 
     var type  = 'date'
       , today = new Date();
@@ -58,12 +59,17 @@
       type = val;
     };
 
-    this.show = function(val) {
+    this.showType = function(val) {
       return type === val;
     };
 
     this.selectDate = function (date) {
       this.selectedDate = date;
+
+      this.selectedDate.setHours(0);
+      this.selectedDate.setMinutes(0);
+      this.selectedDate.setSeconds(0);
+      this.selectedDate.setMilliseconds(0);
     };
 
     this.selectMonth = function(month) {
@@ -82,11 +88,37 @@
     };
 
     this.createDateList = function(selectedDate) {
-
       this.dateList = DatepickerService.createDateList(selectedDate);
-
       this.cols = new Array(7);
       this.rows = new Array(parseInt(this.dateList.length / this.cols.length) + 1);
+    };
+
+    this.onCancel = function(e) {
+      this.selectedDate = angular.copy($scope.date || new Date());
+      $scope.callback(undefined);
+    };
+
+    this.onDone = function(e) {
+      $scope.date = angular.copy(this.selectedDate);
+      $scope.callback($scope.date);
+    };
+
+    this.show = function() {
+
+      this.createDateList(angular.copy($scope.date || new Date()));
+      $ionicPopup.show({
+        templateUrl: 'template.html',
+        scope: $scope,
+        buttons: [{
+          text: 'CANCEL',
+          type: 'button-clear col-offset-33',
+          onTap: this.onCancel.bind(this)
+        }, {
+          text: 'OK',
+          type: 'button-clear color-balanced-light',
+          onTap: this.onDone.bind(this)
+        }]
+      });
     };
 
   }]);
@@ -96,56 +128,26 @@
 
   'use strict';
 
-  angular.module('ionic-datepicker')
-  .directive('ionicDatepicker', ['$ionicPopup', function ($ionicPopup) {
+  angular
+  .module('ionic-datepicker')
+  .directive('ionicDatepicker', function () {
 
     return {
       restrict: 'E',
       replace: true,
-      controller: 'DatepickerController',
+      controller: 'DatepickerCtrl',
       controllerAs: 'datepickerCtrl',
       scope: {
         date: '=date',
         callback: '=callback'
       },
-      link: function (scope, element, attrs) {
-
-        var ctrl = scope.datepickerCtrl;
-
-        var popupOpts = {
-          templateUrl: 'template.html',
-          scope: scope,
-          buttons: [{
-            text: 'CANCEL',
-            type: 'button-clear col-offset-33',
-            onTap: function (e) {
-              ctrl.selectedDate = angular.copy(scope.date || new Date());
-              scope.callback(undefined);
-            }
-          },
-          {
-            text: 'OK',
-            type: 'button-clear color-balanced-light',
-            onTap: function (e) {
-
-              ctrl.selectedDate.setHours(0);
-              ctrl.selectedDate.setMinutes(0);
-              ctrl.selectedDate.setSeconds(0);
-              ctrl.selectedDate.setMilliseconds(0);
-
-              scope.date = angular.copy(ctrl.selectedDate);
-              scope.callback(scope.date);
-            }
-          }]
-        };
-
+      link: function (scope, element, attrs, controller) {
         element.on('click', function() {
-          ctrl.createDateList(angular.copy(scope.date || new Date()));
-          $ionicPopup.show(popupOpts);
+          controller.show();
         });
       }
     }
-  }]);
+  });
 })();
 
 (function() {

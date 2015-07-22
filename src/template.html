@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="content" ng-show="datepickerCtrl.show('month')">
+<div class="content" ng-show="datepickerCtrl.showType('month')">
   <div class="row center" ng-repeat="month in datepickerCtrl.getMonths() track by $index">
     <div class="col" ng-class="{ 'selected': datepickerCtrl.isSelectedMonth($index), 'current': datepickerCtrl.isActualMonth($index) }"
                    ng-click="datepickerCtrl.selectMonth($index)">
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="content" ng-show="datepickerCtrl.show('date')">
+<div class="content" ng-show="datepickerCtrl.showType('date')">
   <div class="row col center">
     {{datepickerCtrl.selectedDate | date: 'MMMM yyyy'}}
   </div>
@@ -47,7 +47,7 @@
   </div>
 </div>
 
-<div class="content" ng-show="datepickerCtrl.show('year')">
+<div class="content" ng-show="datepickerCtrl.showType('year')">
   <div class="row center" ng-repeat="year in datepickerCtrl.getYears() track by $index">
     <div class="col" ng-class="{ 'selected': datepickerCtrl.isSelectedYear(year), 'current': datepickerCtrl.isActualYear(year) }"
                    ng-click="datepickerCtrl.selectYear(year)">
