@@ -4,3 +4,8 @@ dependencies:
     - bower install
   cache_directories:
     - ~/nvm
+
+test:
+  override:
+    - karma start --single-run
+    - CODECLIMATE_REPO_TOKEN=$CodeClimateToken codeclimate-test-reporter < ./coverage/**/lcov.info
