@@ -4,7 +4,7 @@
 
   angular
   .module('ionic-datepicker')
-  .controller('DatepickerCtrl', [ '$scope', '$ionicPopup', 'DatepickerService', function ($scope, $ionicPopup, DatepickerService) {
+  .controller('DatepickerCtrl', [ '$scope', 'DatepickerService', function ($scope, DatepickerService) {
 
     var type  = 'date'
       , today = new Date();
@@ -95,24 +95,6 @@
     this.onDone = function(e) {
       $scope.date = angular.copy(this.selectedDate);
       $scope.callback($scope.date);
-    };
-
-    this.show = function() {
-
-      this.createDateList(angular.copy($scope.date || new Date()));
-      $ionicPopup.show({
-        templateUrl: 'template.html',
-        scope: $scope,
-        buttons: [{
-          text: 'CANCEL',
-          type: 'button-clear col-offset-33',
-          onTap: this.onCancel.bind(this)
-        }, {
-          text: 'OK',
-          type: 'button-clear color-balanced-light',
-          onTap: this.onDone.bind(this)
-        }]
-      });
     };
 
   }]);

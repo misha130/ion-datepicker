@@ -10,7 +10,7 @@
 
   angular
   .module('ionic-datepicker')
-  .controller('DatepickerCtrl', [ '$scope', '$ionicPopup', 'DatepickerService', function ($scope, $ionicPopup, DatepickerService) {
+  .controller('DatepickerCtrl', [ '$scope', 'DatepickerService', function ($scope, DatepickerService) {
 
     var type  = 'date'
       , today = new Date();
@@ -103,24 +103,6 @@
       $scope.callback($scope.date);
     };
 
-    this.show = function() {
-
-      this.createDateList(angular.copy($scope.date || new Date()));
-      $ionicPopup.show({
-        templateUrl: 'template.html',
-        scope: $scope,
-        buttons: [{
-          text: 'CANCEL',
-          type: 'button-clear col-offset-33',
-          onTap: this.onCancel.bind(this)
-        }, {
-          text: 'OK',
-          type: 'button-clear color-balanced-light',
-          onTap: this.onDone.bind(this)
-        }]
-      });
-    };
-
   }]);
 })();
 
@@ -130,7 +112,7 @@
 
   angular
   .module('ionic-datepicker')
-  .directive('ionicDatepicker', function () {
+  .directive('ionicDatepicker', [ '$ionicModal', function ($ionicModal) {
 
     return {
       restrict: 'E',
@@ -138,16 +120,52 @@
       controller: 'DatepickerCtrl',
       controllerAs: 'datepickerCtrl',
       scope: {
-        date: '=date',
-        callback: '=callback'
+        date: '=',
+        callback: '='
       },
       link: function (scope, element, attrs, controller) {
-        element.on('click', function() {
-          controller.show();
-        });
+
+        var scroll = function(el) {
+          var $$container = $(el)
+            , $$element   = $(el + ' .datepicker-selected')
+            , offset      = $$element.offset().top + $$container.scrollTop() - $$container.offset().top - ($$container.height() / 2);
+          if (offset === 0) return;
+          $$container.animate({ scrollTop: offset });
+        };
+
+        scope.show = function(modal) {
+          scope.modal = modal;
+          scope.modal.show();
+
+          $('.datepicker-month-js').on('click', function() { scroll('.datepicker-month-content-js') });
+          $('.datepicker-year-js').on('click', function() { scroll('.datepicker-year-content-js') });
+          $('.datepicker-cancel-js').on('click', scope.onCancel);
+          $('.datepicker-ok-js').on('click', scope.onDone);
+        };
+
+        scope.onCancel = function() {
+          controller.onCancel()
+          scope.modal.remove();
+        };
+
+        scope.onDone = function() {
+          controller.onDone();
+          scope.modal.remove();
+        };
+
+        scope.onDirectiveClick = function() {
+
+          controller.createDateList(angular.copy(scope.date || new Date()));
+
+          $ionicModal
+          .fromTemplateUrl('template.html', { scope: scope })
+          .then(scope.show);
+        };
+
+        element.on('click', scope.onDirectiveClick);
       }
     }
-  });
+  }]);
 })();
 
 (function() {
