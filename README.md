@@ -1,6 +1,10 @@
 [![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/gpa.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/feed) [![Test Coverage](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/coverage.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/coverage)
 
-##How to use:
+### Dependencies ###
+
+This component depends on JQuery, Ionic and Angular
+
+## How to use ###
 
 1) Install using bower or npm
 
@@ -56,3 +60,10 @@ b) `datePickerCallback` is the callback function which we have to pass to the `i
 a) `ionic-datepicker` is the directive, to which we can pass required vales.
 b) `date` takes date object. If we don't pass any value, the default value will be `new Date()`.
 c) `callback` takes the callback function name which will be called once the date picker has been closed.
+
+
+### Screeshots ###
+
+![alt text](https://github.com/celsomarques/celsomarques.github.io/raw/master/ionic-datepicker/screenshots/date.png "Date selection")
+![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/month.png "Month selection")
+![alt text](https://github.com/celsomarques/celsomarques.github.io/raw/master/ionic-datepicker/screenshots/year.png "Year selection")
