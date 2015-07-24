@@ -1,12 +1,15 @@
 {
-  "name": "ionic-datepicker",
-  "version": "0.0.1",
-  "description": "A date picker for IONIC framework",
+  "name": "datepicker-for-ionic",
+  "version": "1.0.0",
+  "description": "A date picker for ionic framework",
   "main": "",
   "scripts": {
     "test": "karma start --single-run"
   },
-  "author": "Celso Marques",
+  "author": {
+    "name": "Celso Marques",
+    "email": "celso.marques82@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
