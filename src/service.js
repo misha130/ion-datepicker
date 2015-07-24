@@ -47,7 +47,7 @@
       }
 
       firstDay = dateList[0].getDay();
-      for (var i = 0; i < firstDay; i++) {
+      for (var j = 0; j < firstDay; j++) {
         dateList.unshift(undefined);
       }
       return dateList;

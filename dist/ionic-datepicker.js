@@ -137,14 +137,14 @@
           scope.modal = modal;
           scope.modal.show();
 
-          $('.datepicker-month-js').on('click', function() { scroll('.datepicker-month-content-js') });
-          $('.datepicker-year-js').on('click', function() { scroll('.datepicker-year-content-js') });
+          $('.datepicker-month-js').on('click', function() { scroll('.datepicker-month-content-js'); });
+          $('.datepicker-year-js').on('click', function() { scroll('.datepicker-year-content-js'); });
           $('.datepicker-cancel-js').on('click', scope.onCancel);
           $('.datepicker-ok-js').on('click', scope.onDone);
         };
 
         scope.onCancel = function() {
-          controller.onCancel()
+          controller.onCancel();
           scope.modal.remove();
         };
 
@@ -164,7 +164,7 @@
 
         element.on('click', scope.onDirectiveClick);
       }
-    }
+    };
   }]);
 })();
 
@@ -217,7 +217,7 @@
       }
 
       firstDay = dateList[0].getDay();
-      for (var i = 0; i < firstDay; i++) {
+      for (var j = 0; j < firstDay; j++) {
         dateList.unshift(undefined);
       }
       return dateList;
