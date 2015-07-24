@@ -1,17 +1,12 @@
 [![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/gpa.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/feed) [![Test Coverage](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/coverage.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/coverage)
 
-##Introduction:
-
-This is a `ionic-datepicker` bower component which can be used with any Ionic framework's application.
-
 ##How to use:
 
-1) In your project repository install the ionic-datepicker using bower
+1) Install using bower or npm
 
-    bower install ionic-datepicker --save
+    bower i datepicker-for-ionic --save
+    npm i datepicker-for-ionic --save
 
-This will install the latest version released.
-    
 2) Then you can see the following directory structure see in your project folder
 
 Give the path of  `style.css, templates.js and ionic-datepicker.js` in your `index.html` file.
@@ -36,9 +31,9 @@ angular.module('mainModuleName', ['ionic', 'ionic-datepicker']){
 $scope.currentDate = new Date();
 
 $scope.datePickerCallback = function (val) {
-	if(typeof(val)==='undefined'){		
+	if (!val)) {	
 		console.log('Date not selected');
-	}else{
+	} else {
 		console.log('Selected date is : ', val);
 	}
 };
@@ -52,16 +47,12 @@ b) `datePickerCallback` is the callback function which we have to pass to the `i
 5) Then use the below format in your template / html file
 
 ````html
-<ionic-datepicker idate="currentDate" disablepreviousdates="true"  callback="datePickerCallback">
-    <button class="button button-block button-positive"> {{ currentDate | date:'dd - MMMM - yyyy' }} </button>
+<ionic-datepicker date="currentDate" callback="datePickerCallback">
+    <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
 </ionic-datepicker>
 ````
 
 
 a) `ionic-datepicker` is the directive, to which we can pass required vales.
-
-b) `idate` takes date object. If we don't pass any value, the default value will be `new Date()`.
-
-c) `disablepreviousdates` takes true or false. `true` disables the past dates, and `false` doesn't.
-
-d) `callback` takes the callback function name which will be called once the date picker has been closed.
+b) `date` takes date object. If we don't pass any value, the default value will be `new Date()`.
+c) `callback` takes the callback function name which will be called once the date picker has been closed.
