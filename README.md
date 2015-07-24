@@ -64,6 +64,6 @@ c) `callback` takes the callback function name which will be called once the dat
 
 ### Screeshots ###
 
-![alt text](https://github.com/celsomarques/celsomarques.github.io/raw/master/ionic-datepicker/screenshots/date.png "Date selection")
+![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/date.png "Date selection")
 ![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/month.png "Month selection")
-![alt text](https://github.com/celsomarques/celsomarques.github.io/raw/master/ionic-datepicker/screenshots/year.png "Year selection")
+![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/year.png "Year selection")
