@@ -6,10 +6,11 @@
   "scripts": {
     "test": "karma start --single-run"
   },
-  "author": {
-    "name": "Celso Marques",
-    "email": "celso.marques82@gmail.com"
-  },
+  "author": "Celso Marques <celso.marques82@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celsomarques/ionic-datepicker"
+  }
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
