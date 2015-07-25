@@ -14,7 +14,7 @@ module.exports = function(config) {
       './bower_components/ionic/js/ionic.js',
       './bower_components/ionic/js/ionic-angular.js',
       './bower_components/angular-mocks/angular-mocks.js',
-      './dist/**/*.js',
+      './dist/**/!(*.min).js',
       'spec/**/*'
     ],
     exclude: [
@@ -57,7 +57,7 @@ module.exports = function(config) {
 
     preprocessors: {
       './src/*.html': [ 'ng-html2js' ],
-      './dist/*.js': [ 'coverage' ]
+      './dist/!(*.min).js': [ 'coverage' ]
     }
   });
 };
