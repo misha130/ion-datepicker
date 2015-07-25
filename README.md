@@ -16,10 +16,10 @@ This component depends on JQuery, Ionic and Angular
 Give the path of  `style.css, templates.js and ionic-datepicker.js` in your `index.html` file.
 
 ````html
-<link href="lib/ionic-datepicker/dist/style.css" rel="stylesheet"> 
+<link href="lib/datepicker-for-ionic/dist/style.css" rel="stylesheet"> 
 <!-- path to ionic/angularjs js -->
-<script src="lib/ionic-datepicker/dist/templates.js"></script>
-<script src="lib/ionic-datepicker/dist/ionic-datepicker.js"></script>
+<script src="lib/datepicker-for-ionic/dist/templates.js"></script>
+<script src="lib/datepicker-for-ionic/dist/ionic-datepicker.js"></script>
 ````    
     
 3) In your application module inject the dependency `ionic-datepicker`, in order to work with the ionic time picker
@@ -58,7 +58,9 @@ b) `datePickerCallback` is the callback function which we have to pass to the `i
 
 
 a) `ionic-datepicker` is the directive, to which we can pass required vales.
+
 b) `date` takes date object. If we don't pass any value, the default value will be `new Date()`.
+
 c) `callback` takes the callback function name which will be called once the date picker has been closed.
 
 
