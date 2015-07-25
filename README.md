@@ -8,8 +8,10 @@ This component depends on JQuery, Ionic and Angular
 
 1) Install using bower or npm
 
+```
     bower i datepicker-for-ionic --save
     npm i datepicker-for-ionic --save
+```
 
 2) Then you can see the following directory structure see in your project folder
 
