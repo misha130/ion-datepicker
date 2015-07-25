@@ -1,0 +1,120 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/celsomarques/.nvm/versions/io.js/v2.4.0/bin/iojs',
+1 verbose cli   '/Users/celsomarques/.nvm/versions/io.js/v2.4.0/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   '.' ]
+2 info using npm@2.13.0
+3 info using node@v2.4.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec { raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/celsomarques/jumpt/ionic-datepicker',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package.tgz',
+9 verbose tar pack   '/Users/celsomarques/jumpt/ionic-datepicker' ]
+10 verbose tarball /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package.tgz
+11 verbose folder /Users/celsomarques/jumpt/ionic-datepicker
+12 info prepublish datepicker-for-ionic@1.0.0
+13 verbose addLocalTarball adding from inside cache /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package.tgz
+14 silly cache afterAdd datepicker-for-ionic@1.0.0
+15 verbose afterAdd /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package/package.json not in flight; writing
+16 verbose afterAdd /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package/package.json written
+17 silly publish { name: 'datepicker-for-ionic',
+17 silly publish   version: '1.0.0',
+17 silly publish   description: 'A date picker for ionic framework',
+17 silly publish   main: '',
+17 silly publish   scripts: { test: 'karma start --single-run' },
+17 silly publish   author: { name: 'Celso Marques', email: 'celso.marques82@gmail.com' },
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/celsomarques/ionic-datepicker.git' },
+17 silly publish   license: 'MIT',
+17 silly publish   dependencies: {},
+17 silly publish   devDependencies:
+17 silly publish    { chai: '^3.2.0',
+17 silly publish      del: '^1.2.0',
+17 silly publish      gulp: '^3.9.0',
+17 silly publish      'gulp-concat': '^2.6.0',
+17 silly publish      'gulp-istanbul': '^0.10.0',
+17 silly publish      'gulp-jshint': '^1.11.2',
+17 silly publish      'gulp-load-plugins': '^1.0.0-rc.1',
+17 silly publish      'gulp-minify-css': '^1.2.0',
+17 silly publish      'gulp-minify-html': '^1.0.3',
+17 silly publish      'gulp-ng-html2js': '^0.2.0',
+17 silly publish      'gulp-uglify': '^1.2.0',
+17 silly publish      istanbul: '^0.3.17',
+17 silly publish      'jshint-stylish': '^2.0.1',
+17 silly publish      karma: '^0.13.2',
+17 silly publish      'karma-chai': '^0.1.0',
+17 silly publish      'karma-chrome-launcher': '^0.2.0',
+17 silly publish      'karma-coverage': '^0.4.2',
+17 silly publish      'karma-mocha': '^0.2.0',
+17 silly publish      'karma-ng-html2js-preprocessor': '^0.1.2',
+17 silly publish      'karma-sinon-chai': '^1.0.0',
+17 silly publish      mocha: '^2.2.5',
+17 silly publish      'ng-html2js': '^2.0.0',
+17 silly publish      sinon: '^1.15.4',
+17 silly publish      'sinon-chai': '^2.8.0' },
+17 silly publish   readme: '[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/gpa.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/feed) [![Test Coverage](https://codeclimate.com/repos/55ac421de30ba0474a022a68/badges/31f8dd1b49439c4d2261/coverage.svg)](https://codeclimate.com/repos/55ac421de30ba0474a022a68/coverage)\n\n### Dependencies ###\n\nThis component depends on JQuery, Ionic and Angular\n\n## How to use ###\n\n1) Install using bower or npm\n\n    bower i datepicker-for-ionic --save\n    npm i datepicker-for-ionic --save\n\n2) Then you can see the following directory structure see in your project folder\n\nGive the path of  `style.css, templates.js and ionic-datepicker.js` in your `index.html` file.\n\n````html\n<link href="lib/ionic-datepicker/dist/style.css" rel="stylesheet"> \n<!-- path to ionic/angularjs js -->\n<script src="lib/ionic-datepicker/dist/templates.js"></script>\n<script src="lib/ionic-datepicker/dist/ionic-datepicker.js"></script>\n````    \n    \n3) In your application module inject the dependency `ionic-datepicker`, in order to work with the ionic time picker\n````javascript\nangular.module(\'mainModuleName\', [\'ionic\', \'ionic-datepicker\']){\n //\n}\n````\n\n4) Use the below format in your template\'s corresponding controller\n\n````javascript\n$scope.currentDate = new Date();\n\n$scope.datePickerCallback = function (val) {\n\tif (!val)) {\t\n\t\tconsole.log(\'Date not selected\');\n\t} else {\n\t\tconsole.log(\'Selected date is : \', val);\n\t}\n};\n````\n\na) `currentDate` is the date object which we are passing to the `ionic-datepicker`.\n\nb) `datePickerCallback` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.\n\n\n5) Then use the below format in your template / html file\n\n````html\n<ionic-datepicker date="currentDate" callback="datePickerCallback">\n    <button class="button button-block button-positive"> {{ currentDate | date:\'MMMM/dd/yyyy\' }} </button>\n</ionic-datepicker>\n````\n\n\na) `ionic-datepicker` is the directive, to which we can pass required vales.\nb) `date` takes date object. If we don\'t pass any value, the default value will be `new Date()`.\nc) `callback` takes the callback function name which will be called once the date picker has been closed.\n\n\n### Screeshots ###\n\n![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/date.png "Date selection")\n![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/month.png "Month selection")\n![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/year.png "Year selection")\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '2ff4bfb1e997bfea76bf8c3c07cc3c9d87936e98',
+17 silly publish   bugs: { url: 'https://github.com/celsomarques/ionic-datepicker/issues' },
+17 silly publish   homepage: 'https://github.com/celsomarques/ionic-datepicker#readme',
+17 silly publish   _id: 'datepicker-for-ionic@1.0.0',
+17 silly publish   _shasum: 'c908e08c1ed20e676a0f2566c9029340e7597a2d',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name datepicker-for-ionic
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/datepicker-for-ionic
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/celsomarques/.npm/datepicker-for-ionic/1.0.0/package.tgz
+25 verbose request uri https://registry.npmjs.org/datepicker-for-ionic
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 19:03:47
+28 verbose request using bearer token for auth
+29 verbose request id 4a848f4a682f7ec6
+30 http request PUT https://registry.npmjs.org/datepicker-for-ionic
+31 http 403 https://registry.npmjs.org/datepicker-for-ionic
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=60',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Fri, 24 Jul 2015 22:03:49 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-jfk1021-JFK',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1437775428.768345,VS0,VE528' }
+33 verbose request invalidating /Users/celsomarques/.npm/registry.npmjs.org/datepicker-for-ionic on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : datepicker-for-ionic
+35 verbose stack     at CachingRegistryClient.<anonymous> (/Users/celsomarques/.nvm/versions/io.js/v2.4.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/Users/celsomarques/.nvm/versions/io.js/v2.4.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/Users/celsomarques/.nvm/versions/io.js/v2.4.0/lib/node_modules/npm/node_modules/request/request.js:197:22)
+35 verbose stack     at emitTwo (events.js:87:13)
+35 verbose stack     at Request.emit (events.js:172:7)
+35 verbose stack     at Request.<anonymous> (/Users/celsomarques/.nvm/versions/io.js/v2.4.0/lib/node_modules/npm/node_modules/request/request.js:1050:14)
+35 verbose stack     at emitOne (events.js:82:20)
+35 verbose stack     at Request.emit (events.js:169:7)
+35 verbose stack     at IncomingMessage.<anonymous> (/Users/celsomarques/.nvm/versions/io.js/v2.4.0/lib/node_modules/npm/node_modules/request/request.js:996:12)
+35 verbose stack     at emitNone (events.js:72:20)
+36 verbose statusCode 403
+37 verbose pkgid datepicker-for-ionic
+38 verbose cwd /Users/celsomarques/jumpt/ionic-datepicker
+39 error Darwin 14.4.0
+40 error argv "/Users/celsomarques/.nvm/versions/io.js/v2.4.0/bin/iojs" "/Users/celsomarques/.nvm/versions/io.js/v2.4.0/bin/npm" "publish" "."
+41 error node v2.4.0
+42 error npm  v2.13.0
+43 error code E403
+44 error "You cannot publish over the previously published version 1.0.0." : datepicker-for-ionic
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]

@@ -1,6 +1,6 @@
 {
   "name": "datepicker-for-ionic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "Celso Marques <celso.marques82@gmail.com>"
   ],
@@ -22,8 +22,12 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "circle.yml",
+    "coverage",
+    "gulpfile.js",
+    "karma.conf.js",
+    "npm-debug.log",
+    "spec"
   ],
   "dependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0",
