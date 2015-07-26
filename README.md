@@ -66,7 +66,7 @@ b) `date` takes date object. If we don't pass any value, the default value will 
 c) `callback` takes the callback function name which will be called once the date picker has been closed.
 
 
-### Screeshots ###
+### Screenshots ###
 
 ![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/date.png "Date selection")
 ![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/month.png "Month selection")
