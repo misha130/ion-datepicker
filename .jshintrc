@@ -1,7 +1,14 @@
 {
   "laxcomma": true,
   "laxbreak": true,
+  "expr": true,
   "globals": {
-    "angular": true
+    "angular": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "inject": true
   }
 }
