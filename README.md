@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/gpa.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker) [![Test Coverage](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/coverage.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker/coverage)
+[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/gpa.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker) [![Test Coverage](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/coverage.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker/coverage) [![bitHound Score](https://www.bithound.io/github/celsomarques/ionic-datepicker/badges/score.svg)](https://www.bithound.io/github/celsomarques/ionic-datepicker/master)
 
 ### Dependencies ###
 
