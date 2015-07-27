@@ -13,6 +13,8 @@
       controllerAs: 'datepickerCtrl',
       scope: {
         date: '=',
+        min: '=',
+        max: '=',
         callback: '='
       },
       link: function (scope, element, attrs, controller) {

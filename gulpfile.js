@@ -57,4 +57,4 @@ gulp.task('watch', function() {
   gulp.watch([ './src/*.js', './src/template.html', './src/*.css' ], [ 'build' ]);
 });
 
-gulp.task('default', [ 'clean', 'build' ]);
+gulp.task('default', [ 'clean', 'lint', 'build' ]);

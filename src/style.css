@@ -54,11 +54,6 @@
   cursor: pointer;
 }
 
-.datepicker-date-col:active {
-  background-color: rgba(56, 126, 245, 1);
-  cursor: pointer;
-}
-
 .no-padding {
   padding: 0;
 }
@@ -73,6 +68,15 @@
 
 .datepicker-current {
   color: rgba(60, 170, 159, 1);
+}
+
+.datepicker-disabled {
+  color: rgba(170, 170, 170, 1);
+}
+
+.datepicker-disabled:hover {
+  background-color: transparent;
+  cursor: default;
 }
 
 /**

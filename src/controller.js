@@ -19,6 +19,27 @@
       this.selectedDate = angular.copy($scope.date);
     }
 
+    this.getDate = function(row, col) {
+      return this.dateList[row * 7 + col];
+    };
+
+    this.isDefined = function(date) {
+      return date !== undefined;
+    };
+
+    this.isDisabled = function(date) {
+      if (!date) return true;
+      if ($scope.min) {
+        $scope.min.setHours(0, 0, 0, 0);
+        if (date < $scope.min) return true;
+      }
+      if ($scope.max) {
+        $scope.max.setHours(0, 0, 0, 0);
+        if (date > $scope.max) return true;
+      }
+      return false;
+    };
+
     this.isActualDate = function(date) {
       if (!date) return false;
       return date.getDate() === today.getDate() &&
@@ -58,27 +79,31 @@
     };
 
     this.selectDate = function (date) {
+      if (this.isDisabled(date)) return;
       this.selectedDate = date;
-
-      this.selectedDate.setHours(0);
-      this.selectedDate.setMinutes(0);
-      this.selectedDate.setSeconds(0);
-      this.selectedDate.setMilliseconds(0);
+      this.selectedDate.setHours(0, 0, 0, 0);
     };
 
     this.selectMonth = function(month) {
-      this.selectedDate.setMonth(month);
-      if (this.selectedDate.getMonth() !== month) {
-        this.selectedDate.setDate(0);
+      this.tempDate = angular.copy(this.selectedDate);
+      this.tempDate.setMonth(month);
+      if (this.tempDate.getMonth() !== month) {
+        this.tempDate.setDate(0);
       }
-      this.createDateList(this.selectedDate);
-      this.changeType('date');
+      this._selectMonthOrYear();
     };
 
     this.selectYear = function(year) {
-      this.selectedDate.setFullYear(year);
-      this.createDateList(this.selectedDate);
+      this.tempDate = angular.copy(this.selectedDate);
+      this.tempDate.setFullYear(year);
+      this._selectMonthOrYear();
+    };
+
+    this._selectMonthOrYear = function() {
       this.changeType('date');
+      this.createDateList(this.tempDate);
+      if (this.isDisabled(this.tempDate)) return;
+      this.selectedDate = this.tempDate;
     };
 
     this.createDateList = function(selectedDate) {
