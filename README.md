@@ -2,7 +2,7 @@
 
 ### Dependencies ###
 
-This component depends on *JQuery*, Ionic and Angular
+This component depends on **JQuery**, Ionic and Angular
 
 ## How to use ###
 
