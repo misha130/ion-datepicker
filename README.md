@@ -2,7 +2,7 @@
 
 ### Dependencies ###
 
-This component depends on JQuery, Ionic and Angular
+This component depends on *JQuery*, Ionic and Angular
 
 ## How to use ###
 
@@ -39,7 +39,7 @@ $scope.min = new Date(2105, 6, 1);
 $scope.max = new Date(2015, 6, 31);
 
 $scope.datePickerCallback = function (val) {
-	if (!val)) {	
+	if (!val) {	
 		console.log('Date not selected');
 	} else {
 		console.log('Selected date is : ', val);
