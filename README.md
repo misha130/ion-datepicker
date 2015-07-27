@@ -15,13 +15,13 @@ This component depends on JQuery, Ionic and Angular
 
 2) Then you can see the following directory structure see in your project folder
 
-Give the path of  `style.css, templates.js and ionic-datepicker.js` in your `index.html` file.
+Give the path of  `style.css, templates.min.js and ionic-datepicker.min.js` in your `index.html` file.
 
 ````html
 <link href="lib/datepicker-for-ionic/dist/style.css" rel="stylesheet"> 
 <!-- path to ionic/angularjs js -->
-<script src="lib/datepicker-for-ionic/dist/templates.js"></script>
-<script src="lib/datepicker-for-ionic/dist/ionic-datepicker.js"></script>
+<script src="lib/datepicker-for-ionic/dist/templates.min.js"></script>
+<script src="lib/datepicker-for-ionic/dist/ionic-datepicker.min.js"></script>
 ````    
     
 3) In your application module inject the dependency `ionic-datepicker`, in order to work with the ionic time picker
@@ -35,6 +35,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-datepicker']){
 
 ````javascript
 $scope.currentDate = new Date();
+$scope.min = new Date(2105, 6, 1);
+$scope.max = new Date(2015, 6, 31);
 
 $scope.datePickerCallback = function (val) {
 	if (!val)) {	
@@ -47,13 +49,17 @@ $scope.datePickerCallback = function (val) {
 
 a) `currentDate` is the date object which we are passing to the `ionic-datepicker`.
 
-b) `datePickerCallback` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.
+b) `minDate` is minimum date that user is allowed to select.
+
+c) `maxDate` is maximum date that user is allowed to select.
+
+d) `datePickerCallback` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.
 
 
 5) Then use the below format in your template / html file
 
 ````html
-<ionic-datepicker date="currentDate" callback="datePickerCallback">
+<ionic-datepicker date="currentDate" min="minDate" max="maxDate" callback="datePickerCallback">
     <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
 </ionic-datepicker>
 ````
@@ -63,7 +69,11 @@ a) `ionic-datepicker` is the directive, to which we can pass required vales.
 
 b) `date` takes date object. If we don't pass any value, the default value will be `new Date()`.
 
-c) `callback` takes the callback function name which will be called once the date picker has been closed.
+c) `min` takes date object. Pass only if you want to restrict date.
+
+d) `max` takes date object. Pass only if you want to restrict date.
+
+e) `callback` takes the callback function name which will be called once the date picker has been closed.
 
 
 ### Screenshots ###
