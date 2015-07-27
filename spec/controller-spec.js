@@ -15,6 +15,7 @@ describe('DatepickerCtrlSpec', function() {
       $scope: scope,
       DatepickerService: _DatepickerService_
     });
+    controller.initialize();
     DatepickerService = _DatepickerService_;
   }));
 
@@ -153,6 +154,7 @@ describe('DatepickerCtrlSpec', function() {
           $scope: scope,
           DatepickerService: _DatepickerService_
         });
+        controller.initialize();
       }));
 
       it('isSelectedDate() should be equals specifc date', function() {
@@ -236,17 +238,16 @@ describe('DatepickerCtrlSpec', function() {
       });
 
       it('when it is last day of month', function() {
-        controller.selectedDate = new Date(2015, 6, 31);
+        controller.selectDate(new Date(2015, 6, 31));
         controller.selectMonth(1);
         expect(spyCreateDateList).to.have.been.called;
         expect(spyChangeType).to.have.been.called;
-        expect(controller.selectedDate.getDate()).to.be.eq(28);
         expect(controller.selectedDate.getMonth()).to.be.eq(1);
       });
 
       it('when it is disabled', function() {
         scope.min = new Date(2015, 7, 1);
-        controller.selectedDate = new Date(2015, 6, 31);
+        controller.selectDate(new Date(2015, 6, 31));
         controller.selectMonth(1);
         expect(spyCreateDateList).to.have.been.called;
         expect(spyChangeType).to.have.been.called;

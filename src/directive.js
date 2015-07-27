@@ -28,7 +28,9 @@
         };
 
         scope.show = function(modal) {
+
           scope.modal = modal;
+          controller.initialize();
           scope.modal.show();
 
           $('.datepicker-month-js').on('click', function() { scroll('.datepicker-month-content-js'); });
@@ -49,10 +51,8 @@
 
         scope.onDirectiveClick = function() {
 
-          controller.createDateList(angular.copy(scope.date || new Date()));
-
           $ionicModal
-          .fromTemplateUrl('template.html', { scope: scope })
+          .fromTemplateUrl('template.html', { scope: scope, hideDelay: 1 })
           .then(scope.show);
         };
 

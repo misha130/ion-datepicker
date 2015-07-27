@@ -15,15 +15,18 @@
     var type  = 'date'
       , today = new Date();
 
-    this.selectedDate = new Date();
-
+    // Delegates
     this.getDaysOfWeek = DatepickerService.getDaysOfWeek;
     this.getMonths = DatepickerService.getMonths;
     this.getYears = DatepickerService.getYears;
 
-    if ($scope.date) {
-      this.selectedDate = angular.copy($scope.date);
-    }
+    this.initialize = function() {
+
+      this.selectedDate = angular.copy($scope.date || new Date());
+      this.tempDate = angular.copy(this.selectedDate);
+
+      this.createDateList(this.selectedDate);
+    };
 
     this.getDate = function(row, col) {
       return this.dateList[row * 7 + col];
@@ -69,11 +72,11 @@
     };
 
     this.isSelectedMonth = function(month) {
-      return month === this.selectedDate.getMonth();
+      return month === this.tempDate.getMonth();
     };
 
     this.isSelectedYear = function(year) {
-      return year === this.selectedDate.getFullYear();
+      return year === this.tempDate.getFullYear();
     };
 
     this.changeType = function(val) {
@@ -88,10 +91,11 @@
       if (this.isDisabled(date)) return;
       this.selectedDate = date;
       this.selectedDate.setHours(0, 0, 0, 0);
+      this.tempDate = angular.copy(this.selectedDate);
     };
 
     this.selectMonth = function(month) {
-      this.tempDate = angular.copy(this.selectedDate);
+      this.tempDate = angular.copy(this.tempDate);
       this.tempDate.setMonth(month);
       if (this.tempDate.getMonth() !== month) {
         this.tempDate.setDate(0);
@@ -100,7 +104,7 @@
     };
 
     this.selectYear = function(year) {
-      this.tempDate = angular.copy(this.selectedDate);
+      this.tempDate = angular.copy(this.tempDate);
       this.tempDate.setFullYear(year);
       this._selectMonthOrYear();
     };
@@ -161,7 +165,9 @@
         };
 
         scope.show = function(modal) {
+
           scope.modal = modal;
+          controller.initialize();
           scope.modal.show();
 
           $('.datepicker-month-js').on('click', function() { scroll('.datepicker-month-content-js'); });
@@ -182,10 +188,8 @@
 
         scope.onDirectiveClick = function() {
 
-          controller.createDateList(angular.copy(scope.date || new Date()));
-
           $ionicModal
-          .fromTemplateUrl('template.html', { scope: scope })
+          .fromTemplateUrl('template.html', { scope: scope, hideDelay: 1 })
           .then(scope.show);
         };
 

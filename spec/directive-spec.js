@@ -11,7 +11,7 @@ describe('DatepickerDirectiveSpec', function() {
 
   beforeEach(inject(function(ionicDatepickerDirective) {
     ionicDatepickerDirective[0].controller = function() {
-      this.createDateList = function() {};
+      this.initialize = function() {};
       this.onCancel = function() {};
       this.onDone = function() {};
       controller = this;
@@ -31,15 +31,6 @@ describe('DatepickerDirectiveSpec', function() {
     });
     scope.$digest();
   }
-
-  describe('when element is clicked', function() {
-
-    it('should show Popup', function() {
-      var spy = sinon.spy(controller, 'createDateList');
-      elm.triggerHandler('click');
-      expect(spy).to.have.been.called;
-    });
-  });
 
   describe('when user clicks on cancel', function() {
 
@@ -95,6 +86,12 @@ describe('DatepickerDirectiveSpec', function() {
     it('should set modal in scope', function() {
       scope.show(modal);
       expect(scope.modal).to.be.ok;
+    });
+
+    it('should call controller.initialize', function() {
+      var spy = sinon.spy(controller, 'initialize');
+      scope.show(modal);
+      expect(spy).to.have.been.called;
     });
 
     it('should call scope.modal.show()', function() {
