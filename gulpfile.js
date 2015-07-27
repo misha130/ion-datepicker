@@ -10,7 +10,7 @@ var path        = require('path')
   , minifycss   = require("gulp-minify-css");
 
 gulp.task('lint', function(done) {
-  gulp.src([ './src/*.js' ])
+  gulp.src([ './src/**/*.js', './spec/**/*.js' ])
   .pipe(plugins.jshint('.jshintrc'))
   .pipe(plugins.jshint.reporter('jshint-stylish'))
   .pipe(plugins.jshint.reporter('fail'))

@@ -9,6 +9,8 @@
     "describe": true,
     "it": true,
     "expect": true,
-    "inject": true
+    "module": true,
+    "inject": true,
+    "sinon": true
   }
 }
