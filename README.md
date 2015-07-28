@@ -35,8 +35,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-datepicker']){
 
 ````javascript
 $scope.currentDate = new Date();
-$scope.min = new Date(2105, 6, 1);
-$scope.max = new Date(2015, 6, 31);
+$scope.minDate = new Date(2105, 6, 1);
+$scope.maxDate = new Date(2015, 6, 31);
 
 $scope.datePickerCallback = function (val) {
 	if (!val) {	
