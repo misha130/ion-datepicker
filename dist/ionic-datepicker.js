@@ -203,33 +203,44 @@
 
   'use strict';
 
-  angular.module('ionic-datepicker')
-  .service('DatepickerService', function () {
+  angular
+  .module('ionic-datepicker')
+  .service('DatepickerNls', function () {
 
     var locale = window.navigator.userLanguage || window.navigator.language;
 
-    this.getDaysOfWeek = function() {
-      var today     = new Date()
-        , days      = []
-        , firstDay  = today.getDate() - today.getDay()
-        , lastDay   = firstDay + 6;
-      for (var i = firstDay; i <= lastDay; i++) {
-        today.setDate(i);
-        days.push(today.toLocaleString(locale, { weekday: 'long' }));
+    var nls = {
+      'en-us': {
+        weekdays: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+        months: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+      },
+      'pt-br': {
+        weekdays: [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado' ],
+        months: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ]
       }
-      return days;
+    };
+
+    this.getWeekdays = function() {
+      return nls[locale.toLowerCase()].weekdays;
     };
 
     this.getMonths = function() {
-      var today   = new Date()
-        , months  = [];
-      for (var i = 0; i < 12; i++) {
-        today.setDate(1);
-        today.setMonth(i);
-        months.push(today.toLocaleString(locale, { month: 'long' }));
-      }
-      return months;
+      return nls[locale.toLowerCase()].months;
     };
+
+  });
+
+})();
+
+(function() {
+
+  'use strict';
+
+  angular.module('ionic-datepicker')
+  .service('DatepickerService', [ 'DatepickerNls', function (DatepickerNls) {
+
+    this.getDaysOfWeek = DatepickerNls.getWeekdays;
+    this.getMonths = DatepickerNls.getMonths;
 
     this.getYears = function() {
       var years = [];
@@ -253,5 +264,5 @@
       }
       return dateList;
     };
-  });
+  }]);
 })();

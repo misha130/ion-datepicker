@@ -253,7 +253,7 @@
           controller.selectMonth(1);
           expect(spyCreateDateList).to.have.been.called;
           expect(spyChangeType).to.have.been.called;
-          expect(controller.selectedDate.getMonth()).to.be.eq(7);
+          expect(controller.selectedDate.getMonth()).to.be.eq(new Date().getMonth());
         });
       });
 

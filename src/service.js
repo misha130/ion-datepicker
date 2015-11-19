@@ -3,32 +3,10 @@
   'use strict';
 
   angular.module('ionic-datepicker')
-  .service('DatepickerService', function () {
+  .service('DatepickerService', [ 'DatepickerNls', function (DatepickerNls) {
 
-    var locale = window.navigator.userLanguage || window.navigator.language;
-
-    this.getDaysOfWeek = function() {
-      var today     = new Date()
-        , days      = []
-        , firstDay  = today.getDate() - today.getDay()
-        , lastDay   = firstDay + 6;
-      for (var i = firstDay; i <= lastDay; i++) {
-        today.setDate(i);
-        days.push(today.toLocaleString(locale, { weekday: 'long' }));
-      }
-      return days;
-    };
-
-    this.getMonths = function() {
-      var today   = new Date()
-        , months  = [];
-      for (var i = 0; i < 12; i++) {
-        today.setDate(1);
-        today.setMonth(i);
-        months.push(today.toLocaleString(locale, { month: 'long' }));
-      }
-      return months;
-    };
+    this.getDaysOfWeek = DatepickerNls.getWeekdays;
+    this.getMonths = DatepickerNls.getMonths;
 
     this.getYears = function() {
       var years = [];
@@ -52,5 +30,5 @@
       }
       return dateList;
     };
-  });
+  }]);
 })();

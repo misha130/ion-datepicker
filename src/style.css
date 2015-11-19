@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+.datepicker-selection {
+  cursor: pointer;
+}
+
 .datepicker-month, .datepicker-year {
   font-size: 14px;
 }
