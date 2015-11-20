@@ -9,9 +9,20 @@
     var type  = 'date'
       , today = new Date();
 
-    // Delegates
-    this.getDaysOfWeek = DatepickerService.getDaysOfWeek;
-    this.getMonths = DatepickerService.getMonths;
+    this.getDaysOfWeek = function() {
+      if (!this.weekdays) {
+        this.weekdays = DatepickerService.getDaysOfWeek();
+      }
+      return this.weekdays;
+    };
+
+    this.getMonths = function() {
+      if (!this.months) {
+        this.months = DatepickerService.getMonths();
+      }
+      return this.months;
+    };
+
     this.getYears = DatepickerService.getYears;
 
     this.initialize = function() {
@@ -120,6 +131,21 @@
       this.dateList = DatepickerService.createDateList(selectedDate);
       this.cols = new Array(7);
       this.rows = new Array(parseInt(this.dateList.length / this.cols.length) + 1);
+    };
+
+    this.getSelectedWeekday = function() {
+      if (!this.weekdays) this.getDaysOfWeek();
+      return this.weekdays[this.selectedDate.getUTCDay()];
+    };
+
+    this.getSelectedMonth = function() {
+      if (!this.months) this.getMonths();
+      return this.months[this.selectedDate.getUTCMonth()];
+    };
+
+    this.getTempMonth = function() {
+      if (!this.months) this.getMonths();
+      return this.months[this.tempDate.getUTCMonth()];
     };
 
     this.onCancel = function(e) {

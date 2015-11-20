@@ -15,9 +15,20 @@
     var type  = 'date'
       , today = new Date();
 
-    // Delegates
-    this.getDaysOfWeek = DatepickerService.getDaysOfWeek;
-    this.getMonths = DatepickerService.getMonths;
+    this.getDaysOfWeek = function() {
+      if (!this.weekdays) {
+        this.weekdays = DatepickerService.getDaysOfWeek();
+      }
+      return this.weekdays;
+    };
+
+    this.getMonths = function() {
+      if (!this.months) {
+        this.months = DatepickerService.getMonths();
+      }
+      return this.months;
+    };
+
     this.getYears = DatepickerService.getYears;
 
     this.initialize = function() {
@@ -128,6 +139,21 @@
       this.rows = new Array(parseInt(this.dateList.length / this.cols.length) + 1);
     };
 
+    this.getSelectedWeekday = function() {
+      if (!this.weekdays) this.getDaysOfWeek();
+      return this.weekdays[this.selectedDate.getUTCDay()];
+    };
+
+    this.getSelectedMonth = function() {
+      if (!this.months) this.getMonths();
+      return this.months[this.selectedDate.getUTCMonth()];
+    };
+
+    this.getTempMonth = function() {
+      if (!this.months) this.getMonths();
+      return this.months[this.tempDate.getUTCMonth()];
+    };
+
     this.onCancel = function(e) {
       this.selectedDate = angular.copy($scope.date || new Date());
       $scope.callback(undefined);
@@ -213,25 +239,27 @@
   .module('ionic-datepicker')
   .service('DatepickerNls', function () {
 
-    var locale = window.navigator.userLanguage || window.navigator.language;
-
     var nls = {
       'en-us': {
         weekdays: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
         months: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
       },
       'pt-br': {
-        weekdays: [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado' ],
+        weekdays: [ 'Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado' ],
         months: [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ]
       }
     };
 
-    this.getWeekdays = function() {
-      return nls[locale.toLowerCase()].weekdays;
+    this.getWeekdays = function(locale) {
+      return this._getNls(locale).weekdays;
     };
 
-    this.getMonths = function() {
-      return nls[locale.toLowerCase()].months;
+    this.getMonths = function(locale) {
+      return this._getNls(locale).months;
+    };
+
+    this._getNls = function(locale) {
+      return nls[locale] || nls['en-us'];
     };
 
   });
@@ -245,8 +273,16 @@
   angular.module('ionic-datepicker')
   .service('DatepickerService', [ 'DatepickerNls', function (DatepickerNls) {
 
-    this.getDaysOfWeek = DatepickerNls.getWeekdays;
-    this.getMonths = DatepickerNls.getMonths;
+    var locale = window.navigator.userLanguage || window.navigator.language;
+    locale = locale.toLowerCase();
+
+    this.getDaysOfWeek = function() {
+      return DatepickerNls.getWeekdays(locale);
+    };
+
+    this.getMonths = function() {
+      return DatepickerNls.getMonths(locale);
+    };
 
     this.getYears = function() {
       var years = [];

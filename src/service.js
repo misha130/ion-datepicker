@@ -5,8 +5,16 @@
   angular.module('ionic-datepicker')
   .service('DatepickerService', [ 'DatepickerNls', function (DatepickerNls) {
 
-    this.getDaysOfWeek = DatepickerNls.getWeekdays;
-    this.getMonths = DatepickerNls.getMonths;
+    var locale = window.navigator.userLanguage || window.navigator.language;
+    locale = locale.toLowerCase();
+
+    this.getDaysOfWeek = function() {
+      return DatepickerNls.getWeekdays(locale);
+    };
+
+    this.getMonths = function() {
+      return DatepickerNls.getMonths(locale);
+    };
 
     this.getYears = function() {
       var years = [];

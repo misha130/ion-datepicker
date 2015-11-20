@@ -288,6 +288,33 @@
       });
     });
 
+    describe('.getSelectedWeekday', function() {
+
+      it('should get selected weekday', function() {
+        var weekday = controller.getSelectedWeekday();
+        var weekdays = controller.getDaysOfWeek();
+        expect(weekday).to.be.eq(weekdays[new Date().getUTCDay()]);
+      });
+    });
+
+    describe('.getSelectedMonth', function() {
+
+      it('should get selected month', function() {
+        var month = controller.getSelectedMonth();
+        var months = controller.getMonths();
+        expect(month).to.be.eq(months[new Date().getUTCMonth()]);
+      });
+    });
+
+    describe('.gettempMonth', function() {
+
+      it('should get temp month', function() {
+        var month = controller.getTempMonth();
+        var months = controller.getMonths();
+        expect(month).to.be.eq(months[new Date().getUTCMonth()]);
+      });
+    });
+
     describe('validate callbacks', function() {
 
       var date
