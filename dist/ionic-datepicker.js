@@ -32,6 +32,12 @@
       return this.dateList[row * 7 + col];
     };
 
+    this.getUTCDate = function(row, col) {
+      var date = this.getDate(row, col);
+      if (!date) return;
+      return date.getUTCDate();
+    };
+
     this.isDefined = function(date) {
       return date !== undefined;
     };
@@ -51,32 +57,32 @@
 
     this.isActualDate = function(date) {
       if (!date) return false;
-      return date.getDate() === today.getDate() &&
-        date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear();
+      return date.getUTCDate() === today.getUTCDate() &&
+        date.getUTCMonth() === today.getUTCMonth() &&
+        date.getUTCFullYear() === today.getUTCFullYear();
     };
 
     this.isActualMonth = function(month) {
-      return month === today.getMonth();
+      return month === today.getUTCMonth();
     };
 
     this.isActualYear = function(year) {
-      return year === today.getFullYear();
+      return year === today.getUTCFullYear();
     };
 
     this.isSelectedDate = function(date) {
       if (!date) return false;
-      return date.getDate() === this.selectedDate.getDate() &&
-        date.getMonth() === this.selectedDate.getMonth() &&
-        date.getFullYear() === this.selectedDate.getFullYear();
+      return date.getUTCDate() === this.selectedDate.getUTCDate() &&
+        date.getUTCMonth() === this.selectedDate.getUTCMonth() &&
+        date.getUTCFullYear() === this.selectedDate.getUTCFullYear();
     };
 
     this.isSelectedMonth = function(month) {
-      return month === this.tempDate.getMonth();
+      return month === this.tempDate.getUTCMonth();
     };
 
     this.isSelectedYear = function(year) {
-      return year === this.tempDate.getFullYear();
+      return year === this.tempDate.getUTCFullYear();
     };
 
     this.changeType = function(val) {
@@ -96,16 +102,16 @@
 
     this.selectMonth = function(month) {
       this.tempDate = angular.copy(this.tempDate);
-      this.tempDate.setMonth(month);
-      if (this.tempDate.getMonth() !== month) {
-        this.tempDate.setDate(0);
+      this.tempDate.setUTCMonth(month);
+      if (this.tempDate.getUTCMonth() !== month) {
+        this.tempDate.setUTCDate(0);
       }
       this._selectMonthOrYear();
     };
 
     this.selectYear = function(year) {
       this.tempDate = angular.copy(this.tempDate);
-      this.tempDate.setFullYear(year);
+      this.tempDate.setUTCFullYear(year);
       this._selectMonthOrYear();
     };
 
