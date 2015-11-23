@@ -37,12 +37,6 @@
       return this.dateList[row * 7 + col];
     };
 
-    this.getUTCDate = function(row, col) {
-      var date = this.getDate(row, col);
-      if (!date) return;
-      return date.getUTCDate();
-    };
-
     this.isDefined = function(date) {
       return date !== undefined;
     };
@@ -62,32 +56,32 @@
 
     this.isActualDate = function(date) {
       if (!date) return false;
-      return date.getUTCDate() === today.getUTCDate() &&
-        date.getUTCMonth() === today.getUTCMonth() &&
-        date.getUTCFullYear() === today.getUTCFullYear();
+      return date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
     };
 
     this.isActualMonth = function(month) {
-      return month === today.getUTCMonth();
+      return month === today.getMonth();
     };
 
     this.isActualYear = function(year) {
-      return year === today.getUTCFullYear();
+      return year === today.getFullYear();
     };
 
     this.isSelectedDate = function(date) {
       if (!date) return false;
-      return date.getUTCDate() === this.selectedDate.getUTCDate() &&
-        date.getUTCMonth() === this.selectedDate.getUTCMonth() &&
-        date.getUTCFullYear() === this.selectedDate.getUTCFullYear();
+      return date.getDate() === this.selectedDate.getDate() &&
+        date.getMonth() === this.selectedDate.getMonth() &&
+        date.getFullYear() === this.selectedDate.getFullYear();
     };
 
     this.isSelectedMonth = function(month) {
-      return month === this.tempDate.getUTCMonth();
+      return month === this.tempDate.getMonth();
     };
 
     this.isSelectedYear = function(year) {
-      return year === this.tempDate.getUTCFullYear();
+      return year === this.tempDate.getFullYear();
     };
 
     this.changeType = function(val) {
@@ -100,23 +94,23 @@
 
     this.selectDate = function (date) {
       if (this.isDisabled(date)) return;
-      this.selectedDate = date;
+      this.selectedDate = angular.copy(date);
       this.selectedDate.setHours(0, 0, 0, 0);
       this.tempDate = angular.copy(this.selectedDate);
     };
 
     this.selectMonth = function(month) {
       this.tempDate = angular.copy(this.tempDate);
-      this.tempDate.setUTCMonth(month);
-      if (this.tempDate.getUTCMonth() !== month) {
-        this.tempDate.setUTCDate(0);
+      this.tempDate.setMonth(month);
+      if (this.tempDate.getMonth() !== month) {
+        this.tempDate.setDate(0);
       }
       this._selectMonthOrYear();
     };
 
     this.selectYear = function(year) {
       this.tempDate = angular.copy(this.tempDate);
-      this.tempDate.setUTCFullYear(year);
+      this.tempDate.setFullYear(year);
       this._selectMonthOrYear();
     };
 
@@ -135,17 +129,17 @@
 
     this.getSelectedWeekday = function() {
       if (!this.weekdays) this.getDaysOfWeek();
-      return this.weekdays[this.selectedDate.getUTCDay()];
+      return this.weekdays[this.selectedDate.getDay()];
     };
 
     this.getSelectedMonth = function() {
       if (!this.months) this.getMonths();
-      return this.months[this.selectedDate.getUTCMonth()];
+      return this.months[this.selectedDate.getMonth()];
     };
 
     this.getTempMonth = function() {
       if (!this.months) this.getMonths();
-      return this.months[this.tempDate.getUTCMonth()];
+      return this.months[this.tempDate.getMonth()];
     };
 
     this.onCancel = function(e) {

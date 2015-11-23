@@ -56,7 +56,7 @@
                   }">
 
             <div class="datepicker-date-cell" ng-click="datepickerCtrl.selectDate(datepickerCtrl.getDate($parent.$index, $index))">
-              {{ datepickerCtrl.getUTCDate($parent.$index, $index) }}
+              {{ datepickerCtrl.getDate($parent.$index, $index) | date: 'd' : 'UTC' }}
             </div>
 
           </div>
