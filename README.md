@@ -1,6 +1,12 @@
 [![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/gpa.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker) [![Test Coverage](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/coverage.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker/coverage) [![bitHound Score](https://www.bithound.io/github/celsomarques/ionic-datepicker/badges/score.svg)](https://www.bithound.io/github/celsomarques/ionic-datepicker/master)
 
-### Dependencies ###
+# Discontinued #
+
+I decided to discontinue the development of this library to concentrate my efforts on other projects.
+
+Let me know if you've interest to maintain this repository.
+
+## Dependencies ##
 
 This component depends on **JQuery**, Ionic and Angular
 
