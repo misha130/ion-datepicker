@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-const _nls =
+
+@Injectable()
+export class nls {
+    private _nls =
     {
         'en-us': {
             weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -11,8 +14,6 @@ const _nls =
         }
     };
 
-@Injectable()
-export class nls {
     public getWeekdays(locale: 'en-us' | 'pt-br'): string[] {
         return this.getNls(locale).weekdays;
     }
@@ -20,6 +21,6 @@ export class nls {
         return this.getNls(locale).months;
     }
     private getNls(locale: 'en-us' | 'pt-br'): { weekdays: string[], months: string[] } {
-        return nls[locale] || nls['en-us'];
+        return this._nls[locale] || this._nls['en-us'];
     }
 }

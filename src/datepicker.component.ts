@@ -1,8 +1,11 @@
 import { Component, Input, Output } from '@angular/core';
-import { DateService } from './date.service';
+import { DateService } from './datepicker.service';
+import { NavParams, ViewController } from "ionic-angular";
+
 @Component({
     templateUrl: 'template.html',
-    selector: 'ionicDatepicker'
+    selector: 'ionDatepicker',
+
 })
 
 export class DatePickerComponent {
@@ -15,11 +18,15 @@ export class DatePickerComponent {
     private rows: number[];
     private weekdays: string[];
     private months: string[];
-    @Input('date') private date: Date;
-    @Input('min') private min: Date;
-    @Input('max') private max: Date;
-    @Input('callback') private callback: (date: Date | undefined) => {};
-    constructor(public DatepickerService: DateService) {
+    private date: Date;
+    private min: Date;
+    private max: Date;
+    private callback: (date: Date | undefined) => {};
+    constructor(public DatepickerService: DateService, navParams: NavParams) {
+        this.date = navParams.get("date");
+        this.min = navParams.get("min");
+        this.max = navParams.get("max");
+        this.callback = navParams.get("callback");
     }
     public initialize(): void {
         this.selectedDate = Object.assign({}, this.date || new Date());

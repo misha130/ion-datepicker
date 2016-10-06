@@ -6,16 +6,19 @@ import {
 } from '@angular/platform-browser';
 import {
     DatePickerComponent
-} from './component';
+} from './datepicker.component';
 import {
     nls
 } from './nls';
 import {
     DateService
-} from './date.service';
+} from './datepicker.service';
+import {
+    DatePicker
+} from './app.component';
 @NgModule({
     imports: [BrowserModule],
     declarations: [DatePickerComponent, nls, DateService],
-    bootstrap: [DatePickerComponent]
+    bootstrap: [DatePicker]
 })
 export class AppModule { }
