@@ -157,12 +157,14 @@ export class DatePickerComponent {
 
     public onCancel(e) {
         this.selectedDate = this.date || new Date();
+        if(typeof this.callback === 'function')
         this.callback(undefined);
         this.modal.dismiss();
     };
 
     public onDone(e) {
         this.date = this.selectedDate;
+        if(typeof this.callback === 'function')
         this.callback(this.date);
         this.modal.dismiss();
     };
