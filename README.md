@@ -1,89 +1,35 @@
 [![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/gpa.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker) [![Test Coverage](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/coverage.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker/coverage) [![bitHound Score](https://www.bithound.io/github/celsomarques/ionic-datepicker/badges/score.svg)](https://www.bithound.io/github/celsomarques/ionic-datepicker/master)
 
-# Discontinued #
-
-I decided to discontinue the development of this library to concentrate my efforts on other projects.
-
-Let me know if you've interest to maintain this repository.
-
-## Dependencies ##
-
-This component depends on **JQuery**, Ionic and Angular
 
 ## How to use ###
 
-1) Install using bower or npm
+1) Install using or npm
 
 ```
-    bower i datepicker-for-ionic --save
-    npm i datepicker-for-ionic --save
+    npm i datepicker-ionic2 --save
 ```
 
-2) Then you can see the following directory structure see in your project folder
+2) Add it to your ngModule in app.module
 
-Give the path of  `style.css, templates.min.js and ionic-datepicker.min.js` in your `index.html` file.
+```` import { DatePickerModule } from 'datepicker-ionic2/datepicker-ionic2';
 
-````html
-<link href="lib/datepicker-for-ionic/dist/style.css" rel="stylesheet"> 
-<!-- path to ionic/angularjs js -->
-<script src="lib/datepicker-for-ionic/dist/templates.min.js"></script>
-<script src="lib/datepicker-for-ionic/dist/ionic-datepicker.min.js"></script>
-````    
-    
-3) In your application module inject the dependency `ionic-datepicker`, in order to work with the ionic time picker
-````javascript
-angular.module('mainModuleName', ['ionic', 'ionic-datepicker']){
- //
-}
+   imports: [
+        IonicModule.forRoot(App),
+        DatePickerModule.forRoot(),
+    ],
 ````
-
-4) Use the below format in your template's corresponding controller
-
-````javascript
-$scope.currentDate = new Date();
-$scope.minDate = new Date(2105, 6, 1);
-$scope.maxDate = new Date(2015, 6, 31);
-
-$scope.datePickerCallback = function (val) {
-	if (!val) {	
-		console.log('Date not selected');
-	} else {
-		console.log('Selected date is : ', val);
-	}
-};
+3) Use the directive in your html and give it the modal controller of your ionic app
 ````
-
-a) `currentDate` is the date object which we are passing to the `ionic-datepicker`.
-
-b) `minDate` is minimum date that user is allowed to select.
-
-c) `maxDate` is maximum date that user is allowed to select.
-
-d) `datePickerCallback` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.
-
-
-5) Then use the below format in your template / html file
-
-````html
-<ionic-datepicker date="currentDate" min="minDate" max="maxDate" callback="datePickerCallback">
-    <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
-</ionic-datepicker>
+	 <button iondatepicker [modal]="modalCtrl" ion-item>
+      Click to show datepicker
+    </button>
 ````
 
 
-a) `ionic-datepicker` is the directive, to which we can pass required vales.
+a) `[date]` is the date object which we are passing to the `ionic-datepicker`.
 
-b) `date` takes date object. If we don't pass any value, the default value will be `new Date()`.
+b) `[min]` is minimum date that user is allowed to select.
 
-c) `min` takes date object. Pass only if you want to restrict date.
+c) `[max]` is maximum date that user is allowed to select.
 
-d) `max` takes date object. Pass only if you want to restrict date.
-
-e) `callback` takes the callback function name which will be called once the date picker has been closed.
-
-
-### Screenshots ###
-
-![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/date.png "Date selection")
-![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/month.png "Month selection")
-![alt text](https://raw.githubusercontent.com/celsomarques/celsomarques.github.io/master/ionic-datepicker/screenshots/year.png "Year selection")
+d) `[callback]` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.
