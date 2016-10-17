@@ -1,24 +1,21 @@
 {
   "name": "datepicker-ionic2",
-  "version": "0.0.21",
+  "version": "0.0.33",
   "description": "A date picker for ionic2 framework",
   "main": "",
-  "scripts": {
-    "test": "karma start --single-run"
-  },
   "author": "Michael Prokofyev <misha130@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/misha130/ionic-datepicker"
   },
   "keywords": [
-    "ionic-datepicker",
+    "datepicker-ionic2",
     "ionic2",
     "ionic datepicker",
     "datepicker",
-    "datepicker ionic",
-    "datepicker for ionic",
-    "datepicker for ionic framework"
+    "datepicker ionic2",
+    "datepicker for ionic2",
+    "datepicker for ionic2 framework"
   ],
   "license": "MIT",
   "dependencies": {
