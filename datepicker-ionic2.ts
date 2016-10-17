@@ -4,11 +4,11 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { DateService } from './src/components/datepicker.service';
 import { nls } from './src/components/nls';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from 'ionic-angular';
+import { IonicModule, ViewController } from 'ionic-angular';
 @NgModule({
     imports: [
         CommonModule,
-        IonicModule
+        IonicModule.forRoot(DatePickerModule)
     ],
     exports: [DatePickerComponent, DatePickerDirective],
     entryComponents: [DatePickerComponent],
@@ -18,7 +18,7 @@ import { IonicModule } from 'ionic-angular';
 export class DatePickerModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: this
+            ngModule: DatePickerModule
         };
     }
 };

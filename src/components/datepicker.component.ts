@@ -1,8 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { DateService } from './datepicker.service';
 import { DatePickerDirective } from './datepicker.directive';
-
-import { } from "ionic-angular";
+import { Modal } from "ionic-angular";
 
 @Component({
     templateUrl: './datepicker.template.html',
@@ -23,11 +22,13 @@ export class DatePickerComponent {
     private min: Date;
     private max: Date;
     private callback: (date: Date | undefined) => {};
+    private modal:Modal;
     constructor(public DatepickerService: DateService) {
         this.date = DatePickerDirective.config.date;
         this.min = DatePickerDirective.config.min;
         this.max = DatePickerDirective.config.max;
         this.callback = DatePickerDirective.config.callback;
+        this.modal = DatePickerDirective.config.modal;
         this.initialize();
     }
     public initialize(): void {
@@ -157,11 +158,13 @@ export class DatePickerComponent {
     public onCancel(e) {
         this.selectedDate = this.date || new Date();
         this.callback(undefined);
+        this.modal.dismiss();
     };
 
     public onDone(e) {
         this.date = this.selectedDate;
         this.callback(this.date);
+        this.modal.dismiss();
     };
 
     private selectMonthOrYear() {

@@ -26,9 +26,12 @@ export class DatePickerDirective {
                 date: this.date,
                 min: this.min,
                 max: this.min,
-                callback: this.callback
+                callback: this.callback,
             }
-        this.modalCtrl.create(DatePickerComponent
-        ).present();
+        let modal = this.modalCtrl.create(DatePickerComponent
+        );
+        DatePickerDirective.config.modal = modal;
+        modal.present();
+
     }
 }
