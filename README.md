@@ -11,19 +11,21 @@
 
 2) Add it to your ngModule in app.module
 
-```` import { DatePickerModule } from 'datepicker-ionic2/datepicker-ionic2';
-
+```
+ import { DatePickerModule } from 'datepicker-ionic2/datepicker-ionic2';
+```
+```
    imports: [
         IonicModule.forRoot(App),
         DatePickerModule.forRoot(),
     ],
-````
+```
 3) Use the directive in your html and give it the modal controller of your ionic app
-````
+```
 	 <button iondatepicker [modal]="modalCtrl" ion-item>
       Click to show datepicker
     </button>
-````
+```
 
 
 a) `[date]` is the date object which we are passing to the `ionic-datepicker`.
