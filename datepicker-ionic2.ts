@@ -5,11 +5,10 @@ import { DateService } from './src/components/datepicker.service';
 import { nls } from './src/components/nls';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
-
 @NgModule({
     imports: [
         CommonModule,
-        IonicModule.forRoot(DatePickerModule)
+        IonicModule
     ],
     exports: [DatePickerComponent, DatePickerDirective],
     entryComponents: [DatePickerComponent],
