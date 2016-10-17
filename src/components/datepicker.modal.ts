@@ -3,12 +3,12 @@ import { DateService } from './datepicker.service';
 import { NavParams, ViewController } from "ionic-angular";
 
 @Component({
-    templateUrl: 'template.html',
+    templateUrl: './datepicker.template.html',
     selector: 'ionDatepicker',
-
+    styleUrls: ['datepicker.css']
 })
 
-export class DatePickerComponent {
+export class DatePickerModal {
     private type: 'date' | 'string' = 'date';
     private today: Date = new Date();
     private selectedDate: Date;
