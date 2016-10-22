@@ -1,4 +1,5 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, AfterViewInit, AfterViewChecked } from '@angular/core';
+
 import { DateService } from './datepicker.service';
 import { DatePickerDirective } from './datepicker.directive';
 import { Modal } from "ionic-angular";
@@ -8,8 +9,10 @@ import { Modal } from "ionic-angular";
     styles: [`.datepicker-modal-container,.datepicker-modal-container .datepicker-modal{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox}.datepicker-content{height:210px;overflow:auto}.visible-overflow{overflow:visible}.center{text-align:center}.bold{font-weight:700}.datepicker-day-of-month,.datepicker-month,.datepicker-year{margin-top:10px;margin-bottom:10px;color:#fff;cursor:pointer}.datepicker-selection{cursor:pointer}.datepicker-month,.datepicker-year{font-size:14px}.datepicker-day-of-month{font-size:60px;font-weight:700}.datepicker-balanced{background-color:#008d7f}.white{color:#fff}.datepicker-balanced-light{background-color:#009688}.datepicker-color-balanced-light{color:#009688!important}.datepicker-date-col:hover{background-color:rgba(56,126,245,.5);cursor:pointer}.no-padding{padding:0}.datepicker-date-cell{padding:5px}.datepicker-selected{background-color:rgba(182,217,214,1)}.datepicker-current{color:rgba(60,170,159,1)}.datepicker-disabled{color:rgba(170,170,170,1)}.datepicker-disabled:hover{background-color:transparent;cursor:default}.datepicker-modal-container{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0);display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;-moz-justify-content:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;-webkit-align-items:center;-moz-align-items:center;align-items:center;z-index:12}.datepicker-modal-container .datepicker-modal{width:250px;max-width:100%;max-height:90%;border-radius:0;background-color:rgba(255,255,255,.9);display:flex;-webkit-box-direction:normal;-webkit-box-orient:vertical;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.datepicker-modal{box-shadow:1px 1px 3px #888}.datepicker-modal-head{padding:8px 10px;text-align:center}.datepicker-modal-title{margin:0;padding:0;font-size:13px}.datepicker-modal-buttons{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox;display:flex;-webkit-box-direction:normal;-webkit-box-orient:horizontal;-webkit-flex-direction:row;-moz-flex-direction:row;-ms-flex-direction:row;flex-direction:row;padding:10px;min-height:65px;font-size:12px;font-weight:700}.datepicker-modal-buttons .button{-webkit-box-flex:1;-webkit-flex:1;-moz-box-flex:1;-moz-flex:1;-ms-flex:1;flex:1;display:block;min-height:45px;border-radius:2px;line-height:20px;margin-right:5px}.datepicker-modal-buttons .button:last-child{margin-right:0}`]
 })
 
-export class DatePickerComponent {
-    private type: 'date' | 'string' = 'date';
+export class DatePickerComponent implements AfterViewChecked {
+    @ViewChild('dayscroll') private dayscroll: ElementRef;
+    @ViewChild('yearscroll') private yearscroll: ElementRef;
+    private type: 'date' | 'string' | 'year' | 'month' = 'date';
     private today: Date = new Date();
     private selectedDate: Date = new Date();
     private tempDate: Date;
@@ -21,14 +24,18 @@ export class DatePickerComponent {
     private date: Date;
     private min: Date;
     private max: Date;
-    private callback: (date: Date | undefined) => {};
-    private modal:Modal;
+    private callback: EventEmitter<string | Date>;
+    private modal: Modal;
+    private hClasses: any[] = [];
+    private dClasses: any[] = [];
     constructor(public DatepickerService: DateService) {
         this.date = DatePickerDirective.config.date;
         this.min = DatePickerDirective.config.min;
         this.max = DatePickerDirective.config.max;
-        this.callback = DatePickerDirective.config.callback;
+        this.callback = <EventEmitter<string | Date>>DatePickerDirective.config.callback;
         this.modal = DatePickerDirective.config.modal;
+        this.hClasses = DatePickerDirective.config.headerClasses;
+        this.dClasses = DatePickerDirective.config.dateClasses;
         this.initialize();
     }
     public initialize(): void {
@@ -43,7 +50,12 @@ export class DatePickerComponent {
         }
         return this.weekdays;
     }
-
+    public ngAfterViewChecked() {
+        if (this.dayscroll)
+            this.dayscroll.nativeElement.scrollTop = this.selectedDate.getDate() * 21;
+        if (this.yearscroll)
+            this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) * 16;
+    }
     public getMonths(): string[] {
         if (!this.months) {
             this.months = this.DatepickerService.getMonths();
@@ -112,11 +124,12 @@ export class DatePickerComponent {
         return year === this.tempDate.getFullYear();
     }
 
-    public changeType(val: 'date' | 'string'): void {
+    public changeType(val: 'date' | 'string' | 'year' | 'month'): void {
         this.type = val;
+
     }
 
-    public showType(val: 'date' | 'string'): boolean {
+    public showType(val: 'date' | 'string' | 'year' | 'month'): boolean {
         return this.type === val;
     }
 
@@ -132,11 +145,13 @@ export class DatePickerComponent {
         if (this.tempDate.getMonth() !== month) {
             this.tempDate.setDate(0);
         }
+        this.changeType('date');
         this.selectMonthOrYear();
     }
 
     public selectYear(year) {
         this.tempDate.setFullYear(year);
+        this.changeType('month');
         this.selectMonthOrYear();
     }
 
@@ -157,20 +172,18 @@ export class DatePickerComponent {
 
     public onCancel(e) {
         this.selectedDate = this.date || new Date();
-        if(typeof this.callback === 'function')
-        this.callback(undefined);
+        this.callback.emit(this.date);
         this.modal.dismiss();
     };
 
     public onDone(e) {
         this.date = this.selectedDate;
-        if(typeof this.callback === 'function')
-        this.callback(this.date);
+        this.callback.emit(this.date);
         this.modal.dismiss();
     };
 
     private selectMonthOrYear() {
-        this.changeType('date');
+
         this.createDateList(this.tempDate);
         if (this.isDisabled(this.tempDate)) return;
         this.selectedDate = this.tempDate;

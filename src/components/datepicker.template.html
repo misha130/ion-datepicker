@@ -1,14 +1,14 @@
 <div class="datepicker-modal-container">
 	<div class="datepicker-modal">
 
-		<div class="datepicker-modal-head datepicker-balanced white bold">
+		<div class="datepicker-modal-head datepicker-balanced white bold" [ngClass]="hClasses">
 			<div class="datepicker-modal-title">{{getSelectedWeekday()}}</div>
 		</div>
 
-		<div class="center datepicker-balanced-light">
+		<div class="center datepicker-balanced-light" [ngClass]="dClasses">
 			<div class="row">
 				<div class="col datepicker-month-js datepicker-month" (click)="changeType('month')">
-                    {{limitTo(getSelectedMonth(),3)}}
+					{{limitTo(getSelectedMonth(),3)}}
 				</div>
 			</div>
 
@@ -24,47 +24,47 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="datepicker-month-content-js datepicker-content" [hidden]="!showType('month')">
+		<div class="datepicker-month-content-js datepicker-content" *ngIf="showType('month')">
 			<div class="row center" *ngFor="let month of getMonths(); let i = index;">
-				<div class="col datepicker-selection" ngClass="{
+				<div class="col datepicker-selection" [ngClass]="{
                   'datepicker-selected': isSelectedMonth(i),
                   'datepicker-current': isActualMonth(i)
                   }" (click)="selectMonth(i)">
-                    {{limitTo(month,3)}}
+					{{limitTo(month,3)}}
 				</div>
 			</div>
 		</div>
 
-		<div class="datepicker-content visible-overflow" [hidden]="!showType('date')">
+		<div class="datepicker-content visible-overflow" *ngIf="showType('date')">
 			<div class="row col center">
 				{{getTempMonth()}} {{tempDate | date: 'yyyy'}}
 			</div>
 			<!--<div class="row center">
 				<div class="col bold" *ngFor="let dayOfWeek of getDaysOfWeek(); let i = index;">
-                    {{limitTo(dayOfWeek,1)}}
+					{{limitTo(dayOfWeek,3)}}
 				</div>
 			</div>-->
-
-			<div class="row center" *ngFor="let row of rows;let i = index">
-				<div class="col no-padding" *ngFor="let col of cols;let j =index" ngClass="{
+			<div #dayscroll class="datepicker-content">
+				<div class="row center" *ngFor="let row of rows;let i = index">
+					<div class="col no-padding" *ngFor="let col of cols;let j =index" [ngClass]="{
                   'datepicker-date-col': isDefined(getDate(i, j)),
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
                   'datepicker-disabled': isDisabled(getDate(i, j))
                   }">
 
-					<div class="datepicker-date-cell" (click)="selectDate(getDate(i, j))">
-						{{ getDate(i, j) | date: 'd' }}
-					</div>
+						<div class="datepicker-date-cell" (click)="selectDate(getDate(i, j))">
+							{{ getDate(i, j) | date: 'd' }}
+						</div>
 
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="datepicker-year-content-js datepicker-content" [hidden]="!showType('year')">
+		<div #yearscroll class="datepicker-year-content-js datepicker-content" *ngIf="showType('year')">
 			<div class="row center" *ngFor="let year of getYears();let i = index;">
-				<div class="col datepicker-selection" ngClass="{
+				<div class="col datepicker-selection" [ngClass]="{
                   'datepicker-selected': isSelectedYear(year),
                   'datepicker-current': isActualYear(year)
                   }" (click)="selectYear(year)">
