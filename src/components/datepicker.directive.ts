@@ -1,8 +1,6 @@
 import { Directive, Input, Output, EventEmitter } from "@angular/core";
 import { ModalController } from "ionic-angular";
 import { DatePickerComponent } from './datepicker.component';
-//was a directive changed to component
-// TO DO: FIGURE OUT HOW TO MAKE THIS A DIRECTIVE
 @Directive({
     selector: '[iondatepicker]',
     host: {
@@ -20,7 +18,7 @@ export class DatePickerDirective {
     @Input('modal') private modalCtrl: ModalController;
     @Input('hclasses') private hClasses: any[] = [];
     @Input('dclasses') private dClasses: any[] = [];
-
+    @Input('full') private full: boolean = false;
     constructor() {
     }
     openModal() {
@@ -31,7 +29,8 @@ export class DatePickerDirective {
                 max: this.min,
                 callback: this.callback,
                 headerClasses: this.hClasses,
-                dateClasses: this.dClasses
+                dateClasses: this.dClasses,
+                fullScreen: this.full
             }
         let modal = this.modalCtrl.create(DatePickerComponent
         );

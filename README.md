@@ -38,6 +38,8 @@ f) `[hclasses]` is a bridge to the header classes of the directive using ngClass
 
 g) `[dclasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
 
+e) `[full]` - a boolean that determines whether the modal should be full screen or not (not required)
+
 ### 4) Pictures ###
 
 ![date pick](https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png)

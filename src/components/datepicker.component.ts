@@ -2,11 +2,11 @@ import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, AfterVie
 
 import { DateService } from './datepicker.service';
 import { DatePickerDirective } from './datepicker.directive';
-import { Modal } from "ionic-angular";
+import { Modal, NavParams } from "ionic-angular";
 
 @Component({
     templateUrl: './datepicker.template.html',
-    styles: [`.datepicker-modal-container,.datepicker-modal-container .datepicker-modal{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox}.datepicker-content{height:210px;overflow:auto}.visible-overflow{overflow:visible}.center{text-align:center}.bold{font-weight:700}.datepicker-day-of-month,.datepicker-month,.datepicker-year{margin-top:10px;margin-bottom:10px;color:#fff;cursor:pointer}.datepicker-selection{cursor:pointer}.datepicker-month,.datepicker-year{font-size:14px}.datepicker-day-of-month{font-size:60px;font-weight:700}.datepicker-balanced{background-color:#008d7f}.white{color:#fff}.datepicker-balanced-light{background-color:#009688}.datepicker-color-balanced-light{color:#009688!important}.datepicker-date-col:hover{background-color:rgba(56,126,245,.5);cursor:pointer}.no-padding{padding:0}.datepicker-date-cell{padding:5px}.datepicker-selected{background-color:rgba(182,217,214,1)}.datepicker-current{color:rgba(60,170,159,1)}.datepicker-disabled{color:rgba(170,170,170,1)}.datepicker-disabled:hover{background-color:transparent;cursor:default}.datepicker-modal-container{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0);display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;-moz-justify-content:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;-webkit-align-items:center;-moz-align-items:center;align-items:center;z-index:12}.datepicker-modal-container .datepicker-modal{width:250px;max-width:100%;max-height:90%;border-radius:0;background-color:rgba(255,255,255,.9);display:flex;-webkit-box-direction:normal;-webkit-box-orient:vertical;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.datepicker-modal{box-shadow:1px 1px 3px #888}.datepicker-modal-head{padding:8px 10px;text-align:center}.datepicker-modal-title{margin:0;padding:0;font-size:13px}.datepicker-modal-buttons{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox;display:flex;-webkit-box-direction:normal;-webkit-box-orient:horizontal;-webkit-flex-direction:row;-moz-flex-direction:row;-ms-flex-direction:row;flex-direction:row;padding:10px;min-height:65px;font-size:12px;font-weight:700}.datepicker-modal-buttons .button{-webkit-box-flex:1;-webkit-flex:1;-moz-box-flex:1;-moz-flex:1;-ms-flex:1;flex:1;display:block;min-height:45px;border-radius:2px;line-height:20px;margin-right:5px}.datepicker-modal-buttons .button:last-child{margin-right:0}`]
+    styles: [`.datepicker-modal-container,.datepicker-modal-container .datepicker-modal{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox}.datepicker-content{overflow:auto}.visible-overflow{overflow:visible}.center{text-align:center}.bold{font-weight:700}.datepicker-day-of-month,.datepicker-month,.datepicker-year{margin-top:10px;margin-bottom:10px;color:#fff;cursor:pointer}.datepicker-selection{cursor:pointer}.datepicker-month,.datepicker-year{font-size:14px}.datepicker-day-of-month{font-size:60px;font-weight:700}.datepicker-balanced{background-color:#008d7f}.white{color:#fff}.datepicker-balanced-light{background-color:#009688}.datepicker-color-balanced-light{color:#009688!important}.datepicker-date-col:hover{background-color:rgba(56,126,245,.5);cursor:pointer}.no-padding{padding:0}.datepicker-date-cell{padding:5px}.datepicker-selected{background-color:rgba(182,217,214,1)}.datepicker-current{color:rgba(60,170,159,1)}.datepicker-disabled{color:rgba(170,170,170,1)}.datepicker-disabled:hover{background-color:transparent;cursor:default}.datepicker-modal-container{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0);display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;-moz-justify-content:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;-webkit-align-items:center;-moz-align-items:center;align-items:center;z-index:12}.datepicker-modal-container .datepicker-modal{width:250px;max-width:100%;max-height:100%;border-radius:0;background-color:rgba(255,255,255,.9);display:flex;-webkit-box-direction:normal;-webkit-box-orient:vertical;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.datepicker-modal{box-shadow:1px 1px 3px #888}.datepicker-modal-head{padding:8px 10px;text-align:center}.datepicker-modal-title{margin:0;padding:0;font-size:13px}.datepicker-modal-buttons{padding-top:10%;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox;display:flex;-webkit-box-direction:normal;-webkit-box-orient:horizontal;-webkit-flex-direction:row;-moz-flex-direction:row;-ms-flex-direction:row;flex-direction:row;padding:10px;min-height:65px;font-size:12px;font-weight:700}.datepicker-modal-buttons .button{-webkit-box-flex:1;-webkit-flex:1;-moz-box-flex:1;-moz-flex:1;-ms-flex:1;flex:1;display:block;min-height:45px;border-radius:2px;line-height:20px;margin-right:5px}.datepicker-modal-buttons .button:last-child{margin-right:0}`]
 })
 
 export class DatePickerComponent implements AfterViewChecked {
@@ -21,13 +21,14 @@ export class DatePickerComponent implements AfterViewChecked {
     private rows: number[];
     private weekdays: string[];
     private months: string[];
-    private date: Date;
-    private min: Date;
-    private max: Date;
-    private callback: EventEmitter<string | Date>;
+    public date: Date;
+    public min: Date;
+    public max: Date;
+    public callback: EventEmitter<string | Date>;
     private modal: Modal;
-    private hClasses: any[] = [];
-    private dClasses: any[] = [];
+    public hClasses: any[] = [];
+    public dClasses: any[] = [];
+    private full: boolean = false;
     constructor(public DatepickerService: DateService) {
         this.date = DatePickerDirective.config.date;
         this.min = DatePickerDirective.config.min;
@@ -36,6 +37,7 @@ export class DatePickerComponent implements AfterViewChecked {
         this.modal = DatePickerDirective.config.modal;
         this.hClasses = DatePickerDirective.config.headerClasses;
         this.dClasses = DatePickerDirective.config.dateClasses;
+        this.full = DatePickerDirective.config.fullScreen;
         this.initialize();
     }
     public initialize(): void {
@@ -51,10 +53,10 @@ export class DatePickerComponent implements AfterViewChecked {
         return this.weekdays;
     }
     public ngAfterViewChecked() {
-        if (this.dayscroll)
-            this.dayscroll.nativeElement.scrollTop = this.selectedDate.getDate() * 21;
-        if (this.yearscroll)
-            this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) * 16;
+        if (this.dayscroll && this.type === 'date')
+            this.dayscroll.nativeElement.scrollTop = this.selectedDate.getDate() * (this.dayscroll.nativeElement.scrollHeight / this.dateList.length);
+        else if (this.yearscroll && this.type === 'year')
+            this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) *  (this.yearscroll.nativeElement.scrollHeight / this.getYears().length);
     }
     public getMonths(): string[] {
         if (!this.months) {
