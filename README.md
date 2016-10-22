@@ -1,6 +1,3 @@
-[![Circle CI](https://circleci.com/gh/celsomarques/ionic-datepicker.svg?style=svg)](https://circleci.com/gh/celsomarques/ionic-datepicker) [![Code Climate](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/gpa.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker) [![Test Coverage](https://codeclimate.com/github/celsomarques/ionic-datepicker/badges/coverage.svg)](https://codeclimate.com/github/celsomarques/ionic-datepicker/coverage) [![bitHound Score](https://www.bithound.io/github/celsomarques/ionic-datepicker/badges/score.svg)](https://www.bithound.io/github/celsomarques/ionic-datepicker/master)
-
-
 ## How to use ###
 
 1) Install using or npm
@@ -17,21 +14,26 @@
 ```
    imports: [
         IonicModule.forRoot(App),
-        DatePickerModule.forRoot(),
+        DatePickerModule,
     ],
 ```
 3) Use the directive in your html and give it the modal controller of your ionic app
 ```
-	 <button iondatepicker [modal]="modalCtrl" ion-item>
+	 <button iondatepicker  (onchange)="result($event)" [modal]="modalCtrl" ion-item>
       Click to show datepicker
     </button>
 ```
 
+a) `[modal]` is a required controller from ionc2. The Modal Controller allows the datepicker to be displayed as part of your app.
 
-a) `[date]` is the date object which we are passing to the `ionic-datepicker`.
+b) `[date]` is the date object which we are passing to the `ionic-datepicker`. (not required)
 
-b) `[min]` is minimum date that user is allowed to select.
+c) `[min]` is minimum date that user is allowed to select.  (not required)
 
-c) `[max]` is maximum date that user is allowed to select.
+d) `[max]` is maximum date that user is allowed to select.  (not required)
 
-d) `[callback]` is the callback function which we have to pass to the `ionic-datepicker`. This function takes an argument which will return `undefined` if the user didnot selected any date. And returns a `date` object, if the user selects any date.
+e) `(onchange)` is an event emitter that returns the date as a $event.
+
+f) `[hclasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
+
+g) `[dclasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
