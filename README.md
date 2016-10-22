@@ -37,3 +37,8 @@ e) `(onchange)` is an event emitter that returns the date as a $event.
 f) `[hclasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
 g) `[dclasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
+
+4) Pictures
+
+![date pick](https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png)
+![date pick](https://i.gyazo.com/a0d56b1238c239187878e8a1c7c57e24.png)
