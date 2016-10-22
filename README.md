@@ -1,6 +1,6 @@
 ## How to use ###
 
-### 1) Install using or npm ###
+### 1) Install using npm ###
 
 ```
     npm i datepicker-ionic2 --save
