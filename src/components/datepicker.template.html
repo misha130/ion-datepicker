@@ -73,14 +73,14 @@
 				</div>
 			</div>
 		</div>
-		<div style="word-wrap: normal;" class="datepicker-calendar">
+		<div style="word-wrap: normal;" class="datepicker-calendar" *ngIf="showType('calendar')">
 			<div class="row col center">
 				<button ion-button clear (click)="prevMonth()"><ion-icon name="arrow-back"></ion-icon></button>{{getTempMonth()}} {{getTempYear()}}
 				<button ion-button clear (click)="nextMonth()"><ion-icon name="arrow-forward"></ion-icon></button>
 			</div>
 			<div *ngFor="let week of rows;let i = index;" class="row" style="padding-top:15px;padding-bottom:15px;display:flex; justify-content:space-around">
 				<span style="height:25px;width:25px;" class="col datepicker-selection datepicker-date-cell" *ngFor="let day of cols;let j=index;"
-								[ngClass]="{
+					[ngClass]="{
                   'datepicker-date-col': isDefined(getDate(i, j)),
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
