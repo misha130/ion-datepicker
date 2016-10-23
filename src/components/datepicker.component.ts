@@ -12,7 +12,8 @@ import { Modal, NavParams } from "ionic-angular";
 export class DatePickerComponent implements AfterViewChecked {
     @ViewChild('dayscroll') private dayscroll: ElementRef;
     @ViewChild('yearscroll') private yearscroll: ElementRef;
-    private type: 'date' | 'string' | 'year' | 'month' = 'date';
+    public mode: 'calendar' | undefined = 'calendar';
+    private type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
     private today: Date = new Date();
     private selectedDate: Date = new Date();
     private tempDate: Date;
@@ -38,6 +39,7 @@ export class DatePickerComponent implements AfterViewChecked {
         this.hClasses = DatePickerDirective.config.headerClasses;
         this.dClasses = DatePickerDirective.config.dateClasses;
         this.full = DatePickerDirective.config.fullScreen;
+        if (DatePickerDirective.config.calendar) this.type = 'calendar';
         this.initialize();
     }
     public initialize(): void {
@@ -56,7 +58,7 @@ export class DatePickerComponent implements AfterViewChecked {
         if (this.dayscroll && this.type === 'date')
             this.dayscroll.nativeElement.scrollTop = this.selectedDate.getDate() * (this.dayscroll.nativeElement.scrollHeight / this.dateList.length);
         else if (this.yearscroll && this.type === 'year')
-            this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) *  (this.yearscroll.nativeElement.scrollHeight / this.getYears().length);
+            this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) * (this.yearscroll.nativeElement.scrollHeight / this.getYears().length);
     }
     public getMonths(): string[] {
         if (!this.months) {
@@ -126,12 +128,12 @@ export class DatePickerComponent implements AfterViewChecked {
         return year === this.tempDate.getFullYear();
     }
 
-    public changeType(val: 'date' | 'string' | 'year' | 'month'): void {
+    public changeType(val: 'date' | 'string' | 'year' | 'month' | 'calendar'): void {
+        if (this.type === 'calendar') return;
         this.type = val;
-
     }
 
-    public showType(val: 'date' | 'string' | 'year' | 'month'): boolean {
+    public showType(val: 'date' | 'string' | 'year' | 'month' | 'calendar'): boolean {
         return this.type === val;
     }
 
@@ -171,7 +173,9 @@ export class DatePickerComponent implements AfterViewChecked {
         if (!this.months) this.getMonths();
         return this.months[this.tempDate.getMonth()];
     }
-
+    public getTempYear() {
+        return this.tempDate.getFullYear() | this.selectedDate.getFullYear();
+    }
     public onCancel(e) {
         this.selectedDate = this.date || new Date();
         this.callback.emit(this.date);
@@ -194,5 +198,28 @@ export class DatePickerComponent implements AfterViewChecked {
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         return (<string>arr).slice(0, limit);
+    }
+    private getMonthRows(): {}[] {
+        return [];
+    }
+    private nextMonth() {
+        if (this.tempDate.getMonth() === 11) {
+            this.tempDate.setFullYear(this.tempDate.getFullYear() + 1);
+            this.tempDate.setMonth(0);
+        }
+        else {
+            this.tempDate.setMonth(this.tempDate.getMonth() + 1);
+        }
+        this.createDateList(this.tempDate);
+    }
+    private prevMonth() {
+        if (this.tempDate.getMonth() === 0) {
+            this.tempDate.setFullYear(this.tempDate.getFullYear() - 1);
+            this.tempDate.setMonth(11);
+        }
+        else {
+            this.tempDate.setMonth(this.tempDate.getMonth() - 1);
+        }
+        this.createDateList(this.tempDate);
     }
 }

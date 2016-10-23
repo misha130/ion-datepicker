@@ -19,6 +19,7 @@ export class DatePickerDirective {
     @Input('hclasses') private hClasses: any[] = [];
     @Input('dclasses') private dClasses: any[] = [];
     @Input('full') private full: boolean = false;
+    @Input('calendar') private calendar: boolean = false;
     constructor() {
     }
     openModal() {
@@ -30,7 +31,8 @@ export class DatePickerDirective {
                 callback: this.callback,
                 headerClasses: this.hClasses,
                 dateClasses: this.dClasses,
-                fullScreen: this.full
+                fullScreen: this.full,
+                calendar: this.calendar
             }
         let modal = this.modalCtrl.create(DatePickerComponent
         );
