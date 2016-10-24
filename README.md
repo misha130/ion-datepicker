@@ -44,6 +44,6 @@ d) `[calendar]` - a boolean that makes the date picker display as a calendar
 
 ### 4) Pictures ###
 
-![date pick](https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png){:height="450px"}
-![date pick2](https://i.gyazo.com/47da6eb564fc369f15ce765644b69987.png){:height="450px"}
-![calendar example](https://i.gyazo.com/8a6ab4eaaf0eaff1191a5adf29ca4b5a.png){:height="450px"}
+<img src="https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png" height="450">
+<img src="https://i.gyazo.com/47da6eb564fc369f15ce765644b69987.png" height="450">
+<img src="https://i.gyazo.com/8a6ab4eaaf0eaff1191a5adf29ca4b5a.png" height="450">
