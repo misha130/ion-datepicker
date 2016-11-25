@@ -1,17 +1,18 @@
 {
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "dom",
+            "es2015"
+        ],
         "module": "es2015",
-        "target": "es5",
         "moduleResolution": "node",
         "sourceMap": true,
-        "declaration": true,
-        "noImplicitAny": false,
-        "experimentalDecorators": true,
-        "lib": ["dom", "es2015"],
         "outDir": "./dist",
-        "types": [
-            "node"
-        ]
+        "target": "es5"
     },
     "exclude": [
         "node_modules",
