@@ -1,0 +1,1 @@
+export { DatePickerModule } from './src/datepicker-ionic2';
