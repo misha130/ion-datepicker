@@ -2,7 +2,6 @@ import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, AfterVie
 
 import { DateService } from './datepicker.service';
 import { DatePickerDirective } from './datepicker.directive';
-import { Modal, NavParams } from "ionic-angular";
 
 @Component({
     templateUrl: './datepicker.template.html',
@@ -10,32 +9,30 @@ import { Modal, NavParams } from "ionic-angular";
 })
 
 export class DatePickerComponent implements AfterViewChecked {
-    @ViewChild('dayscroll') private dayscroll: ElementRef;
-    @ViewChild('yearscroll') private yearscroll: ElementRef;
+    @ViewChild('dayscroll') public dayscroll: ElementRef;
+    @ViewChild('yearscroll') public yearscroll: ElementRef;
     public mode: 'calendar' | undefined = 'calendar';
-    private type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
-    private today: Date = new Date();
-    private selectedDate: Date = new Date();
-    private tempDate: Date;
-    private dateList: Date[];
-    private cols: number[];
-    private rows: number[];
-    private weekdays: string[];
-    private months: string[];
+    public type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
+    public today: Date = new Date();
+    public selectedDate: Date = new Date();
+    public tempDate: Date;
+    public dateList: Date[];
+    public cols: number[];
+    public rows: number[];
+    public weekdays: string[];
+    public months: string[];
     public date: Date;
     public min: Date;
     public max: Date;
     public callback: EventEmitter<string | Date>;
-    private modal: Modal;
     public hClasses: any[] = [];
     public dClasses: any[] = [];
-    private full: boolean = false;
+    public full: boolean = false;
     constructor(public DatepickerService: DateService) {
         this.date = DatePickerDirective.config.date;
         this.min = DatePickerDirective.config.min;
         this.max = DatePickerDirective.config.max;
         this.callback = <EventEmitter<string | Date>>DatePickerDirective.config.callback;
-        this.modal = DatePickerDirective.config.modal;
         this.hClasses = DatePickerDirective.config.headerClasses;
         this.dClasses = DatePickerDirective.config.dateClasses;
         this.full = DatePickerDirective.config.fullScreen;
@@ -179,30 +176,30 @@ export class DatePickerComponent implements AfterViewChecked {
     public onCancel(e) {
         this.selectedDate = this.date || new Date();
         this.callback.emit(this.date);
-        this.modal.dismiss();
+       // this.modal.dismiss();
     };
 
     public onDone(e) {
         this.date = this.selectedDate;
         this.callback.emit(this.date);
-        this.modal.dismiss();
+      //  this.modal.dismiss();
     };
 
-    private selectMonthOrYear() {
+    public selectMonthOrYear() {
 
         this.createDateList(this.tempDate);
         if (this.isDisabled(this.tempDate)) return;
         this.selectedDate = this.tempDate;
     }
-    private limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
+    public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         return (<string>arr).slice(0, limit);
     }
-    private getMonthRows(): {}[] {
+    public getMonthRows(): {}[] {
         return [];
     }
-    private nextMonth() {
+    public nextMonth() {
         if (this.tempDate.getMonth() === 11) {
             this.tempDate.setFullYear(this.tempDate.getFullYear() + 1);
             this.tempDate.setMonth(0);
@@ -212,7 +209,7 @@ export class DatePickerComponent implements AfterViewChecked {
         }
         this.createDateList(this.tempDate);
     }
-    private prevMonth() {
+    public prevMonth() {
         if (this.tempDate.getMonth() === 0) {
             this.tempDate.setFullYear(this.tempDate.getFullYear() - 1);
             this.tempDate.setMonth(11);

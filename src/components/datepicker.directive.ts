@@ -1,5 +1,4 @@
 import { Directive, Input, Output, EventEmitter } from "@angular/core";
-import { ModalController } from "ionic-angular";
 import { DatePickerComponent } from './datepicker.component';
 @Directive({
     selector: '[iondatepicker]',
@@ -11,15 +10,14 @@ import { DatePickerComponent } from './datepicker.component';
 export class DatePickerDirective {
 
     public static config: any;
-    @Input('date') private date: Date;
-    @Input('min') private min: Date;
-    @Input('max') private max: Date;
-    @Output('onchange') private callback: EventEmitter<string | Date> = new EventEmitter<string | Date>();
-    @Input('modal') private modalCtrl: ModalController;
-    @Input('hclasses') private hClasses: any[] = [];
-    @Input('dclasses') private dClasses: any[] = [];
-    @Input('full') private full: boolean = false;
-    @Input('calendar') private calendar: boolean = false;
+    @Input('date') public date: Date;
+    @Input('min') public min: Date;
+    @Input('max') public max: Date;
+    @Output('onchange') public callback: EventEmitter<string | Date> = new EventEmitter<string | Date>();
+    @Input('hclasses') public hClasses: any[] = [];
+    @Input('dclasses') public dClasses: any[] = [];
+    @Input('full') public full: boolean = false;
+    @Input('calendar') public calendar: boolean = false;
     constructor() {
     }
     openModal() {
@@ -34,10 +32,10 @@ export class DatePickerDirective {
                 fullScreen: this.full,
                 calendar: this.calendar
             }
-        let modal = this.modalCtrl.create(DatePickerComponent
-        );
-        DatePickerDirective.config.modal = modal;
-        modal.present();
+        // let modal = this.modalCtrl.create(DatePickerComponent
+        // );
+        // DatePickerDirective.config.modal = modal;
+        // modal.present();
 
     }
 }
