@@ -1,44 +1,53 @@
-/* Empty. Add your own CSS if you like */
+.datepicker-modal-container,
+.datepicker-modal-container .datepicker-modal {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox
+}
 
 .datepicker-content {
-  height: 210px;
-  overflow: auto;
+  overflow: auto
 }
 
 .visible-overflow {
-  overflow: visible;
+  overflow: visible
 }
 
 .center {
-  text-align: center;
+  text-align: center
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 700
 }
 
-.datepicker-month, .datepicker-day-of-month, .datepicker-year {
+.datepicker-day-of-month,
+.datepicker-month,
+.datepicker-year {
   margin-top: 10px;
   margin-bottom: 10px;
   color: #fff;
-  cursor: pointer;
+  cursor: pointer
 }
 
 .datepicker-selection {
-  cursor: pointer;
+  cursor: pointer
 }
 
-.datepicker-month, .datepicker-year {
-  font-size: 14px;
+.datepicker-month,
+.datepicker-year {
+  font-size: 14px
 }
 
 .datepicker-day-of-month {
   font-size: 60px;
-  font-weight: bold;
+  font-weight: 700
 }
 
 .datepicker-balanced {
-  background-color: rgb(0, 141, 127);
+  background-color: #008d7f
 }
 
 .white {
@@ -46,47 +55,43 @@
 }
 
 .datepicker-balanced-light {
-  background-color: rgb(0, 150, 136);
+  background-color: #009688
 }
 
 .datepicker-color-balanced-light {
-  color: rgb(0, 150, 136) !important;
+  color: #009688!important
 }
 
 .datepicker-date-col:hover {
-  background-color: rgba(56, 126, 245, 0.5);
-  cursor: pointer;
+  background-color: rgba(56, 126, 245, .5);
+  cursor: pointer
 }
 
 .no-padding {
-  padding: 0;
+  padding: 0
 }
 
 .datepicker-date-cell {
-  padding: 5px;
+  padding: 5px
 }
 
 .datepicker-selected {
-  background-color: rgba(182, 217, 214, 1);
+  background-color: rgba(182, 217, 214, 1)
 }
 
 .datepicker-current {
-  color: rgba(60, 170, 159, 1);
+  color: rgba(60, 170, 159, 1)
 }
 
 .datepicker-disabled {
-  color: rgba(170, 170, 170, 1);
+  color: rgba(170, 170, 170, 1)
 }
 
 .datepicker-disabled:hover {
   background-color: transparent;
-  cursor: default;
+  cursor: default
 }
 
-/**
- * datepicker-modals
- *  --------------------------------------------------
- **/
 .datepicker-modal-container {
   position: absolute;
   top: 0;
@@ -94,11 +99,6 @@
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -110,44 +110,41 @@
   -webkit-align-items: center;
   -moz-align-items: center;
   align-items: center;
-  z-index: 12;
+  z-index: 12
 }
+
 .datepicker-modal-container .datepicker-modal {
   width: 250px;
   max-width: 100%;
-  max-height: 90%;
-  border-radius: 0px;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
+  max-height: 100%;
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, .9);
   display: flex;
   -webkit-box-direction: normal;
   -webkit-box-orient: vertical;
   -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
-  flex-direction: column;
+  flex-direction: column
 }
 
 .datepicker-modal {
-  box-shadow: 1px 1px 3px #888888;
+  box-shadow: 1px 1px 3px #888
 }
 
 .datepicker-modal-head {
   padding: 8px 10px;
-  text-align: center;
+  text-align: center
 }
 
 .datepicker-modal-title {
   margin: 0;
   padding: 0;
-  font-size: 13px;
+  font-size: 13px
 }
 
 .datepicker-modal-buttons {
+  padding-top: 10%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -163,8 +160,9 @@
   padding: 10px;
   min-height: 65px;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700
 }
+
 .datepicker-modal-buttons .button {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -176,8 +174,25 @@
   min-height: 45px;
   border-radius: 2px;
   line-height: 20px;
-  margin-right: 5px;
+  margin-right: 5px
 }
+
 .datepicker-modal-buttons .button:last-child {
-  margin-right: 0px;
+  margin-right: 0
+}
+
+.datepicker-calendar {
+  word-wrap: normal;
+}
+
+.calendar-row {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.calendar-cell {
+  height: 25px;
+  width: 25px;
 }

@@ -1,205 +1,176 @@
-import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, AfterViewInit, AfterViewChecked } from '@angular/core';
-
+import { Component, ViewChild } from '@angular/core';
 import { DateService } from './datepicker.service';
 import { DatePickerDirective } from './datepicker.directive';
-
-@Component({
-    templateUrl: 'datepicker.html',
-    styleUrls: ['datepicker.css']
-})
-
-export class DatePickerComponent implements AfterViewChecked {
-    @ViewChild('dayscroll') public dayscroll: ElementRef;
-    @ViewChild('yearscroll') public yearscroll: ElementRef;
-    public mode: 'calendar' | undefined = 'calendar';
-    public type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
-    public today: Date = new Date();
-    public selectedDate: Date = new Date();
-    public tempDate: Date;
-    public dateList: Date[];
-    public cols: number[];
-    public rows: number[];
-    public weekdays: string[];
-    public months: string[];
-    public date: Date;
-    public min: Date;
-    public max: Date;
-    public callback: EventEmitter<string | Date>;
-    public hClasses: any[] = [];
-    public dClasses: any[] = [];
-    public full: boolean = false;
-    constructor(public DatepickerService: DateService) {
+export var DatePickerComponent = (function () {
+    function DatePickerComponent(DatepickerService) {
+        this.DatepickerService = DatepickerService;
+        this.mode = 'calendar';
+        this.type = 'date';
+        this.today = new Date();
+        this.selectedDate = new Date();
+        this.hClasses = [];
+        this.dClasses = [];
+        this.full = false;
         this.date = DatePickerDirective.config.date;
         this.min = DatePickerDirective.config.min;
         this.max = DatePickerDirective.config.max;
-        this.callback = <EventEmitter<string | Date>>DatePickerDirective.config.callback;
+        this.callback = DatePickerDirective.config.callback;
         this.hClasses = DatePickerDirective.config.headerClasses;
         this.dClasses = DatePickerDirective.config.dateClasses;
         this.full = DatePickerDirective.config.fullScreen;
-        if (DatePickerDirective.config.calendar) this.type = 'calendar';
+        if (DatePickerDirective.config.calendar)
+            this.type = 'calendar';
         this.initialize();
     }
-    public initialize(): void {
+    DatePickerComponent.prototype.initialize = function () {
         this.selectedDate = new Date();
         this.tempDate = this.selectedDate;
         this.createDateList(this.selectedDate);
-    }
-
-    public getDaysOfWeek(): string[] {
+    };
+    DatePickerComponent.prototype.getDaysOfWeek = function () {
         if (!this.weekdays) {
             this.weekdays = this.DatepickerService.getDaysOfWeek();
         }
         return this.weekdays;
-    }
-    public ngAfterViewChecked() {
+    };
+    DatePickerComponent.prototype.ngAfterViewChecked = function () {
         if (this.dayscroll && this.type === 'date')
             this.dayscroll.nativeElement.scrollTop = this.selectedDate.getDate() * (this.dayscroll.nativeElement.scrollHeight / this.dateList.length);
         else if (this.yearscroll && this.type === 'year')
             this.yearscroll.nativeElement.scrollTop = (this.selectedDate.getFullYear() - 1900) * (this.yearscroll.nativeElement.scrollHeight / this.getYears().length);
-    }
-    public getMonths(): string[] {
+    };
+    DatePickerComponent.prototype.getMonths = function () {
         if (!this.months) {
             this.months = this.DatepickerService.getMonths();
         }
         return this.months;
-    }
-
-    public getYears(): Date[] {
+    };
+    DatePickerComponent.prototype.getYears = function () {
         return this.DatepickerService.getYears();
-    }
-
-    public createDateList(selectedDate: Date): void {
+    };
+    DatePickerComponent.prototype.createDateList = function (selectedDate) {
         this.dateList = this.DatepickerService.createDateList(selectedDate);
         this.cols = new Array(7);
         this.rows = new Array(Math.round(this.dateList.length / this.cols.length) + 1);
-    }
-
-    public getDate(row: number, col: number): Date {
+    };
+    DatePickerComponent.prototype.getDate = function (row, col) {
         return this.dateList[row * 7 + col];
-    }
-
-    public isDefined(date: Date | string): boolean {
+    };
+    DatePickerComponent.prototype.isDefined = function (date) {
         return date !== undefined;
-    }
-
-    public isDisabled(date: Date): boolean {
-        if (!date) return true;
+    };
+    DatePickerComponent.prototype.isDisabled = function (date) {
+        if (!date)
+            return true;
         if (this.min) {
             this.min.setHours(0, 0, 0, 0);
-            if (date < this.min) return true;
+            if (date < this.min)
+                return true;
         }
         if (this.max) {
             this.max.setHours(0, 0, 0, 0);
-            if (date > this.max) return true;
+            if (date > this.max)
+                return true;
         }
         return false;
-    }
-
-    public isActualDate(date: Date): boolean {
-        if (!date) return false;
+    };
+    DatePickerComponent.prototype.isActualDate = function (date) {
+        if (!date)
+            return false;
         return date.getDate() === this.today.getDate() &&
             date.getMonth() === this.today.getMonth() &&
             date.getFullYear() === this.today.getFullYear();
-    }
-
-    public isActualMonth(month: number): boolean {
+    };
+    DatePickerComponent.prototype.isActualMonth = function (month) {
         return month === this.today.getMonth();
-    }
-
-    public isActualYear(year: number): boolean {
+    };
+    DatePickerComponent.prototype.isActualYear = function (year) {
         return year === this.today.getFullYear();
-    }
-
-    public isSelectedDate(date: Date): boolean {
-        if (!date) return false;
+    };
+    DatePickerComponent.prototype.isSelectedDate = function (date) {
+        if (!date)
+            return false;
         return date.getDate() === this.selectedDate.getDate() &&
             date.getMonth() === this.selectedDate.getMonth() &&
             date.getFullYear() === this.selectedDate.getFullYear();
-    }
-
-    public isSelectedMonth(month: number): boolean {
+    };
+    DatePickerComponent.prototype.isSelectedMonth = function (month) {
         return month === this.tempDate.getMonth();
-    }
-
-    public isSelectedYear(year: number): boolean {
+    };
+    DatePickerComponent.prototype.isSelectedYear = function (year) {
         return year === this.tempDate.getFullYear();
-    }
-
-    public changeType(val: 'date' | 'string' | 'year' | 'month' | 'calendar'): void {
-        if (this.type === 'calendar') return;
+    };
+    DatePickerComponent.prototype.changeType = function (val) {
+        if (this.type === 'calendar')
+            return;
         this.type = val;
-    }
-
-    public showType(val: 'date' | 'string' | 'year' | 'month' | 'calendar'): boolean {
+    };
+    DatePickerComponent.prototype.showType = function (val) {
         return this.type === val;
-    }
-
-    public selectDate(date: Date): void {
-        if (this.isDisabled(date)) return;
+    };
+    DatePickerComponent.prototype.selectDate = function (date) {
+        if (this.isDisabled(date))
+            return;
         this.selectedDate = date;
         this.selectedDate.setHours(0, 0, 0, 0);
         this.tempDate = this.selectedDate;
-    }
-
-    public selectMonth(month: number): void {
+    };
+    DatePickerComponent.prototype.selectMonth = function (month) {
         this.tempDate.setMonth(month);
         if (this.tempDate.getMonth() !== month) {
             this.tempDate.setDate(0);
         }
         this.changeType('date');
         this.selectMonthOrYear();
-    }
-
-    public selectYear(year: number) {
+    };
+    DatePickerComponent.prototype.selectYear = function (year) {
         this.tempDate.setFullYear(year);
         this.changeType('month');
         this.selectMonthOrYear();
-    }
-
-    public getSelectedWeekday(): string {
-        if (!this.weekdays) this.getDaysOfWeek();
+    };
+    DatePickerComponent.prototype.getSelectedWeekday = function () {
+        if (!this.weekdays)
+            this.getDaysOfWeek();
         return this.weekdays[this.selectedDate.getDay()];
-    }
-
-    public getSelectedMonth(): string {
-        if (!this.months) this.getMonths();
+    };
+    DatePickerComponent.prototype.getSelectedMonth = function () {
+        if (!this.months)
+            this.getMonths();
         return this.months[this.selectedDate.getMonth()];
-    }
-
-    public getTempMonth() {
-        if (!this.months) this.getMonths();
+    };
+    DatePickerComponent.prototype.getTempMonth = function () {
+        if (!this.months)
+            this.getMonths();
         return this.months[this.tempDate.getMonth()];
-    }
-    public getTempYear() {
+    };
+    DatePickerComponent.prototype.getTempYear = function () {
         return this.tempDate.getFullYear() | this.selectedDate.getFullYear();
-    }
-    public onCancel(e: Event) {
+    };
+    DatePickerComponent.prototype.onCancel = function (e) {
         this.selectedDate = this.date || new Date();
         this.callback.emit(this.date);
-        // this.modal.dismiss();
     };
-
-    public onDone(e: Event) {
+    ;
+    DatePickerComponent.prototype.onDone = function (e) {
         this.date = this.selectedDate;
         this.callback.emit(this.date);
-        //  this.modal.dismiss();
     };
-
-    public selectMonthOrYear() {
-
+    ;
+    DatePickerComponent.prototype.selectMonthOrYear = function () {
         this.createDateList(this.tempDate);
-        if (this.isDisabled(this.tempDate)) return;
+        if (this.isDisabled(this.tempDate))
+            return;
         this.selectedDate = this.tempDate;
-    }
-    public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
+    };
+    DatePickerComponent.prototype.limitTo = function (arr, limit) {
         if (Array.isArray(arr))
             return arr.splice(0, limit);
-        return (<string>arr).slice(0, limit);
-    }
-    public getMonthRows(): {}[] {
+        return arr.slice(0, limit);
+    };
+    DatePickerComponent.prototype.getMonthRows = function () {
         return [];
-    }
-    public nextMonth() {
+    };
+    DatePickerComponent.prototype.nextMonth = function () {
         if (this.tempDate.getMonth() === 11) {
             this.tempDate.setFullYear(this.tempDate.getFullYear() + 1);
             this.tempDate.setMonth(0);
@@ -208,8 +179,8 @@ export class DatePickerComponent implements AfterViewChecked {
             this.tempDate.setMonth(this.tempDate.getMonth() + 1);
         }
         this.createDateList(this.tempDate);
-    }
-    public prevMonth() {
+    };
+    DatePickerComponent.prototype.prevMonth = function () {
         if (this.tempDate.getMonth() === 0) {
             this.tempDate.setFullYear(this.tempDate.getFullYear() - 1);
             this.tempDate.setMonth(11);
@@ -218,5 +189,20 @@ export class DatePickerComponent implements AfterViewChecked {
             this.tempDate.setMonth(this.tempDate.getMonth() - 1);
         }
         this.createDateList(this.tempDate);
-    }
-}
+    };
+    DatePickerComponent.decorators = [
+        { type: Component, args: [{
+                    templateUrl: 'datepicker.html',
+                    styleUrls: ['datepicker.css']
+                },] },
+    ];
+    DatePickerComponent.ctorParameters = [
+        { type: DateService, },
+    ];
+    DatePickerComponent.propDecorators = {
+        'dayscroll': [{ type: ViewChild, args: ['dayscroll',] },],
+        'yearscroll': [{ type: ViewChild, args: ['yearscroll',] },],
+    };
+    return DatePickerComponent;
+}());
+//# sourceMappingURL=datepicker.component.js.map
