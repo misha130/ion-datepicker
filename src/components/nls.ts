@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class nls {
-    private _nls =
+    private _nls: any =
     {
         'en-us': {
             weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -15,7 +15,7 @@ export class nls {
         'he-il': {
             weekdays: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'],
             months: ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
-        }
+        },
     };
 
     public getWeekdays(locale: 'en-us' | 'pt-br' | 'he-il'): string[] {
@@ -24,7 +24,7 @@ export class nls {
     public getMonths(locale: 'en-us' | 'pt-br' | 'he-il'): string[] {
         return this.getNls(locale).months;
     }
-    private getNls(locale:  'en-us' | 'pt-br' | 'he-il'): { weekdays: string[], months: string[] } {
+    private getNls(locale: 'en-us' | 'pt-br' | 'he-il'): { weekdays: string[], months: string[] } {
         return this._nls[locale] || this._nls['en-us'];
     }
 }

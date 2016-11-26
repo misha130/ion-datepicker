@@ -5,9 +5,12 @@ import { DateService } from './components/datepicker.service';
 import { nls } from './components/nls';
 import { CommonModule } from '@angular/common';
 import { ViewController } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
+
 @NgModule({
     imports: [
         CommonModule,
+        BrowserModule
     ],
     exports: [DatePickerComponent, DatePickerDirective],
     entryComponents: [DatePickerComponent],

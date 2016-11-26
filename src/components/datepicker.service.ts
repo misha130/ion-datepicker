@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class DateService {
     constructor(private DatepickerNls: nls) {
     }
-    private locale = (window.navigator['userLanguage'] || window.navigator.language).toLowerCase();
+    private locale = ((<any>window).navigator['userLanguage'] || window.navigator.language).toLowerCase();
 
     public getDaysOfWeek() {
         return this.DatepickerNls.getWeekdays(this.locale);
@@ -17,7 +17,7 @@ export class DateService {
         return this.DatepickerNls.getMonths(this.locale);
     }
     public getYears() {
-        let years = [];
+        let years: Array<any> = [];
         for (var i = 1900; i < 2101; i++) years.push(i);
         return years;
     }

@@ -20,14 +20,15 @@
   "scripts": {
     "ngc": "ngc",
     "build": "del aot dist && npm run ngc && node ./scripts/copy-package",
-    "publishPackage": "npm run build && cd dist && npm publish"
+    "publishPackage": "npm run build && cd dist && npm publish",
+    "dev": "tsc --watch"
   },
   "license": "MIT",
   "dependencies": {
     "@angular/core": "2.1.1",
-    "@angular/common":  "2.1.1",
-    "@angular/compiler":  "2.1.1",
-    "@angular/compiler-cli":  "2.1.1",
+    "@angular/common": "2.1.1",
+    "@angular/compiler": "2.1.1",
+    "@angular/compiler-cli": "2.1.1",
     "@angular/platform-browser": "2.1.1",
     "ionic-angular": "^2.0.0-rc.3",
     "rxjs": "5.0.0-beta.12"
