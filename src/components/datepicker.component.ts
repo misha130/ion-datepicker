@@ -113,7 +113,7 @@ import { DateService } from './datepicker.service';
 }
 
 .datepicker-modal-container.active, {
-  opacity: 1;
+  opacity: 1!important;
 }
 
 .datepicker-content {
