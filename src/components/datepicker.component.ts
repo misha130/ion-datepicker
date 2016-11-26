@@ -112,7 +112,7 @@ import { DateService } from './datepicker.service';
   display: -ms-flexbox; 
 }
 
-.datepicker-modal-container .active, {
+.datepicker-modal-container.active, {
   opacity: 1;
 }
 
