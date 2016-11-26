@@ -96,7 +96,11 @@ import { DateService } from './datepicker.service';
         </div>
     </div>
 </div>`,
-    styles: [`.datepicker-modal-container{
+    styles: [`
+    ion-datepicker{
+        overflow:auto;
+        }
+        .datepicker-modal-container{
   opacity: 0;
 }
 .datepicker-modal-container,
