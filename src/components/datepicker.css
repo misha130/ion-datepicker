@@ -1,10 +1,17 @@
+.datepicker-modal-container{
+  opacity: 0;
+}
 .datepicker-modal-container,
 .datepicker-modal-container .datepicker-modal {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
-  display: -ms-flexbox
+  display: -ms-flexbox;
+}
+
+.datepicker-modal-container .active, {
+  opacity: 1;
 }
 
 .datepicker-content {
