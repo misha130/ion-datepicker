@@ -1,4 +1,7 @@
 import { DatePickerComponent } from './components/datepicker.component';
+import { DatePickerDisplayer, DatePickerController } from './components/datepicker.modal';
+import { DatePickerDirective } from './components/datepicker.directive';
+
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DateService } from './components/datepicker.service';
 import { nls } from './components/nls';
@@ -11,10 +14,15 @@ import { BrowserModule } from '@angular/platform-browser';
         CommonModule,
         BrowserModule
     ],
-    exports: [DatePickerComponent],
+    exports: [
+        DatePickerComponent,
+        DatePickerDirective],
     entryComponents: [DatePickerComponent],
-    declarations: [DatePickerComponent],
-    providers: [DateService, nls],
+    declarations: [DatePickerComponent, DatePickerDirective],
+    providers: [
+        DateService,
+        nls,
+        DatePickerController],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ]

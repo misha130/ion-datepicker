@@ -2,7 +2,7 @@
   "name": "datepicker-ionic2",
   "version": "1.2.2",
   "description": "A date picker for ionic2 framework",
-  "main": "",
+  "main": "src/index.js",
   "author": "Misha Prokofyev <misha130@gmail.com>",
   "repository": {
     "type": "git",
@@ -25,17 +25,22 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/core": "2.1.1",
-    "@angular/common": "2.1.1",
-    "@angular/compiler": "2.1.1",
-    "@angular/compiler-cli": "2.1.1",
-    "@angular/platform-browser": "2.1.1",
-    "ionic-angular": "^2.0.0-rc.3",
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "ionicons": "3.0.0",
+    "ionic-angular": "^2.0.0-rc.4",
     "rxjs": "5.0.0-beta.12"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/node": "^6.0.41",
-    "typescript": "^2.0.3"
+    "typescript": "^2.1.4"
   }
 }

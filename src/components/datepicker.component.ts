@@ -1,13 +1,10 @@
-import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from "@angular/core";
+import { Component, ViewChild, ViewEncapsulation, ElementRef, Input, Output, EventEmitter } from "@angular/core";
 import { DateService } from './datepicker.service';
+import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
-    template: `<button aria-haspopup="true" 
-            type="button" 
-            ion-button="item-cover"
-            class="item-cover"> 
-</button>
-<div [class.active]='active' class="datepicker-modal-container">
+    template: `
+    <div class="datepicker-modal-container">
     <div class="datepicker-modal" [style.width]="full?'100%':''" [style.height]="full?'100%':''">
         <div class="datepicker-modal-head datepicker-balanced white bold" [ngClass]="hClasses">
             <div class="datepicker-modal-title">{{getSelectedWeekday()}}</div>
@@ -40,10 +37,10 @@ import { DateService } from './datepicker.service';
             </div>
         </div>
         <div #dayscroll class="datepicker-content" *ngIf="showType('date')">
-            <div class="row col center">
+           <!-- <div class="row col center">
                 {{getTempMonth()}} {{tempDate | date: 'yyyy'}}
             </div>
-            <!--<div class="row center">
+            <div class="row center">
 				<div class="col bold" *ngFor="let dayOfWeek of getDaysOfWeek(); let i = index;">
 					{{limitTo(dayOfWeek,3)}}
 				</div>
@@ -75,10 +72,10 @@ import { DateService } from './datepicker.service';
         </div>
         <div class="datepicker-calendar" *ngIf="showType('calendar')">
             <div class="row col center">
-                <button small ion-button clear (click)="prevMonth()"><ion-icon name="arrow-back"></ion-icon></button>{{getTempMonth()}}
-                {{getTempYear()}}
-                <button small ion-button clear (click)="nextMonth()"><ion-icon name="arrow-forward"></ion-icon></button>
-            </div>
+            <button (click)="prevMonth()" ion-button="" class="disable-hover button button-ios button-default button-default-ios"><span class="button-inner"><ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>
+
+              {{getTempMonth()}}  {{getTempYear()}}
+     <button (click)="nextMonth()" ion-button="" class="disable-hover button button-ios button-default button-default-ios"><span class="button-inner"><ion-icon name="arrow-forward" role="img" class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward"></ion-icon></span><div class="button-effect"></div></button>            </div>
             <div *ngFor="let week of rows;let i = index;" class="row calendar-row">
                 <span class="col calendar-cell datepicker-selection datepicker-date-cell" *ngFor="let day of cols;let j=index;" [ngClass]="{
                   'datepicker-date-col': isDefined(getDate(i, j)),
@@ -91,32 +88,17 @@ import { DateService } from './datepicker.service';
             </div>
         </div>
         <div class="datepicker-modal-buttons">
-            <button ion-button (click)="onCancel($event)" class="datepicker-cancel-js button button-clear button-small col-offset-33">CANCEL</button>
-            <button ion-button (click)="onDone($event)" class="datepicker-ok-js button button-clear button-small">OK</button>
+                    <button (click)="onCancel($event)" ion-button="" class="datepicker-cancel-js button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios"><span class="button-inner">CANCEL</span><div class="button-effect"></div></button>
+                    <button (click)="onDone($event)" ion-button="" class="datepicker-ok-js button button-clear button-small disable-hover button button-ios button-default button-default-ios"><span class="button-inner">OK</span><div class="button-effect"></div></button>
         </div>
     </div>
 </div>`,
     styles: [`
-    ion-datepicker{
-        overflow:auto;
-        }
-        .datepicker-modal-container{
-  opacity: 0;
-}
-.datepicker-modal-container,
-.datepicker-modal-container .datepicker-modal {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox; 
-}
 
-.datepicker-modal-container.active {
-  opacity: 1;
-}
-
-.datepicker-content {
+    .button-ios{
+        background-color:#009688!important;
+    }
+    .datepicker-content {
   overflow: auto
 }
 
@@ -124,7 +106,7 @@ import { DateService } from './datepicker.service';
   overflow: visible
 }
 
-.center {
+    .center {
   text-align: center
 }
 
@@ -142,7 +124,7 @@ import { DateService } from './datepicker.service';
 }
 
 .datepicker-selection {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .datepicker-month,
@@ -173,7 +155,8 @@ import { DateService } from './datepicker.service';
 
 .datepicker-date-col:hover {
   background-color: rgba(56, 126, 245, .5);
-  cursor: pointer
+  cursor: pointer;
+  border-radius: 20px;
 }
 
 .no-padding {
@@ -185,11 +168,13 @@ import { DateService } from './datepicker.service';
 }
 
 .datepicker-selected {
-  background-color: rgba(182, 217, 214, 1)
+  background-color: rgba(182, 217, 214, 1);
+  border-radius:20px;
 }
 
 .datepicker-current {
-  color: rgba(60, 170, 159, 1)
+  color: rgba(60, 170, 159, 1);
+  border-radius:20px;
 }
 
 .datepicker-disabled {
@@ -304,24 +289,23 @@ import { DateService } from './datepicker.service';
 .calendar-cell {
   height: 25px;
   width: 25px;
-}`],
-    selector: 'ion-datepicker',
-    host: {
-        '(click)': 'openModal()',
-    }
+}
+    `],
+    encapsulation: ViewEncapsulation.None,
+    providers: []
 })
 
 export class DatePickerComponent {
 
     public static config: any;
-    @Input('date') public date: Date;
-    @Input('min') public min: Date;
-    @Input('max') public max: Date;
-    @Output('onchange') public callback: EventEmitter<string | Date> = new EventEmitter<string | Date>();
-    @Input('hclasses') public hClasses: any[] = [];
-    @Input('dclasses') public dClasses: any[] = [];
-    @Input('full') public full: boolean = false;
-    @Input('calendar') public calendar: boolean = false;
+    public date: Date;
+    public min: Date;
+    public max: Date;
+    public callback: EventEmitter<string | Date>;
+    public hClasses: any[] = [];
+    public dClasses: any[] = [];
+    public full: boolean = false;
+    public calendar: boolean = false;
     @ViewChild('dayscroll') public dayscroll: ElementRef;
     @ViewChild('yearscroll') public yearscroll: ElementRef;
     public today: Date = new Date();
@@ -335,13 +319,20 @@ export class DatePickerComponent {
     public active: boolean = false;
     public type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
     public mode: 'calendar' | undefined = 'calendar';
-    constructor(public DatepickerService: DateService) {
+    constructor(public viewCtrl: ViewController, public DatepickerService: DateService, public navParams: NavParams) {
+        this.callback = navParams.data.changed;
+        this.min = navParams.data.min;
+        this.max = navParams.data.max;
+        this.hClasses = navParams.data.hclasses || [];
+        this.dClasses = navParams.data.dclasses || [];
+        this.full = navParams.data.full || false;
+        this.calendar = navParams.data.calendar || false;
+        this.selectedDate = navParams.data.date || new Date();
         if (this.calendar) this.type = 'calendar';
         this.initialize();
     }
 
     public initialize(): void {
-        this.selectedDate = new Date();
         this.tempDate = this.selectedDate;
         this.createDateList(this.selectedDate);
     }
@@ -474,18 +465,18 @@ export class DatePickerComponent {
         return this.months[this.tempDate.getMonth()];
     }
     public getTempYear() {
-        return this.tempDate.getFullYear() | this.selectedDate.getFullYear();
+        return this.tempDate.getFullYear() || this.selectedDate.getFullYear();
     }
     public onCancel(e: Event) {
         this.selectedDate = this.date || new Date();
         this.callback.emit(this.date);
-        // this.modal.dismiss();
+        this.viewCtrl.dismiss();
     };
 
     public onDone(e: Event) {
         this.date = this.selectedDate;
         this.callback.emit(this.date);
-        //  this.modal.dismiss();
+        this.viewCtrl.dismiss();
     };
 
     public selectMonthOrYear() {
@@ -503,23 +494,35 @@ export class DatePickerComponent {
         return [];
     }
     public nextMonth() {
-        if (this.tempDate.getMonth() === 11) {
-            this.tempDate.setFullYear(this.tempDate.getFullYear() + 1);
-            this.tempDate.setMonth(0);
+        //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
+        let testDate: Date = new Date(this.tempDate.getTime());
+        testDate.setDate(1);
+
+        if (testDate.getMonth() === 11) {
+            testDate.setFullYear(testDate.getFullYear() + 1);
+            testDate.setMonth(0);
         }
         else {
-            this.tempDate.setMonth(this.tempDate.getMonth() + 1);
+            testDate.setMonth(testDate.getMonth() + 1);
         }
-        this.createDateList(this.tempDate);
+        if (!this.max || this.max >= testDate) {
+            this.tempDate = testDate;
+            this.createDateList(this.tempDate);
+        }
     }
     public prevMonth() {
-        if (this.tempDate.getMonth() === 0) {
-            this.tempDate.setFullYear(this.tempDate.getFullYear() - 1);
-            this.tempDate.setMonth(11);
+        let testDate: Date = new Date(this.tempDate.getTime());
+        testDate.setDate(31);
+        if (testDate.getMonth() === 0) {
+            testDate.setFullYear(testDate.getFullYear() - 1);
+            testDate.setMonth(11);
         }
         else {
-            this.tempDate.setMonth(this.tempDate.getMonth() - 1);
+            testDate.setMonth(testDate.getMonth() - 1);
         }
-        this.createDateList(this.tempDate);
+        if (!this.min || this.min <= testDate) {
+            this.tempDate = testDate;
+            this.createDateList(this.tempDate);
+        }
     }
 }

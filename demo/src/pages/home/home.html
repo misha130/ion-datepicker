@@ -1,7 +1,14 @@
 <ion-header>
 </ion-header>
 <ion-content padding>
-  <button ion-button>test
-  <ion-datepicker></ion-datepicker>
-  </button>
+  <ion-list>
+    <button full="true" [min]="now" calendar="true" [(ngModel)]="date"  ion-item  ion-datepicker>
+      <ion-label>
+        Results<ion-icon name="forward-arrow"></ion-icon>
+      </ion-label>
+      <div item-content>
+        {{date | date}}
+      </div>
+    </button>
+  </ion-list>
 </ion-content>
