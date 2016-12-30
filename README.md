@@ -45,6 +45,7 @@ f) `[full]` - a boolean that determines whether the modal should be full screen 
 
 g) `[calendar]` - a boolean that makes the date picker display as a calendar
 
+e) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 ### 4) Pictures ###
 
 <img src="https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png" height="450">
