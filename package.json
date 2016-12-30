@@ -1,17 +1,17 @@
 {
-  "name": "datepicker-ionic2",
-  "version": "2.0.0",
+  "name": "ionic2-datepicker",
+  "version": "2.0.1",
   "description": "A date picker for ionic2 framework",
-  "main": "src/index.js",
+  "main": "index.js",
   "author": "Misha Prokofyev <misha130@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/misha130/datepicker-ionic2"
+    "url": "https://github.com/misha130/ionic2-datepicker"
   },
   "keywords": [
     "datepicker-ionic2",
     "ionic2",
-    "ionic datepicker",
+    "ionic2 datepicker",
     "datepicker",
     "datepicker ionic2",
     "datepicker for ionic2",

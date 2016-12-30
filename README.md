@@ -48,6 +48,6 @@ g) `[calendar]` - a boolean that makes the date picker display as a calendar
 e) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 ### 4) Pictures ###
 
-<img src="https://i.gyazo.com/ffb3e4868567c92de9aac456eaf6b9a3.png" height="450">
-<img src="https://i.gyazo.com/47da6eb564fc369f15ce765644b69987.png" height="450">
-<img src="https://i.gyazo.com/8a6ab4eaaf0eaff1191a5adf29ca4b5a.png" height="450">
+<img src="https://i.gyazo.com/e82a0746522873dd7bdfa6753c077445.png" height="450">
+<img src="https://i.gyazo.com/53282273f3d645a0af2f3035bc7a3b99.png" height="450">
+<img src="https://i.gyazo.com/a896872c388637c97dc21f0bb0391820.png" height="450">
