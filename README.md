@@ -9,7 +9,7 @@
 ### 2) Add it to your ngModule in app.module ###
 
 ```
- import { DatePickerModule } from 'datepicker-ionic2/datepicker-ionic2';
+ import { DatePickerModule } from 'datepicker-ionic2';
 ```
 ```
    imports: [
