@@ -24,11 +24,13 @@
     </button>
 ```
 
+a) `[(ngModel)]` is used to have the value as any other angular2 component
+
 a) `[min]` is minimum date that user is allowed to select.  (not required)
 
 b) `[max]` is maximum date that user is allowed to select.  (not required)
 
-c) `(onchange)` is an event emitter that returns the date as a $event.
+c) `(ionChanged)` is an event emitter that returns the date as a $event.
 
 d) `[hclasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
