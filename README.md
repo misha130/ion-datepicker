@@ -19,8 +19,13 @@
 ```
 ### 3) Use the directive in your html and give it the modal controller of your ionic app ###
 ```
-	 <button iondatepicker   ion-item>
-      Click to show datepicker
+	   <button full="true" [min]="now" calendar="true" [(ngModel)]="date"  ion-item  ion-datepicker>
+      <ion-label>
+        Results<ion-icon name="forward-arrow"></ion-icon>
+      </ion-label>
+      <div item-content>
+        {{date | date}}
+      </div>
     </button>
 ```
 
