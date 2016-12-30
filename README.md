@@ -17,7 +17,7 @@
         DatePickerModule,
     ],
 ```
-### 3) Use the directive in your html and give it the modal controller of your ionic app ###
+### 3) Use the directive ion-datepicker in your html  ###
 ```
 	   <button full="true" [min]="now" calendar="true" [(ngModel)]="date"  ion-item  ion-datepicker>
       <ion-label>
@@ -46,6 +46,7 @@ f) `[full]` - a boolean that determines whether the modal should be full screen 
 g) `[calendar]` - a boolean that makes the date picker display as a calendar
 
 e) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
+
 ### 4) Pictures ###
 
 <img src="https://i.gyazo.com/e82a0746522873dd7bdfa6753c077445.png" height="450">
