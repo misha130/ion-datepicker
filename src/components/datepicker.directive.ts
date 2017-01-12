@@ -1,10 +1,12 @@
-import { Directive, ViewChild, ElementRef, Input, Output, EventEmitter, forwardRef, ViewEncapsulation, HostListener } from "@angular/core";
-import { DatePipe } from "@angular/common";
+import { App, ModalOptions, ViewController } from 'ionic-angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateService } from './datepicker.service';
-import { ViewController, App, ModalOptions } from 'ionic-angular';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
+
 import { DatePickerController } from './datepicker.modal';
 import { DatePickerData } from './datepicker.interface';
+import { DatePipe } from "@angular/common";
+import { DateService } from './datepicker.service';
+
 export const DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => DatePickerDirective),

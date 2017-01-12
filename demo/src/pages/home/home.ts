@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -7,8 +6,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public now:Date = new Date();
-  public date: Date = new Date();
+  public HerdDate: Date = new Date();
   constructor(public navCtrl: NavController) {
 
   }
