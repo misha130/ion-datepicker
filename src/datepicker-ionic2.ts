@@ -1,13 +1,13 @@
-import { DatePickerComponent } from './components/datepicker.component';
-import { DatePickerDisplayer, DatePickerController } from './components/datepicker.modal';
-import { DatePickerDirective } from './components/datepicker.directive';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { DatePickerController, DatePickerDisplayer } from './components/datepicker.modal';
 
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { DateService } from './components/datepicker.service';
-import { nls } from './components/nls';
-import { CommonModule } from '@angular/common';
-import { ViewController } from 'ionic-angular';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { DatePickerComponent } from './components/datepicker.component';
+import { DatePickerDirective } from './components/datepicker.directive';
+import { DateService } from './components/datepicker.service';
+import { ViewController } from 'ionic-angular';
+import { nls } from './components/nls';
 
 @NgModule({
     imports: [
@@ -17,7 +17,7 @@ import { BrowserModule } from '@angular/platform-browser';
     exports: [
         DatePickerComponent,
         DatePickerDirective],
-    entryComponents: [DatePickerComponent],
+    entryComponents: [DatePickerComponent, DatePickerDirective],
     declarations: [DatePickerComponent, DatePickerDirective],
     providers: [
         DateService,

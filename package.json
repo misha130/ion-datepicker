@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "ngc": "ngc",
-    "build": "del aot dist && npm run ngc && node ./scripts/copy-package",
+    "build": " npm run ngc && node ./scripts/copy-package",
     "publishPackage": "npm run build && cd dist && npm publish",
     "dev": "tsc --watch"
   },

@@ -1,19 +1,12 @@
-<ion-header>
-</ion-header>
-<ion-content padding>
-  <ion-list>
-    <!--<button full="true" [min]="now"  [(ngModel)]="date"  ion-item  ion-datepicker>
-      <ion-label>
-        Results<ion-icon name="forward-arrow"></ion-icon>
-      </ion-label>
-      <div item-content>
-        {{date | date}}
-      </div>
-    </button>-->
-    <ion-item>
-      <ion-label>Test</ion-label>
-      <ion-input full="true" [min]="HerdDate" ion-datepicker type="text" [(ngModel)]="HerdDate" (ionChanged)="HerdDate = $event">
-      </ion-input>
-    </ion-item>
-  </ion-list>
-</ion-content>
+<ion-toolbar darkergraytoolbar class="toolbarPlan">
+  <button ion-button (click)="previousDay()" clear>
+			<ion-icon black name='arrow-back'></ion-icon>
+	</button>
+  <!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
+  <ion-datepicker [(ngModel)]="localDate" full="true" calendar="true" clear class="ScheduleDate">
+		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+	</ion-datepicker>
+  <button ion-button (click)="nextDay()" clear>
+		<ion-icon black name='arrow-forward'></ion-icon>
+	</button>
+</ion-toolbar>

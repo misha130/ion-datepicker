@@ -1,6 +1,6 @@
 import { App, ModalOptions, ViewController } from 'ionic-angular';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
 import { DatePickerController } from './datepicker.modal';
 import { DatePickerData } from './datepicker.interface';
@@ -12,8 +12,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
   useExisting: forwardRef(() => DatePickerDirective),
   multi: true
 };
-@Directive({
-  selector: '[ion-datepicker]',
+@Component({
+  selector: 'ion-datepicker',
   providers: [DATEPICKER_VALUE_ACCESSOR],
 })
 export class DatePickerDirective implements ControlValueAccessor {
