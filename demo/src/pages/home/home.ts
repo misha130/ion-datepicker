@@ -13,4 +13,8 @@ export class HomePage {
   public Log(stuff): void {
     console.log(stuff);
   }
+
+  public event(data: Date): void {
+    this.localDate = data;
+  }
 }

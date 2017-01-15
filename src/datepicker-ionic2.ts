@@ -17,7 +17,7 @@ import { nls } from './components/nls';
     exports: [
         DatePickerComponent,
         DatePickerDirective],
-    entryComponents: [DatePickerComponent, DatePickerDirective],
+    entryComponents: [DatePickerComponent],
     declarations: [DatePickerComponent, DatePickerDirective],
     providers: [
         DateService,

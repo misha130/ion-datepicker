@@ -1,22 +1,16 @@
 import { App, ModalOptions, ViewController } from 'ionic-angular';
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
 import { DatePickerController } from './datepicker.modal';
 import { DatePickerData } from './datepicker.interface';
 import { DatePipe } from "@angular/common";
 import { DateService } from './datepicker.service';
 
-export const DATEPICKER_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DatePickerDirective),
-  multi: true
-};
-@Component({
-  selector: 'ion-datepicker',
-  providers: [DATEPICKER_VALUE_ACCESSOR],
+@Directive({
+  selector: 'ion-datepicker,[ion-datepicker]',
 })
-export class DatePickerDirective implements ControlValueAccessor {
+export class DatePickerDirective {
   @Output('ionChanged') public changed: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   @Input() public max: Date;
   @Input() public min: Date;
@@ -25,31 +19,19 @@ export class DatePickerDirective implements ControlValueAccessor {
   @Input() public dclasses: Array<string>;
   @Input() public hclasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
-
-  public value: any;
+  @Input() public value: Date = new Date();
   private _fn: any;
   constructor(public datepickerCtrl: DatePickerController) {
+    this.changed.subscribe((d: Date) => {
+      console.log(d);
+      this.value = d;
+    });
   }
 
   @HostListener('click', ['$event'])
   _click(ev: UIEvent) {
     this.open();
   }
-  writeValue(val: any) {
-    this.value = val;
-  }
-  registerOnChange(fn: Function): void {
-    this._fn = fn;
-    this.changed.subscribe((d: any) => {
-      if (d) {
-        this.value = d;
-        fn(d);
-      }
-    });
-  }
-
-  registerOnTouched(fn: any) { this.onTouched = fn; }
-  onTouched() { }
 
   public open() {
     const data = <DatePickerData>{

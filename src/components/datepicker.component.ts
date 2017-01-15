@@ -1,6 +1,7 @@
-import { Component, ViewChild, ViewEncapsulation, ElementRef, Input, Output, EventEmitter } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation } from "@angular/core";
+import { NavParams, ViewController } from 'ionic-angular';
+
 import { DateService } from './datepicker.service';
-import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
     template: `
@@ -468,8 +469,9 @@ export class DatePickerComponent {
         return this.tempDate.getFullYear() || this.selectedDate.getFullYear();
     }
     public onCancel(e: Event) {
-        this.selectedDate = this.date || new Date();
-        this.callback.emit(this.date);
+        if (this.date)
+            this.selectedDate = this.date || new Date();
+        this.callback.emit(this.selectedDate);
         this.viewCtrl.dismiss();
     };
 

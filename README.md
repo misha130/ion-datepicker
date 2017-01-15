@@ -1,3 +1,4 @@
+
 ## How to use ###
 
 ### 1) Install using npm ###
@@ -19,33 +20,27 @@
 ```
 ### 3) Use the directive ion-datepicker in your html  ###
 ```
-	   <button full="true" [min]="now" calendar="true" [(ngModel)]="date"  ion-item  ion-datepicker>
-      <ion-label>
-        Results<ion-icon name="forward-arrow"></ion-icon>
-      </ion-label>
-      <div item-content>
-        {{date | date}}
-      </div>
-    </button>
+	<span ion-datepicker (ionChanged)="setDate($event);" [value]="localDate" [min]="localDate" full="true" calendar="true" clear class="ScheduleDate">
+		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+	</span>
 ```
+a) `[value]` defines the initial value
 
-a) `[(ngModel)]` is used to have the value as any other angular2 component
+b) `[min]` is minimum date that user is allowed to select.  (not required)
 
-a) `[min]` is minimum date that user is allowed to select.  (not required)
+c) `[max]` is maximum date that user is allowed to select.  (not required)
 
-b) `[max]` is maximum date that user is allowed to select.  (not required)
+d) `(ionChanged)` is an event emitter that returns the date as a $event.
 
-c) `(ionChanged)` is an event emitter that returns the date as a $event.
+e) `[hclasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
-d) `[hclasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
+f) `[dclasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
 
-e) `[dclasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
+g) `[full]` - a boolean that determines whether the modal should be full screen or not (not required)
 
-f) `[full]` - a boolean that determines whether the modal should be full screen or not (not required)
+h) `[calendar]` - a boolean that makes the date picker display as a calendar
 
-g) `[calendar]` - a boolean that makes the date picker display as a calendar
-
-e) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
+i) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
 ### 4) Pictures ###
 
