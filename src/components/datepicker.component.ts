@@ -292,7 +292,7 @@ import { DateService } from './datepicker.service';
   width: 25px;
 }
     `],
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.Emulated,
     providers: []
 })
 
@@ -514,7 +514,7 @@ export class DatePickerComponent {
     }
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setDate(31);
+        testDate.setDate(1);
         if (testDate.getMonth() === 0) {
             testDate.setFullYear(testDate.getFullYear() - 1);
             testDate.setMonth(11);
@@ -522,7 +522,9 @@ export class DatePickerComponent {
         else {
             testDate.setMonth(testDate.getMonth() - 1);
         }
-        if (!this.min || this.min <= testDate) {
+        testDate.setDate(this.tempDate.getDate());
+        if (!this.min ||
+            (this.min.getFullYear() <= testDate.getFullYear() && this.min.getDate() <= testDate.getDate() && this.min.getMonth() <= testDate.getMonth())) {
             this.tempDate = testDate;
             this.createDateList(this.tempDate);
         }
