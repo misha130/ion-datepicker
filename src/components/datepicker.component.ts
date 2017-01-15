@@ -95,10 +95,6 @@ import { DateService } from './datepicker.service';
     </div>
 </div>`,
     styles: [`
-
-    .button-ios{
-        background-color:#009688!important;
-    }
     .datepicker-content {
   overflow: auto
 }
@@ -151,7 +147,7 @@ import { DateService } from './datepicker.service';
 }
 
 .datepicker-color-balanced-light {
-  color: #009688!important
+  color: #009688
 }
 
 .datepicker-date-col:hover {
