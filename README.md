@@ -42,6 +42,13 @@ h) `[calendar]` - a boolean that makes the date picker display as a calendar
 
 i) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
+j) `[locale]` - for translating the calendar. Avaliable local is en-US, he-IL, pt-BR, ru-RU
+
+k) `[okText]` - Text for the ok button
+
+l) `[cancelText]` - Text for the cancel button
+
+
 ### 4) Pictures ###
 
 <img src="https://i.gyazo.com/e82a0746522873dd7bdfa6753c077445.png" height="450">

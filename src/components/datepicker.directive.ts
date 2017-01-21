@@ -15,13 +15,20 @@ export class DatePickerDirective {
   @Input() public max: Date;
   @Input() public min: Date;
   @Input() public calendar: boolean;
+  @Input() public set locale(val: string) {
+    if (val)
+      this.dateService.locale = val;
+  };
   @Input() public full: boolean;
+  @Input() public okText: string;
+  @Input() public cancelText: string;
+
   @Input() public dclasses: Array<string>;
   @Input() public hclasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
   private _fn: any;
-  constructor(public datepickerCtrl: DatePickerController) {
+  constructor(public datepickerCtrl: DatePickerController, public dateService: DateService) {
     this.changed.subscribe((d: Date) => {
       console.log(d);
       this.value = d;
@@ -42,7 +49,9 @@ export class DatePickerDirective {
       dclasses: this.dclasses,
       hclasses: this.hclasses,
       changed: this.changed,
-      date: this.value
+      date: this.value,
+      okText: this.okText,
+      cancelText: this.cancelText
     }
     let modal = this.datepickerCtrl.create(data, this.modalOptions);
     modal.present();

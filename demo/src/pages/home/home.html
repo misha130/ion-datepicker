@@ -1,12 +1,8 @@
 <ion-toolbar darkergraytoolbar class="toolbarPlan">
-	<button ion-button (click)="previousDay()" clear>
-			<ion-icon black name='arrow-back'></ion-icon>
-	</button>
+
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
-	<span ion-datepicker (ionChanged)="event($event);" [value]="localDate" [max]="maxDate" full="true" calendar="true" clear class="ScheduleDate">
-		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+	<span ion-datepicker locale="he-IL" okText="Test" cancelText="CancelTest" [value]="localDate" [min]="min" full="true" calendar="true" clear class="ScheduleDate">
+{{localDate | date:'dd-MM-yyyy' }} 
 	</span>
-	<button ion-button (click)="nextDay()" clear>
-		<ion-icon black name='arrow-forward'></ion-icon>
-	</button>
+
 </ion-toolbar>

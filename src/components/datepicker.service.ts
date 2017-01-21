@@ -6,9 +6,19 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class DateService {
-    constructor(private DatepickerNls: nls) {
+    private static _local: string;
+    public get locale() {
+        return DateService._local || 'en-US';
     }
-    private locale = ((<any>window).navigator['userLanguage'] || window.navigator.language).toLowerCase();
+    public set locale(val: string | 'en-US' | 'he-IL' | 'ru-RU' | 'pt-BR') {
+        if (val !== 'en-US' && val !== 'he-IL' && val !== 'ru-RU' && val !== 'pt-BR') {
+            throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR avaliable';
+        }
+        DateService._local = val;
+    }
+    constructor(private DatepickerNls: nls, ) {
+    }
+    // private locale = ((<any>window).navigator['userLanguage'] || window.navigator.language).toLowerCase();
 
     public getDaysOfWeek() {
         return this.DatepickerNls.getWeekdays(this.locale);

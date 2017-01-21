@@ -89,8 +89,8 @@ import { DateService } from './datepicker.service';
             </div>
         </div>
         <div class="datepicker-modal-buttons">
-                    <button (click)="onCancel($event)" ion-button="" class="datepicker-cancel-js button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios"><span class="button-inner">CANCEL</span><div class="button-effect"></div></button>
-                    <button (click)="onDone($event)" ion-button="" class="datepicker-ok-js button button-clear button-small disable-hover button button-ios button-default button-default-ios"><span class="button-inner">OK</span><div class="button-effect"></div></button>
+                    <button (click)="onCancel($event)" ion-button="" class="datepicker-cancel-js button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios"><span class="button-inner">{{cancelText}}</span><div class="button-effect"></div></button>
+                    <button (click)="onDone($event)" ion-button="" class="datepicker-ok-js button button-clear button-small disable-hover button button-ios button-default button-default-ios"><span class="button-inner">{{okText}}</span><div class="button-effect"></div></button>
         </div>
     </div>
 </div>`,
@@ -296,6 +296,8 @@ export class DatePickerComponent {
 
     public static config: any;
     public date: Date;
+    public okText: string;
+    public cancelText: string;
     public min: Date;
     public max: Date;
     public callback: EventEmitter<string | Date>;
@@ -325,6 +327,8 @@ export class DatePickerComponent {
         this.full = navParams.data.full || false;
         this.calendar = navParams.data.calendar || false;
         this.selectedDate = navParams.data.date || new Date();
+        this.okText = navParams.data.okText || 'OK';
+        this.cancelText = navParams.data.cancelText || 'Cancel';
         if (this.calendar) this.type = 'calendar';
         this.initialize();
     }
@@ -510,17 +514,10 @@ export class DatePickerComponent {
     }
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setDate(1);
-        if (testDate.getMonth() === 0) {
-            testDate.setFullYear(testDate.getFullYear() - 1);
-            testDate.setMonth(11);
-        }
-        else {
-            testDate.setMonth(testDate.getMonth() - 1);
-        }
-        testDate.setDate(this.tempDate.getDate());
+        testDate.setDate(0);
+        // testDate.setDate(this.tempDate.getDate());
         if (!this.min ||
-            (this.min.getFullYear() <= testDate.getFullYear() && this.min.getDate() <= testDate.getDate() && this.min.getMonth() <= testDate.getMonth())) {
+            (this.min <= testDate)) {
             this.tempDate = testDate;
             this.createDateList(this.tempDate);
         }

@@ -7,4 +7,6 @@ export interface DatePickerData {
     full?: boolean;
     calendar?: boolean;
     date?: Date;
+    okText: string;
+    cancelText: string;
 }

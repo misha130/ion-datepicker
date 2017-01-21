@@ -7,7 +7,8 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
   public localDate: Date = new Date();
-  public maxDate:Date = new Date();
+  public maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 30));
+  public min: Date = new Date()
   constructor(public navCtrl: NavController) {
 
   }
