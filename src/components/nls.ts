@@ -20,15 +20,25 @@ export class nls {
             weekdays: ['Воскресение', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
             months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
         },
+        'de': {
+            weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+            months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+        }
     };
 
-    public getWeekdays(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU'): string[] {
+    public getWeekdays(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): string[] {
         return this.getNls(locale).weekdays;
     }
-    public getMonths(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU'): string[] {
+    public getMonths(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): string[] {
         return this.getNls(locale).months;
     }
-    private getNls(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU'): { weekdays: string[], months: string[] } {
+    private getNls(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): { weekdays: string[], months: string[] } {
         return this._nls[locale] || this._nls['en-us'];
+    }
+
+    public checkExists(locale: string): boolean {
+        let keys: Array<string> = Object.keys(this._nls);
+        return keys.some(key => key === locale);
     }
 }

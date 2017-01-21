@@ -10,9 +10,9 @@ export class DateService {
     public get locale() {
         return DateService._local || 'en-US';
     }
-    public set locale(val: string | 'en-US' | 'he-IL' | 'ru-RU' | 'pt-BR') {
-        if (val !== 'en-US' && val !== 'he-IL' && val !== 'ru-RU' && val !== 'pt-BR') {
-            throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR avaliable';
+    public set locale(val: string) {
+        if (!this.DatepickerNls.checkExists(val)) {
+            throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR/de avaliable';
         }
         DateService._local = val;
     }
