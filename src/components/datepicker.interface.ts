@@ -2,6 +2,7 @@ export interface DatePickerData {
     min?: Date;
     max?: Date;
     changed: any;
+    canceled: any;
     hclasses?: Array<string>;
     dclasses?: Array<string>;
     full?: boolean;
@@ -9,4 +10,5 @@ export interface DatePickerData {
     date?: Date;
     okText: string;
     cancelText: string;
+
 }

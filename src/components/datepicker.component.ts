@@ -301,6 +301,7 @@ export class DatePickerComponent {
     public min: Date;
     public max: Date;
     public callback: EventEmitter<string | Date>;
+    public cancel: EventEmitter<void>;
     public hClasses: any[] = [];
     public dClasses: any[] = [];
     public full: boolean = false;
@@ -320,6 +321,7 @@ export class DatePickerComponent {
     public mode: 'calendar' | undefined = 'calendar';
     constructor(public viewCtrl: ViewController, public DatepickerService: DateService, public navParams: NavParams) {
         this.callback = navParams.data.changed;
+        this.cancel = navParams.data.canceled;
         this.min = navParams.data.min;
         this.max = navParams.data.max;
         this.hClasses = navParams.data.hclasses || [];
@@ -471,8 +473,7 @@ export class DatePickerComponent {
     public onCancel(e: Event) {
         if (this.date)
             this.selectedDate = this.date || new Date();
-        // removed emit on cancel
-        // this.callback.emit(this.selectedDate);
+        this.cancel.emit();
         this.viewCtrl.dismiss();
     };
 

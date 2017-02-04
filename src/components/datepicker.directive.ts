@@ -12,6 +12,8 @@ import { DateService } from './datepicker.service';
 })
 export class DatePickerDirective {
   @Output('ionChanged') public changed: EventEmitter<string | Date> = new EventEmitter<string | Date>();
+  @Output('ionCanceled') public canceled: EventEmitter<void> = new EventEmitter<void>();
+
   @Input() public max: Date;
   @Input() public min: Date;
   @Input() public calendar: boolean;
@@ -48,6 +50,7 @@ export class DatePickerDirective {
       dclasses: this.dclasses,
       hclasses: this.hclasses,
       changed: this.changed,
+      canceled: this.canceled,
       date: this.value,
       okText: this.okText,
       cancelText: this.cancelText
