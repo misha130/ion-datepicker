@@ -30,7 +30,6 @@ export class DatePickerDirective {
   private _fn: any;
   constructor(public datepickerCtrl: DatePickerController, public dateService: DateService) {
     this.changed.subscribe((d: Date) => {
-      console.log(d);
       this.value = d;
     });
   }

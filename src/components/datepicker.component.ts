@@ -471,7 +471,8 @@ export class DatePickerComponent {
     public onCancel(e: Event) {
         if (this.date)
             this.selectedDate = this.date || new Date();
-        this.callback.emit(this.selectedDate);
+        // removed emit on cancel
+        // this.callback.emit(this.selectedDate);
         this.viewCtrl.dismiss();
     };
 
