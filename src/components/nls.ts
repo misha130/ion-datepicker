@@ -24,16 +24,21 @@ export class nls {
             weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
             months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
                 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
-        }
+        },
+        'fi': {
+            weekdays: ['Sunnuntai', 'Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai', 'Lauantai'],
+            months: ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu',
+                'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu']
+	}
     };
 
-    public getWeekdays(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): string[] {
+    public getWeekdays(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi'): string[] {
         return this.getNls(locale).weekdays;
     }
-    public getMonths(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): string[] {
+    public getMonths(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi'): string[] {
         return this.getNls(locale).months;
     }
-    private getNls(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de'): { weekdays: string[], months: string[] } {
+    private getNls(locale: string | 'en-US' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi'): { weekdays: string[], months: string[] } {
         return this._nls[locale] || this._nls['en-us'];
     }
 
