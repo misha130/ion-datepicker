@@ -1,7 +1,7 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { DatePickerModule } from '../../../dist/index';
+import { DatePickerModule } from '../../../dist';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
 
