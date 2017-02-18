@@ -24,7 +24,8 @@
     "dev": "tsc --watch"
   },
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "ionicons": "3.0.0",
     "ionic-angular": "^2.0.1",
     "@angular/common": "^2.3.0",
@@ -34,9 +35,7 @@
     "@angular/http": "^2.4.7",
     "@angular/platform-browser": "^2.4.7",
     "@angular/platform-browser-dynamic": "^2.4.7",
-    "@angular/platform-server": "^2.4.7"
-  },
-  "devDependencies": {
+    "@angular/platform-server": "^2.4.7",
     "core-js": "^2.4.1",
     "http-server": "^0.9.0",
     "jasmine-core": "~2.5.2",
