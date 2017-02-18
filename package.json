@@ -1,6 +1,6 @@
 {
   "name": "datepicker-ionic2",
-  "version": "2.2.5",
+  "version": "2.2.10",
   "description": "A date picker for ionic2 framework",
   "main": "index.js",
   "author": "Misha Tarnorutksy <misha130@gmail.com>",
@@ -19,28 +19,35 @@
   ],
   "scripts": {
     "ngc": "ngc",
-    "build": " npm run ngc && node ./scripts/copy-package",
+    "build": "npm run ngc && node ./scripts/copy-package",
     "publishPackage": "npm run build && cd dist && npm publish",
     "dev": "tsc --watch"
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "2.2.1",
-    "@angular/compiler": "2.2.1",
-    "@angular/compiler-cli": "2.2.1",
-    "@angular/core": "2.2.1",
-    "@angular/forms": "2.2.1",
-    "@angular/http": "2.2.1",
-    "@angular/platform-browser": "2.2.1",
-    "@angular/platform-browser-dynamic": "2.2.1",
-    "@angular/platform-server": "2.2.1",
     "ionicons": "3.0.0",
     "ionic-angular": "^2.0.1",
-    "rxjs": "5.0.0-beta.12"
+    "@angular/common": "^2.3.0",
+    "@angular/compiler": "^2.4.7",
+    "@angular/compiler-cli": "^2.4.7",
+    "@angular/core": "^2.4.7",
+    "@angular/http": "^2.4.7",
+    "@angular/platform-browser": "^2.4.7",
+    "@angular/platform-browser-dynamic": "^2.4.7",
+    "@angular/platform-server": "^2.4.7"
   },
   "devDependencies": {
-    "@types/chai": "^3.4.34",
-    "@types/node": "^6.0.41",
-    "typescript": "^2.0.9"
+    "core-js": "^2.4.1",
+    "http-server": "^0.9.0",
+    "jasmine-core": "~2.5.2",
+    "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "reflect-metadata": "^0.1.9",
+    "rxjs": "5.1.0",
+    "systemjs": "0.19.39",
+    "typescript": "^2.1.6",
+    "zone.js": "^0.7.6",
+    "@types/jasmine": "^2.5.42"
   }
 }

@@ -1,30 +1,25 @@
 import { nls } from './nls';
-import { Injectable } from '@angular/core';
 
-/**
- * DateService
- */
-@Injectable()
 export class DateService {
     private static _local: string;
     public get locale() {
         return DateService._local || 'en-US';
     }
     public set locale(val: string) {
-        if (!this.DatepickerNls.checkExists(val)) {
+        if (!nls.checkExists(val)) {
             throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR/de avaliable';
         }
         DateService._local = val;
     }
-    constructor(private DatepickerNls: nls, ) {
+    constructor() {
     }
     // private locale = ((<any>window).navigator['userLanguage'] || window.navigator.language).toLowerCase();
 
     public getDaysOfWeek() {
-        return this.DatepickerNls.getWeekdays(this.locale);
+        return nls.getWeekdays(this.locale);
     }
     public getMonths() {
-        return this.DatepickerNls.getMonths(this.locale);
+        return nls.getMonths(this.locale);
     }
     public getYears() {
         let years: Array<any> = [];

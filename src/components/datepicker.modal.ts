@@ -48,7 +48,7 @@ export class DatePickerDisplayer extends ViewController {
      * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions: NavOptions = {}) {
-        return this._app.present(this, navOptions, AppPortal.MODAL);
+        return this._app.present(this, navOptions, <any>this._app._appRoot._modalPortal);
     }
 }
 @Injectable()

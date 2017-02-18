@@ -319,7 +319,8 @@ export class DatePickerComponent {
     public active: boolean = false;
     public type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
     public mode: 'calendar' | undefined = 'calendar';
-    constructor(public viewCtrl: ViewController, public DatepickerService: DateService, public navParams: NavParams) {
+    public DatepickerService: DateService = new DateService();
+    constructor(public viewCtrl: ViewController, public navParams: NavParams) {
         this.callback = navParams.data.changed;
         this.cancel = navParams.data.canceled;
         this.min = navParams.data.min;

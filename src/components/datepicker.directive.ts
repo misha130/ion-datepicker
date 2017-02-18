@@ -29,8 +29,9 @@ export class DatePickerDirective {
   @Input() public hclasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
+  public dateService: DateService = new DateService();
   private _fn: any;
-  constructor(public datepickerCtrl: DatePickerController, public dateService: DateService) {
+  constructor(public datepickerCtrl: DatePickerController, ) {
     this.changed.subscribe((d: Date) => {
       this.value = d;
     });
