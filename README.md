@@ -24,6 +24,20 @@
 		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 ```
+
+### Dismiss the datepicker from the class  ###
+
+```
+
+    import { DatePickerDirective } from 'datepicker-ionic2';
+
+	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
+
+    public closeDatepicker(){
+        this.datepickerDirective.dismiss();
+    }
+    
+```
 a) `[value]` defines the initial value
 
 b) `[min]` is minimum date that user is allowed to select.  (not required)
