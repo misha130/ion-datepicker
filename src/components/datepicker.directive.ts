@@ -2,7 +2,7 @@ import { App, ModalOptions, ViewController } from 'ionic-angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
-import { DatePickerController } from './datepicker.modal';
+import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
 import { DatePickerData } from './datepicker.interface';
 import { DatePipe } from "@angular/common";
 import { DateService } from './datepicker.service';
@@ -29,6 +29,7 @@ export class DatePickerDirective {
   @Input() public hclasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
+  public modal: DatePickerDisplayer;
   public dateService: DateService = new DateService();
   private _fn: any;
   constructor(public datepickerCtrl: DatePickerController, ) {
@@ -56,7 +57,7 @@ export class DatePickerDirective {
       okText: this.okText,
       cancelText: this.cancelText
     }
-    let modal = this.datepickerCtrl.create(data, this.modalOptions);
-    modal.present();
+    this.modal = this.datepickerCtrl.create(data, this.modalOptions);
+    this.modal.present();
   }
 }
