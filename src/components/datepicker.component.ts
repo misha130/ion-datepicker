@@ -10,7 +10,7 @@ import { DateService } from './datepicker.service';
         <div class="datepicker-modal-head datepicker-balanced white bold" [ngClass]="hClasses">
             <div class="datepicker-modal-title">{{getSelectedWeekday()}}</div>
         </div>
-        <div class="center datepicker-balanced-light" [ngClass]="dClasses">
+        <div class="center datepicker-balanced-light datepicker-modal-head-details" [ngClass]="dClasses">
             <div class="row">
                 <div class="col datepicker-month-js datepicker-month" (click)="changeType('month')">
                     {{limitTo(getSelectedMonth(),3)}}
@@ -240,23 +240,10 @@ import { DateService } from './datepicker.service';
 }
 
 .datepicker-modal-buttons {
-  padding-top: 10%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-direction: normal;
-  -webkit-box-orient: horizontal;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  padding: 10px;
-  min-height: 65px;
-  font-size: 12px;
-  font-weight: 700
+   position: absolute;
+   width: 100%;
+   bottom: 0px;
+   display: flex;
 }
 
 .datepicker-modal-buttons .button {
@@ -282,8 +269,8 @@ import { DateService } from './datepicker.service';
 }
 
 .calendar-row {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 3%;
+  padding-bottom: 3%;
   display: flex;
   justify-content: space-around;
 }
@@ -306,6 +293,7 @@ export class DatePickerComponent {
     public min: Date;
     public max: Date;
     public callback: EventEmitter<string | Date>;
+    public dateSelected: EventEmitter<string | Date>;
     public cancel: EventEmitter<void>;
     public hClasses: any[] = [];
     public dClasses: any[] = [];
@@ -336,6 +324,7 @@ export class DatePickerComponent {
         this.calendar = navParams.data.calendar || false;
         this.selectedDate = navParams.data.date || new Date();
         this.okText = navParams.data.okText || 'OK';
+        this.dateSelected = navParams.data.dateSelected || new EventEmitter<string | Date>();
         this.cancelText = navParams.data.cancelText || 'Cancel';
         if (this.calendar) this.type = 'calendar';
         this.initialize();
@@ -442,6 +431,7 @@ export class DatePickerComponent {
         this.selectedDate = date;
         this.selectedDate.setHours(0, 0, 0, 0);
         this.tempDate = this.selectedDate;
+        this.dateSelected.emit(this.tempDate);
     }
 
     public selectMonth(month: number): void {
