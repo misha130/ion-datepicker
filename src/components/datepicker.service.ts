@@ -28,17 +28,16 @@ export class DateService {
     }
     public createDateList(currentDate: Date) {
         let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDate();
-        let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
+        let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
         let dateList: Date[] = [];
 
         for (var i = firstDay; i <= lastDay; i++) {
             dateList.push(new Date(currentDate.getFullYear(), currentDate.getMonth(), i));
         }
 
-        firstDay = dateList[0].getDay();
-        // for (var j = 0; j < firstDay; j++) {
-        //     dateList.unshift(undefined);
-        // }
+        for (var j = 0; j < firstDay; j++) {
+            dateList.unshift(undefined);
+        }
         return dateList;
     }
 }
