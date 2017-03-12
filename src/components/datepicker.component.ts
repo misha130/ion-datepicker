@@ -77,6 +77,11 @@ import { DateService } from './datepicker.service';
 
               {{getTempMonth()}}  {{getTempYear()}}
      <button (click)="nextMonth()" ion-button="" class="disable-hover button button-ios button-default button-default-ios"><span class="button-inner"><ion-icon name="arrow-forward" role="img" class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward"></ion-icon></span><div class="button-effect"></div></button>            </div>
+            <div class="row calendar-row">
+                <span class="col bold calendar-cell" *ngFor="let dayOfWeek of getDaysOfWeek()">
+                    {{limitTo(dayOfWeek,3)}}
+                </span>
+            </div>
             <div *ngFor="let week of rows;let i = index;" class="row calendar-row">
                 <span class="col calendar-cell datepicker-selection datepicker-date-cell" *ngFor="let day of cols;let j=index;" [ngClass]="{
                   'datepicker-date-col': isDefined(getDate(i, j)),
