@@ -27,17 +27,21 @@ export class DateService {
         return years;
     }
     public createDateList(currentDate: Date) {
+        let firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
         let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDate();
         let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
         let dateList: Date[] = [];
 
+        // Empty placeholders so dates align with weekday columns
+        for (var j = 0; j < firstDayOfWeek; j++) {
+            dateList.push(undefined);
+        }
+
+        // Actual dates
         for (var i = firstDay; i <= lastDay; i++) {
             dateList.push(new Date(currentDate.getFullYear(), currentDate.getMonth(), i));
         }
 
-        for (var j = 0; j < firstDay; j++) {
-            dateList.unshift(undefined);
-        }
         return dateList;
     }
 }
