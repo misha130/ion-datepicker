@@ -72,7 +72,7 @@ import { DateService } from './datepicker.service';
             </div>
         </div>
         <div class="datepicker-calendar" *ngIf="showType('calendar')">
-            <div class="row col center">
+            <div class="row col center datepicker-controls">
             <button (click)="prevMonth()" ion-button="" class="disable-hover button button-ios button-default button-default-ios"><span class="button-inner"><ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>
 
               {{getTempMonth()}}  {{getTempYear()}}
@@ -128,7 +128,10 @@ import { DateService } from './datepicker.service';
 .datepicker-selection {
   cursor: pointer;
 }
-
+.datepicker-controls{
+      align-items: center;
+  justify-content: space-between;
+}
 .datepicker-month,
 .datepicker-year {
   font-size: 14px
@@ -276,6 +279,7 @@ import { DateService } from './datepicker.service';
 }
 
 .calendar-cell {
+  text-align: center;
   height: 25px;
   width: 25px;
 }
@@ -286,15 +290,15 @@ import { DateService } from './datepicker.service';
 
 export class DatePickerComponent {
 
-    public static config: any;
-    public date: Date;
-    public okText: string;
-    public cancelText: string;
-    public min: Date;
-    public max: Date;
-    public callback: EventEmitter<string | Date>;
-    public dateSelected: EventEmitter<string | Date>;
-    public cancel: EventEmitter<void>;
+    public static config: any = undefined;
+    public date: Date = undefined;
+    public okText: string = undefined;
+    public cancelText: string = undefined;
+    public min: Date = undefined;
+    public max: Date = undefined;
+    public callback: EventEmitter<string | Date> = undefined;
+    public dateSelected: EventEmitter<string | Date> = undefined;
+    public cancel: EventEmitter<void> = undefined;
     public hClasses: any[] = [];
     public dClasses: any[] = [];
     public full: boolean = false;
@@ -303,17 +307,19 @@ export class DatePickerComponent {
     @ViewChild('yearscroll') public yearscroll: ElementRef;
     public today: Date = new Date();
     public selectedDate: Date = new Date();
-    public tempDate: Date;
-    public dateList: Date[];
-    public cols: number[];
-    public rows: number[];
-    public weekdays: string[];
-    public months: string[];
+    public tempDate: Date = undefined;
+    public dateList: Date[] = undefined;
+    public cols: number[] = undefined;
+    public rows: number[] = undefined;
+    public weekdays: string[] = undefined;
+    public months: string[] = undefined;
     public active: boolean = false;
     public type: 'date' | 'string' | 'year' | 'month' | 'calendar' = 'date';
     public mode: 'calendar' | undefined = 'calendar';
-    public DatepickerService: DateService = new DateService();
-    constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+    constructor(
+        public viewCtrl: ViewController,
+        public navParams: NavParams,
+        public DatepickerService: DateService) {
         this.callback = navParams.data.changed;
         this.cancel = navParams.data.canceled;
         this.min = navParams.data.min;

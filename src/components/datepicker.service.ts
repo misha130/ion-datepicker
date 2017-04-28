@@ -1,7 +1,9 @@
+import { Injectable } from "@angular/core";
 import { nls } from './nls';
 
+@Injectable()
 export class DateService {
-    private static _local: string;
+    private static _local: string = undefined;
     public get locale() {
         return DateService._local || 'en-US';
     }

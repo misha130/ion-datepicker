@@ -1,8 +1,8 @@
 import { App, ModalOptions, ViewController } from 'ionic-angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
-import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
 import { DatePickerData } from './datepicker.interface';
 import { DatePipe } from "@angular/common";
 import { DateService } from './datepicker.service';
@@ -31,9 +31,10 @@ export class DatePickerDirective {
   @Input() public value: Date = new Date();
   public dateSelected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   public modal: DatePickerDisplayer;
-  public dateService: DateService = new DateService();
   private _fn: any;
-  constructor(public datepickerCtrl: DatePickerController, ) {
+  constructor(
+    public datepickerCtrl: DatePickerController,
+    public dateService: DateService) {
     this.changed.subscribe((d: Date) => {
       this.value = d;
     });
