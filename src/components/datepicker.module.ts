@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DatePickerComponent } from './datepicker.component';
 import { DatePickerController } from './datepicker.modal';
@@ -10,7 +9,6 @@ import { DateService } from './datepicker.service';
 @NgModule({
     imports: [
         CommonModule,
-        BrowserModule
     ],
     exports: [
         DatePickerComponent,
