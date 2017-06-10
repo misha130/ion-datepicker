@@ -1,4 +1,5 @@
 
+
 ## How to use ###
 
 ### 1) Install using npm ###
@@ -38,6 +39,10 @@
     }
     
 ```
+
+## Please note en-US locale starts the calendar with monday and en-UK starts it with sunday ###
+
+
 a) `[value]` defines the initial value
 
 b) `[min]` is minimum date that user is allowed to select.  (not required)
@@ -58,7 +63,7 @@ i) `[calendar]` - a boolean that makes the date picker display as a calendar
 
 j) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
-k) `[locale]` - for translating the calendar. Avaliable local is en-US, he-IL, pt-BR, ru-RU, de, fi
+k) `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, zh-TW, zh-CN
 
 l) `[okText]` - Text for the ok button
 

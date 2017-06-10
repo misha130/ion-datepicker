@@ -373,7 +373,7 @@ export class DatePickerComponent {
     }
 
     public getDate(row: number, col: number): Date {
-        return this.dateList[row * 7 + col];
+        return this.dateList[(row * 7 + col) + ((this.DatepickerService.locale === 'en-US') ? 1 : 0)];
     }
 
     public isDefined(date: Date | string): boolean {
@@ -494,6 +494,8 @@ export class DatePickerComponent {
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (Array.isArray(arr))
             return arr.splice(0, limit);
+        if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
+            arr = arr.replace("星期", "")
         return (<string>arr).slice(0, limit);
     }
     public getMonthRows(): {}[] {

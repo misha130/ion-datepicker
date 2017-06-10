@@ -1,6 +1,6 @@
 {
   "name": "datepicker-ionic2",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "A date picker for ionic2 framework",
   "main": "index.js",
   "author": "Misha Tarnorutksy <misha130@gmail.com>",
@@ -27,13 +27,13 @@
   "dependencies": {},
   "devDependencies": {
     "ionicons": "3.0.0",
-    "ionic-angular": "^3.1.1",
+    "ionic-angular": "^3.3.0",
     "@angular/common": "^4.1.0",
     "@angular/compiler": "^4.1.0",
     "@angular/compiler-cli": "^4.1.0",
     "@angular/core": "^4.1.0",
     "@angular/http": "^4.1.0",
-    "@angular/forms":"^4.1.0",
+    "@angular/forms": "^4.1.0",
     "@angular/platform-browser": "^4.1.0",
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/platform-server": "^4.1.0",

@@ -1,13 +1,14 @@
+import { languages, nls } from './nls';
+
 import { Injectable } from "@angular/core";
-import { nls } from './nls';
 
 @Injectable()
 export class DateService {
-    private static _local: string = undefined;
-    public get locale() {
-        return DateService._local || 'en-US';
+    private static _local: languages = undefined;
+    public get locale(): languages {
+        return DateService._local || 'en-UK';
     }
-    public set locale(val: string) {
+    public set locale(val: languages) {
         if (!nls.checkExists(val)) {
             throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR/de avaliable';
         }

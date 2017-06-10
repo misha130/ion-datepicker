@@ -10,5 +10,4 @@ export interface DatePickerData {
     date?: Date;
     okText: string;
     cancelText: string;
-
 }
