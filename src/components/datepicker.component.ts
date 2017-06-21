@@ -373,7 +373,9 @@ export class DatePickerComponent {
     }
 
     public getDate(row: number, col: number): Date {
-        return this.dateList[(row * 7 + col) + ((this.DatepickerService.locale === 'en-US') ? 1 : 0)];
+        return this.dateList[(row * 7 + col) + ((this.DatepickerService.locale === 'en-US'
+            || this.DatepickerService.locale === 'zh-CN' ||
+            this.DatepickerService.locale === 'zh-TW') ? 1 : 0)];
     }
 
     public isDefined(date: Date | string): boolean {

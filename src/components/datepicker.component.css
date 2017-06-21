@@ -1,4 +1,12 @@
-.center {
+ .datepicker-content {
+  overflow: auto
+}
+
+.visible-overflow {
+  overflow: visible
+}
+
+    .center {
   text-align: center
 }
 
@@ -16,12 +24,15 @@
 }
 
 .datepicker-selection {
-  cursor: pointer
+  cursor: pointer;
 }
-
+.datepicker-controls{
+      align-items: center;
+  justify-content: space-between;
+}
 .datepicker-month,
 .datepicker-year {
-  font-size: 14px
+  font-size: 14px;
 }
 
 .datepicker-day-of-month {
@@ -42,28 +53,27 @@
 }
 
 .datepicker-color-balanced-light {
-  color: #009688!important
+  color: #009688
 }
 
 .datepicker-date-col:hover {
   background-color: rgba(56, 126, 245, .5);
-  cursor: pointer
+  cursor: pointer;
+  border-radius: 20px;
 }
 
 .no-padding {
   padding: 0
 }
 
-.datepicker-date-cell {
-  padding: 5px
-}
-
 .datepicker-selected {
-  background-color: rgba(182, 217, 214, 1)
+  background-color: rgba(182, 217, 214, 1);
+  border-radius:20px;
 }
 
 .datepicker-current {
-  color: rgba(60, 170, 159, 1)
+  color: rgba(60, 170, 159, 1);
+  border-radius:20px;
 }
 
 .datepicker-disabled {
@@ -127,23 +137,10 @@
 }
 
 .datepicker-modal-buttons {
-  padding-top: 10%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-direction: normal;
-  -webkit-box-orient: horizontal;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  padding: 10px;
-  min-height: 65px;
-  font-size: 12px;
-  font-weight: 700
+   position: absolute;
+   width: 100%;
+   bottom: 0px;
+   display: flex;
 }
 
 .datepicker-modal-buttons .button {
@@ -169,13 +166,7 @@
 }
 
 .calendar-row {
-  padding-top: 15px;
-  padding-bottom: 15px;
   display: flex;
   justify-content: space-around;
 }
 
-.calendar-cell {
-  height: 25px;
-  width: 25px;
-}

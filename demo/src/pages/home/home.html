@@ -1,7 +1,17 @@
-<ion-toolbar darkergraytoolbar class="toolbarPlan">
+<ion-toolbar darkergraytoolbar
+ class="toolbarPlan">
 
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
-	<span ion-datepicker locale="en-UK" (ionChanged)="event($event)" (ionCanceled)="Log()" okText="Ok" cancelText="Cancel" [value]="localDate" [min]="min" full="true" calendar="true" clear class="ScheduleDate">
+	<span ion-datepicker=l
+	 ocale="en-UK"
+	 (ionChanged)="event($event)"
+	 (ionCanceled)="Log()"
+	 okText="Ok"
+	 cancelText="Cancel"
+	 [value]="localDate"
+	 [min]="min"
+	 clear
+	 class="ScheduleDate">
 {{localDate | date:'dd-MM-yyyy' }} 
 	</span>
 
