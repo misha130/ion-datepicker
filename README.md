@@ -68,4 +68,4 @@ k) `[cancelText]` - Text for the cancel button
 
 ### 4) Pictures ###
 
-<img src="https://i.gyazo.com/a896872c388637c97dc21f0bb0391820.png" height="450">
+<img src="https://i.gyazo.com/0caf3169c08777da99bf98ba7f328c41.png" height="450">
