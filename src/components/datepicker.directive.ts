@@ -16,19 +16,16 @@ export class DatePickerDirective {
 
   @Input() public max: Date;
   @Input() public min: Date;
-  @Input() public calendar: boolean;
   @Input() public set locale(val: string) {
     if (val)
       this.dateService.locale = val;
   };
   @Input() public okText: string;
   @Input() public cancelText: string;
-
-  @Input() public dclasses: Array<string>;
-  @Input() public hclasses: Array<string>;
+  @Input() public bodyClasses: Array<string>;
+  @Input() public headerClasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
-  @Input() public monday: boolean = false;
   public dateSelected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   public modal: DatePickerDisplayer;
   private _fn: any;
@@ -49,8 +46,8 @@ export class DatePickerDirective {
     const data = <DatePickerData>{
       min: this.min,
       max: this.max,
-      bodyClasses: this.dclasses,
-      headerClasses: this.hclasses,
+      bodyClasses: this.bodyClasses,
+      headerClasses: this.headerClasses,
       ionChanged: this.changed,
       ionCanceled: this.canceled,
       ionSelected: this.dateSelected,
