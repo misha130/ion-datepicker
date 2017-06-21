@@ -1,13 +1,16 @@
+import { EventEmitter } from "@angular/core";
+import { languages } from './nls';
+
 export interface DatePickerData {
-    min?: Date;
-    max?: Date;
-    changed: any;
-    canceled: any;
-    hclasses?: Array<string>;
-    dclasses?: Array<string>;
-    full?: boolean;
-    calendar?: boolean;
-    date?: Date;
-    okText: string;
-    cancelText: string;
+    okText?: string,
+    cancelText?: string,
+    min?: Date,
+    max?: Date,
+    ionChanged: EventEmitter<Date>,
+    ionSelected: EventEmitter<Date>,
+    ionCanceled: EventEmitter<void>,
+    headerClasses?: string[],
+    bodyClasses?: string[],
+    date?: Date
+    locale?: languages;
 }

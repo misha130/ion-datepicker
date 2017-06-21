@@ -21,7 +21,6 @@ export class DatePickerDirective {
     if (val)
       this.dateService.locale = val;
   };
-  @Input() public full: boolean;
   @Input() public okText: string;
   @Input() public cancelText: string;
 
@@ -50,16 +49,14 @@ export class DatePickerDirective {
     const data = <DatePickerData>{
       min: this.min,
       max: this.max,
-      calendar: this.calendar,
-      full: this.full,
-      dclasses: this.dclasses,
-      hclasses: this.hclasses,
-      changed: this.changed,
-      canceled: this.canceled,
+      bodyClasses: this.dclasses,
+      headerClasses: this.hclasses,
+      ionChanged: this.changed,
+      ionCanceled: this.canceled,
+      ionSelected: this.dateSelected,
       date: this.value,
       okText: this.okText,
       cancelText: this.cancelText,
-      dateSelected: this.dateSelected,
     }
     this.modal = this.datepickerCtrl.create(data, this.modalOptions);
     this.modal.present();

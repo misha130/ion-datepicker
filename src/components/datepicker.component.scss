@@ -1,8 +1,9 @@
-$calHeight:35%;
+$headerHeight:35%;
 $bodyheight:1;
-$footerheight:2;
-
+$footerheight:60px;
+ionic2-datepicker{
   .datepicker-wrapper{
+    height: 100%;
     background-color:white;
     display: flex;
     flex-direction: column;
@@ -12,7 +13,7 @@ $footerheight:2;
       background-color: #009688;
       display:flex;
       flex-flow: column;
-      height:$calHeight;
+      height:$headerHeight;
       .date-header{
         display:flex;
         flex-flow: column;
@@ -41,12 +42,15 @@ $footerheight:2;
 .weekdays-row{
   text-align:center;
 }
+
   .datepicker-calendar{
+    height:calc(100% - (#{$headerHeight} + #{$footerheight}));
         .datepicker-controls{
           align-items: center;
           justify-content: space-between;
         }
         .calendar-wrapper{
+          height:calc(100% - #{$footerheight} - 40px);
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -85,7 +89,10 @@ $footerheight:2;
   .datepicker-footer{
     display:flex;
     justify-content: space-between;
+    height:$footerheight;
     button{
       width:100%;
     }
   }
+
+}
