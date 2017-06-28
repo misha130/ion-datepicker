@@ -3,16 +3,14 @@
 
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
 	<span ion-datepicker
-	locale="en-UK"
-	 (ionChanged)="event($event)"
-	 (ionCanceled)="Log()"
-	 okText="Ok"
-	 cancelText="Cancel"
-	 [value]="localDate"
-	 [min]="min"
+	 (ionChanged)="setDate($event);"
+	 [value]="initDate"
+	
+	 [okText]="'alert.ok'"
+	 [cancelText]="'alert.cancel'"
 	 clear
 	 class="ScheduleDate">
-{{localDate | date:'dd-MM-yyyy' }} 
+		<span>{{initDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 
 </ion-toolbar>

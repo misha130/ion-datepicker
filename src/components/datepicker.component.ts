@@ -196,6 +196,7 @@ export class DatePickerComponent {
         public navParams: NavParams,
         public DatepickerService: DateService) {
         this.config = this.navParams.data;
+        this.selectedDate = this.navParams.data.date;
         this.initialize();
     }
 
