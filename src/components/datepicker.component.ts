@@ -326,6 +326,7 @@ export class DatePickerComponent {
         this.selectedDate = this.tempDate;
     }
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
+        if(this.DatepickerService.locale === 'de') limit = 2;
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
