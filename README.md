@@ -62,12 +62,14 @@
  `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, zh-TW, zh-CN
 
  `[localeStrings]` - if you dont want to use the built translations - accepts an object { weekdays: string[], months: string[], monday:boolean },
-For example: {
+For example: 
+            ```
+            {
                 monday:true,
                 weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
             },
- `[monday]` - a boolean to determine whether the week starts with a monday or a sunday
+            ```
 
  `[okText]` - text for the ok button
 
