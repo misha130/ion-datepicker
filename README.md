@@ -43,27 +43,35 @@
 ## Please note en-US locale starts the calendar with monday and en-UK starts it with sunday ###
 
 
-a) `[value]` defines the initial value
+ `[value]` - defines the initial value
 
-b) `[min]` is minimum date that user is allowed to select.  (not required)
+ `[min]` - minimum date that user is allowed to select.  (not required)
 
-c) `[max]` is maximum date that user is allowed to select.  (not required)
+ `[max]` - maximum date that user is allowed to select.  (not required)
 
-d) `(ionChanged)` is an event emitter that returns the date as a $event.
+ `(ionChanged)` - an event emitter that returns the date as a $event.
 
-e) `(ionCanceled)` is an event that is raised when the cancel button is activated. Returns no data.
+ `(ionCanceled)` - an event that is raised when the cancel button is activated. Returns no data.
 
-f) `[headerClasses]` is a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
+ `[headerClasses]` - a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
-g) `[bodyClasses]` is a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
+ `[bodyClasses]` - a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
 
-h) `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
+ `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
-i) `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, zh-TW, zh-CN
+ `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, zh-TW, zh-CN
 
-j) `[okText]` - Text for the ok button
+ `[localeStrings]` - if you dont want to use the built translations - accepts an object { weekdays: string[], months: string[], monday:boolean },
+For example: {
+                monday:true,
+                weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            },
+ `[monday]` - a boolean to determine whether the week starts with a monday or a sunday
 
-k) `[cancelText]` - Text for the cancel button
+ `[okText]` - text for the ok button
+
+ `[cancelText]` - text for the cancel button
 
 
 ### 4) Pictures ###

@@ -1,8 +1,12 @@
 
 export module nls {
-    export const _nls: any =
+    export const _nls =
         {
+            'custom': {
+
+            },
             'en-US': {
+                monday: true,
                 weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
             },
@@ -48,7 +52,7 @@ export module nls {
     export function getMonths(locale: languages): string[] {
         return this.getNls(locale).months;
     }
-    export function getNls(locale: languages): { weekdays: string[], months: string[] } {
+    export function getNls(locale: languages): { weekdays: string[], months: string[], monday: boolean } {
         return this._nls[locale] || this._nls['en-US'];
     }
 
@@ -57,4 +61,4 @@ export module nls {
         return keys.some(key => key === locale);
     }
 }
-export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'zh-TW' | 'zh-CN';
+export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'zh-TW' | 'zh-CN' | 'custom';

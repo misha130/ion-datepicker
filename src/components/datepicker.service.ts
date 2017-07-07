@@ -18,11 +18,18 @@ export class DateService {
     }
     // private locale = ((<any>window).navigator['userLanguage'] || window.navigator.language).toLowerCase();
 
+    public setCustomNls(val: { weekdays: string[], months: string[] }) {
+        nls._nls.custom = val;
+    }
     public getDaysOfWeek() {
         return nls.getWeekdays(this.locale);
     }
     public getMonths() {
         return nls.getMonths(this.locale);
+    }
+
+    public doesStartFromMonday(): boolean {
+        return nls.getNls(this.locale).monday === true;
     }
     public getYears() {
         let years: Array<any> = [];

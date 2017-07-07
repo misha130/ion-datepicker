@@ -20,12 +20,20 @@ export class DatePickerDirective {
     if (val)
       this.dateService.locale = val;
   };
+  @Input() public set localeStrings(val: { weekdays: string[], months: string[] }) {
+    if (val) {
+      this.dateService.locale = 'custom';
+      this.locale = 'custom';
+      this.dateService.setCustomNls(val);
+    }
+  };
   @Input() public okText: string;
   @Input() public cancelText: string;
   @Input() public bodyClasses: Array<string>;
   @Input() public headerClasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
+
   public dateSelected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   public modal: DatePickerDisplayer;
   private _fn: any;

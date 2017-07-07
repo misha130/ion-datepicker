@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation } from "@angular/core";
+import { Component, EventEmitter, ViewEncapsulation } from "@angular/core";
 import { NavParams, ViewController } from 'ionic-angular';
 
 import { DateService } from './datepicker.service';
@@ -231,7 +231,7 @@ export class DatePickerComponent {
         /**
          * @description The locale en-US is noted for the sake of starting with monday if its in usa
          */
-        return this.dateList[(row * 7 + col) + ((this.DatepickerService.locale === 'en-US') ? 1 : 0)];
+        return this.dateList[(row * 7 + col) + ((this.DatepickerService.doesStartFromMonday()) ? 1 : 0)];
     }
 
     /**
@@ -326,7 +326,8 @@ export class DatePickerComponent {
         this.selectedDate = this.tempDate;
     }
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
-        if(this.DatepickerService.locale === 'de') limit = 2;
+        if (this.DatepickerService.locale === 'custom') return arr;
+        if (this.DatepickerService.locale === 'de') limit = 2;
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
