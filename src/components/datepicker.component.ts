@@ -32,12 +32,12 @@ import { DateService } from './datepicker.service';
     <div class="datepicker-calendar"
         [ngClass]="config.bodyClasses">
         <div class="row col datepicker-controls">
-            <button (click)="prevMonth()"
+            <button (tap)="prevMonth()"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
                     <ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>            {{getTempMonth()}} {{getTempYear()}}
-            <button (click)="nextMonth()"
+            <button (tap)="nextMonth()"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
@@ -59,18 +59,18 @@ import { DateService } from './datepicker.service';
                   'datepicker-current' : isActualDate(getDate(i, j)),
                   'datepicker-disabled': isDisabled(getDate(i, j))
                   }"
-                    (click)="selectDate(getDate(i, j))">
+                    (tap)="selectDate(getDate(i, j))">
 					{{getDate(i, j) | date:'d'}}
 				</span>
             </div>
         </div>
     </div>
     <div class="datepicker-footer">
-        <button (click)="onCancel($event)"
+        <button (tap)="onCancel($event)"
             ion-button=""
             class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
             <span class="button-inner">{{config.cancelText || 'Cancel'}}</span><div class="button-effect"></div></button>
-        <button (click)="onDone($event)"
+        <button (tap)="onDone($event)"
             ion-button=""
             class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
             <span class="button-inner">{{config.okText || 'OK'}}</span><div class="button-effect"></div></button>

@@ -45,7 +45,7 @@ export class DatePickerDirective {
     });
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('tap', ['$event'])
   _click(ev: UIEvent) {
     this.open();
   }
