@@ -69,11 +69,11 @@ import { DateService } from './datepicker.service';
         <button (click)="onCancel($event)"
             ion-button=""
             class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.cancelText}}</span><div class="button-effect"></div></button>
+            <span class="button-inner">{{config.cancelText || 'Cancel'}}</span><div class="button-effect"></div></button>
         <button (click)="onDone($event)"
             ion-button=""
             class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.okText}}</span><div class="button-effect"></div></button>
+            <span class="button-inner">{{config.okText || 'OK'}}</span><div class="button-effect"></div></button>
     </div>
 </div>
     `,
@@ -178,7 +178,8 @@ export class DatePickerComponent {
         ionCanceled: EventEmitter<void>,
         headerClasses: string[],
         bodyClasses: string[],
-        date: Date
+        date: Date,
+        disabledDates: Date[],
     };
     public selectedDate: Date = new Date();
     public dateList: Date[];
@@ -248,14 +249,16 @@ export class DatePickerComponent {
             this.config.max.setHours(0, 0, 0, 0);
             if (date > this.config.max) return true;
         }
+        if (this.config.disabledDates) {
+            return this.config.disabledDates.some(disabledDate =>
+                this.areEqualDates(new Date(disabledDate), date));
+        }
         return false;
     }
 
     public isActualDate(date: Date): boolean {
         if (!date) return false;
-        return date.getDate() === this.today.getDate() &&
-            date.getMonth() === this.today.getMonth() &&
-            date.getFullYear() === this.today.getFullYear();
+        return this.areEqualDates(date, this.today);
     }
 
     public isActualMonth(month: number): boolean {
@@ -268,9 +271,7 @@ export class DatePickerComponent {
 
     public isSelectedDate(date: Date): boolean {
         if (!date) return false;
-        return date.getDate() === this.selectedDate.getDate() &&
-            date.getMonth() === this.selectedDate.getMonth() &&
-            date.getFullYear() === this.selectedDate.getFullYear();
+        return this.areEqualDates(date, this.selectedDate);
     }
 
     public isSelectedMonth(month: number): boolean {
@@ -324,6 +325,12 @@ export class DatePickerComponent {
         this.createDateList(this.tempDate);
         if (this.isDisabled(this.tempDate)) return;
         this.selectedDate = this.tempDate;
+    }
+
+    private areEqualDates(dateA: Date, dateB: Date) {
+        return dateA.getDate() === dateB.getDate() &&
+            dateA.getMonth() === dateB.getMonth() &&
+            dateA.getFullYear() === dateB.getFullYear();
     }
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (this.DatepickerService.locale === 'custom') return arr;

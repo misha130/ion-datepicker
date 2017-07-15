@@ -49,6 +49,8 @@
 
  `[max]` - maximum date that user is allowed to select.  (not required)
 
+ `[disabledDates]` - An array of dates that should be disabled (not required)
+
  `(ionChanged)` - an event emitter that returns the date as a $event.
 
  `(ionCanceled)` - an event that is raised when the cancel button is activated. Returns no data.

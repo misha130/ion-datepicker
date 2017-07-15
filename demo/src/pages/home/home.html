@@ -5,8 +5,7 @@
 	<span ion-datepicker
 	 (ionChanged)="setDate($event);"
 	 [value]="initDate"
-	 [okText]="'alert.ok'"
-	 [cancelText]="'alert.cancel'"
+	  [disabledDates]="disabledDates"
 	 [localeStrings]="{
 		 		monday:true,
                 weekdays: [ 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag','Sonntag'],

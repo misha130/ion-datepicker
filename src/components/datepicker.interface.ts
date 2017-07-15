@@ -13,4 +13,5 @@ export interface DatePickerData {
     bodyClasses?: string[],
     date?: Date
     locale?: languages;
+    disabledDates: Date[];
 }

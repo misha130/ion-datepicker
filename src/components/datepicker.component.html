@@ -63,10 +63,10 @@
         <button (click)="onCancel($event)"
             ion-button=""
             class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.cancelText}}</span><div class="button-effect"></div></button>
+            <span class="button-inner">{{config.cancelText || 'Cancel'}}</span><div class="button-effect"></div></button>
         <button (click)="onDone($event)"
             ion-button=""
             class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.okText}}</span><div class="button-effect"></div></button>
+            <span class="button-inner">{{config.okText || 'OK'}}</span><div class="button-effect"></div></button>
     </div>
 </div>

@@ -33,7 +33,7 @@ export class DatePickerDirective {
   @Input() public headerClasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
-
+  @Input() public disabledDates: Date[] = [];
   public dateSelected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   public modal: DatePickerDisplayer;
   private _fn: any;
@@ -62,6 +62,7 @@ export class DatePickerDirective {
       date: this.value,
       okText: this.okText,
       cancelText: this.cancelText,
+      disabledDates: this.disabledDates,
     }
     this.modal = this.datepickerCtrl.create(data, this.modalOptions);
     this.modal.present();
