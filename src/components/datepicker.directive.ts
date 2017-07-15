@@ -4,7 +4,6 @@ import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
 import { DatePickerData } from './datepicker.interface';
-import { DatePipe } from "@angular/common";
 import { DateService } from './datepicker.service';
 
 @Directive({

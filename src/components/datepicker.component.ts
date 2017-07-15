@@ -19,12 +19,12 @@ import { DateService } from './datepicker.service';
             </div>
             <div class="row">
                 <div class="col datepicker-day-of-month ">
-                    {{selectedDate | date: 'd'}}
+                    {{getSelectedDate()}}
                 </div>
             </div>
             <div class="row">
                 <div class="col datepicker-year ">
-                    {{selectedDate | date: 'yyyy'}}
+                    {{ getSelectedYear()}}
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@ import { DateService } from './datepicker.service';
                   'datepicker-disabled': isDisabled(getDate(i, j))
                   }"
                     (tap)="selectDate(getDate(i, j))">
-					{{getDate(i, j) | date:'d'}}
+					{{getDateAsDay(i, j)}}
 				</span>
             </div>
         </div>
@@ -130,10 +130,7 @@ ionic2-datepicker .datepicker-calendar .calendar-wrapper {
   flex-direction: column;
   justify-content: space-around;
 }
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-date-col:hover {
-  background-color: rgba(56, 126, 245, 0.5);
-  border-radius: 20px;
-}
+
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
   background-color: #b6d9d6;
   border-radius: 20px;
@@ -145,10 +142,7 @@ ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-current {
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-disabled {
   color: #aaaaaa;
 }
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-disabled:hover {
-  background-color: transparent;
-  cursor: default;
-}
+
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .calendar-cell {
   flex-flow: row wrap;
   text-align: center;
@@ -224,7 +218,7 @@ export class DatePickerComponent {
     }
 
     /**
-     * @function getDate - gets the actual number of date from the list of dates
+     * @function getDate - gets the actual date of date from the list of dates
      * @param row - the row of the date in a month. For instance 14 date would be 3rd or 2nd row
      * @param col - the column of the date in a month. For instance 1 would be on the column of the weekday.
      */
@@ -234,6 +228,17 @@ export class DatePickerComponent {
          */
         return this.dateList[(row * 7 + col) + ((this.DatepickerService.doesStartFromMonday()) ? 1 : 0)];
     }
+
+    /**
+     * @function getDate - gets the actual number of date from the list of dates
+     * @param row - the row of the date in a month. For instance 14 date would be 3rd or 2nd row
+     * @param col - the column of the date in a month. For instance 1 would be on the column of the weekday.
+     */
+    public getDateAsDay(row: number, col: number): number {
+        let date = this.getDate(row, col);
+        if (date) return date.getDate();
+    }
+
 
     /**
      * @function isDisabled - Checks whether the date should be disabled or not
@@ -305,8 +310,18 @@ export class DatePickerComponent {
         return this.months[this.tempDate.getMonth()];
     }
     public getTempYear() {
-        return this.tempDate.getFullYear() || this.selectedDate.getFullYear();
+        return (this.tempDate || this.selectedDate).getFullYear();
     }
+
+    public getSelectedDate() {
+        return (this.selectedDate || new Date()).getDate();
+    }
+
+    public getSelectedYear() {
+        return (this.selectedDate || new Date()).getFullYear();
+    }
+
+
     public onCancel(e: Event) {
         if (this.config.date)
             this.selectedDate = this.config.date || new Date();
@@ -321,7 +336,6 @@ export class DatePickerComponent {
     };
 
     public selectMonthOrYear() {
-
         this.createDateList(this.tempDate);
         if (this.isDisabled(this.tempDate)) return;
         this.selectedDate = this.tempDate;
