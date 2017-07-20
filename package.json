@@ -1,21 +1,21 @@
 {
-  "name": "datepicker-ionic2",
+  "name": "ionic3-datepicker",
   "version": "2.4.8",
   "description": "A date picker for ionic2 framework",
   "main": "index.js",
-  "author": "Misha Tarnorutksy <misha130@gmail.com>",
+  "author": "Paulo Eduardo <pauloedsr@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/misha130/datepicker-ionic2"
+    "url": "https://github.com/pauloedsr/ionic3-datepicker"
   },
   "keywords": [
-    "datepicker-ionic2",
-    "ionic2",
-    "ionic2 datepicker",
+    "ionic3-datepicker",
+    "ionic3",
+    "ionic3 datepicker",
     "datepicker",
-    "datepicker ionic2",
-    "datepicker for ionic2",
-    "datepicker for ionic2 framework"
+    "datepicker ionic3",
+    "datepicker for ionic3",
+    "datepicker for ionic3 framework"
   ],
   "scripts": {
     "ngc": "ngc",

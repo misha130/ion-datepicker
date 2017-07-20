@@ -57,7 +57,8 @@ import { DateService } from './datepicker.service';
                   'datepicker-date-col': getDate(i, j) !== undefined,
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
-                  'datepicker-disabled': isDisabled(getDate(i, j))
+                  'datepicker-disabled': isDisabled(getDate(i, j)),
+                  'datepicker-mark' : isMark(getDate(i, j))
                   }"
                     (tap)="selectDate(getDate(i, j))">
 					{{getDateAsDay(i, j)}}
@@ -174,6 +175,7 @@ export class DatePickerComponent {
         bodyClasses: string[],
         date: Date,
         disabledDates: Date[],
+        markDates: Date[],
     };
     public selectedDate: Date = new Date();
     public dateList: Date[];
@@ -259,6 +261,14 @@ export class DatePickerComponent {
                 this.areEqualDates(new Date(disabledDate), date));
         }
         return false;
+    }
+
+    public idMark(date : Date): boolean {
+        if (this.config.markDates) {
+            return this.config.markDates.some(markDates =>
+                this.areEqualDates(new Date(markDates), date));
+        }
+        return false
     }
 
     public isActualDate(date: Date): boolean {
