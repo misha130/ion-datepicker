@@ -57,7 +57,8 @@ import { DateService } from './datepicker.service';
                   'datepicker-date-col': getDate(i, j) !== undefined,
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
-                  'datepicker-disabled': isDisabled(getDate(i, j))
+                  'datepicker-disabled': isDisabled(getDate(i, j)),
+                  'datepicker-mark' : isMark(getDate(i, j))
                   }"
                     (tap)="selectDate(getDate(i, j))">
 					{{getDateAsDay(i, j)}}
@@ -131,6 +132,10 @@ ionic2-datepicker .datepicker-calendar .calendar-wrapper {
   justify-content: space-around;
 }
 
+ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-mark {
+  background-color:#5b6c6b;
+  border-radius: 20px;
+}
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
   background-color: #b6d9d6;
   border-radius: 20px;
@@ -174,6 +179,7 @@ export class DatePickerComponent {
         bodyClasses: string[],
         date: Date,
         disabledDates: Date[],
+        markDates: Date[],
     };
     public selectedDate: Date = new Date();
     public dateList: Date[];
@@ -259,6 +265,15 @@ export class DatePickerComponent {
                 this.areEqualDates(new Date(disabledDate), date));
         }
         return false;
+    }
+
+    public isMark(date : Date): boolean {
+        if (!date) return false;
+        if (this.config.markDates) {
+            return this.config.markDates.some(markDate =>
+                this.areEqualDates(new Date(markDate), date));
+        }
+        return false
     }
 
     public isActualDate(date: Date): boolean {

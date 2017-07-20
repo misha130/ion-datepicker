@@ -14,4 +14,5 @@ export interface DatePickerData {
     date?: Date
     locale?: languages;
     disabledDates: Date[];
+    markDates: Date[];
 }
