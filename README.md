@@ -51,6 +51,8 @@
 
  `[disabledDates]` - An array of dates that should be disabled (not required)
 
+ `[markDates]` - An array of dates that should be mark (background-color) (not required)
+
  `(ionChanged)` - an event emitter that returns the date as a $event.
 
  `(ionCanceled)` - an event that is raised when the cancel button is activated. Returns no data.
