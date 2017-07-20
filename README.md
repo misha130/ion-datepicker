@@ -5,13 +5,13 @@
 ### 1) Install using npm ###
 
 ```
-    npm i ionic3-datepicker --save
+    npm i datepicker-ionic2 --save
 ```
 
 ### 2) Add it to your ngModule in app.module ###
 
 ```
- import { DatePickerModule } from 'ionic3-datepicker';
+ import { DatePickerModule } from 'datepicker-ionic2';
 ```
 ```
    imports: [
@@ -30,7 +30,7 @@
 
 ```
 
-    import { DatePickerDirective } from 'ionic3-datepicker';
+    import { DatePickerDirective } from 'datepicker-ionic2';
 
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
