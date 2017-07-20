@@ -263,10 +263,11 @@ export class DatePickerComponent {
         return false;
     }
 
-    public idMark(date : Date): boolean {
+    public isMark(date : Date): boolean {
+        if (!date) return true;
         if (this.config.markDates) {
-            return this.config.markDates.some(markDates =>
-                this.areEqualDates(new Date(markDates), date));
+            return this.config.markDates.some(markDate =>
+                this.areEqualDates(new Date(markDate), date));
         }
         return false
     }
