@@ -132,6 +132,10 @@ ionic2-datepicker .datepicker-calendar .calendar-wrapper {
   justify-content: space-around;
 }
 
+ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-mark {
+  background-color:#5b6c6b;
+  border-radius: 20px;
+}
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
   background-color: #b6d9d6;
   border-radius: 20px;
@@ -264,7 +268,7 @@ export class DatePickerComponent {
     }
 
     public isMark(date : Date): boolean {
-        if (!date) return true;
+        if (!date) return false;
         if (this.config.markDates) {
             return this.config.markDates.some(markDate =>
                 this.areEqualDates(new Date(markDate), date));
