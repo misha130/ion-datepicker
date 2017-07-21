@@ -1,5 +1,5 @@
 import { EventEmitter } from "@angular/core";
-import { languages } from './nls';
+import { languages } from '../services/nls';
 
 export interface DatePickerData {
     okText?: string,

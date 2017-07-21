@@ -5,13 +5,8 @@
 	<span ion-datepicker
 	 (ionChanged)="setDate($event);"
 	 [value]="initDate"
-	  [disabledDates]="disabledDates"
-	 [localeStrings]="{
-		 		monday:true,
-                weekdays: [ 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag','Sonntag'],
-                months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-                    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
-            }"
+	 [disabledDates]="disabledDates"
+	 locale="en-US"
 	 clear
 	 class="ScheduleDate">
 		<span>{{initDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>

@@ -4,7 +4,7 @@ import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
 import { DatePickerData } from './datepicker.interface';
-import { DateService } from './datepicker.service';
+import { DateService } from '../services/datepicker.service';
 
 @Directive({
   selector: 'ion-datepicker,[ion-datepicker]',

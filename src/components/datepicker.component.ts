@@ -1,7 +1,8 @@
 import { Component, EventEmitter, ViewEncapsulation } from "@angular/core";
 import { NavParams, ViewController } from 'ionic-angular';
 
-import { DateService } from './datepicker.service';
+import { DatePickerData } from './datepicker.interface';
+import { DateService } from '../services/datepicker.service';
 
 @Component({
     template: `
@@ -167,31 +168,87 @@ ionic2-datepicker .datepicker-footer button {
 })
 
 export class DatePickerComponent {
-    public config: {
-        okText: string,
-        cancelText: string,
-        min: Date,
-        max: Date,
-        ionChanged: EventEmitter<Date>,
-        ionSelected: EventEmitter<Date>,
-        ionCanceled: EventEmitter<void>,
-        headerClasses: string[],
-        bodyClasses: string[],
-        date: Date,
-        disabledDates: Date[],
-        markDates: Date[],
-    };
-    public selectedDate: Date = new Date();
-    public dateList: Date[];
-    public cols: number[];
-    public rows: number[];
-    public weekdays: string[];
-    public months: string[];
-    public years: string[];
-    public active: boolean = false;
-    private tempDate: Date;
-    private today: Date = new Date();
 
+    /**
+     * 
+     * @type {DatePickerData} 
+     * @description - represents the configuration of the datepicker
+     * @memberof DatePickerComponent
+     */
+    public config: DatePickerData;
+    /**
+     * 
+     * @type {Date}
+     * @description - The currently selected date when opening the datepicker
+     * @memberof DatePickerComponent
+     */
+    public selectedDate: Date = new Date();
+    /**
+     * 
+     * @type {Date[]}
+     * @description - The whole list of dates in a month
+     * @memberof DatePickerComponent
+     */
+    public dateList: Date[];
+    /**
+     * 
+     * @type {number[]}
+     * @description - The columns of a month
+     * @memberof DatePickerComponent
+     */
+    public cols: number[];
+    /**
+     * 
+     * @type {number[]}
+     * @description - The rows in a month
+     * @memberof DatePickerComponent
+     */
+    public rows: number[];
+    /**
+     * 
+     * @type {string[]}
+     * @description - An array of the weekday names
+     * @memberof DatePickerComponent
+     */
+    public weekdays: string[];
+    /**
+     * 
+     * @type {string[]}
+     * @description - An array of month names
+     * @memberof DatePickerComponent
+     */
+    public months: string[];
+    /**
+     * 
+     * @type {number[]}
+     * @description - An array of the years
+     * @memberof DatePickerComponent
+     */
+    public years: number[];
+    /**
+     * 
+     * @private
+     * @type {Date}
+     * @description - The selected date after opening the datepicker
+     * @memberof DatePickerComponent
+     */
+    private tempDate: Date;
+    /**
+     * 
+     * @private
+     * @type {Date}
+     * @description - Today's date
+     * @memberof DatePickerComponent
+     */
+    private today: Date = new Date();
+    /**
+     * 
+     * Creates an instance of DatePickerComponent.
+     * @param {ViewController} viewCtrl - dismissing the modal
+     * @param {NavParams} navParams - carrying the navigation parameters
+     * @param {DateService} DatepickerService - services for various things
+     * @memberof DatePickerComponent
+     */
     constructor(
         public viewCtrl: ViewController,
         public navParams: NavParams,
@@ -203,6 +260,7 @@ export class DatePickerComponent {
 
 
     /**
+     * 
      * @function initialize - Initializes date variables
      */
     public initialize(): void {
@@ -214,6 +272,7 @@ export class DatePickerComponent {
     }
 
     /**
+     * 
      * @function createDateList - creates the list of dates
      * @param selectedDate - creates the list based on the currently selected date
      */
@@ -232,10 +291,11 @@ export class DatePickerComponent {
         /**
          * @description The locale en-US is noted for the sake of starting with monday if its in usa
          */
-        return this.dateList[(row * 7 + col) + ((this.DatepickerService.doesStartFromMonday()) ? 1 : 0)];
+        return this.dateList[(row * 7 + col)];
     }
 
     /**
+     * 
      * @function getDate - gets the actual number of date from the list of dates
      * @param row - the row of the date in a month. For instance 14 date would be 3rd or 2nd row
      * @param col - the column of the date in a month. For instance 1 would be on the column of the weekday.
@@ -245,8 +305,8 @@ export class DatePickerComponent {
         if (date) return date.getDate();
     }
 
-
     /**
+     * 
      * @function isDisabled - Checks whether the date should be disabled or not
      * @param date - the date to test against
      */
@@ -266,8 +326,14 @@ export class DatePickerComponent {
         }
         return false;
     }
-
-    public isMark(date : Date): boolean {
+    /**
+     * 
+     * @function isMark - Checks whether the date should be marked
+     * @param {Date} date - date to check
+     * @returns {boolean} 
+     * @memberof DatePickerComponent
+     */
+    public isMark(date: Date): boolean {
         if (!date) return false;
         if (this.config.markDates) {
             return this.config.markDates.some(markDate =>
@@ -275,35 +341,37 @@ export class DatePickerComponent {
         }
         return false
     }
-
+    /**
+     * 
+     * @function isActualDate - Checks whether the date is today's date.
+     * @param {Date} date - date to check
+     * @returns {boolean} 
+     * @memberof DatePickerComponent
+     */
     public isActualDate(date: Date): boolean {
         if (!date) return false;
         return this.areEqualDates(date, this.today);
     }
 
-    public isActualMonth(month: number): boolean {
-        return month === this.today.getMonth();
-    }
-
-    public isActualYear(year: number): boolean {
-        return year === this.today.getFullYear();
-    }
-
+    /**
+    * 
+    * @function isSelectedDate - Checks whether the date is the selected date.
+    * @param {Date} date - date to check
+    * @returns {boolean} 
+    * @memberof DatePickerComponent
+    */
     public isSelectedDate(date: Date): boolean {
         if (!date) return false;
         return this.areEqualDates(date, this.selectedDate);
     }
 
-    public isSelectedMonth(month: number): boolean {
-        return month === this.tempDate.getMonth();
-    }
-
-    public isSelectedYear(year: number): boolean {
-        return year === this.tempDate.getFullYear();
-    }
-
-
-
+    /**
+     * 
+     * @function selectDate - selects a date and emits back the date
+     * @param {Date} date - date to select
+     * @returns {void} 
+     * @memberof DatePickerComponent
+     */
     public selectDate(date: Date): void {
         if (this.isDisabled(date)) return;
         this.selectedDate = date;
@@ -311,56 +379,97 @@ export class DatePickerComponent {
         this.tempDate = this.selectedDate;
         this.config.ionSelected.emit(this.tempDate);
     }
-
-
+    /**
+     * 
+     * @function getSelectedWeekday - Gets the selected date's weekday
+     * @returns {string} 
+     * @memberof DatePickerComponent
+     */
     public getSelectedWeekday(): string {
         return this.weekdays[this.selectedDate.getDay()];
     }
 
+    /**
+    * 
+    * @function getSelectedMonth - Gets the selected date's name of month
+    * @returns {string} 
+    * @memberof DatePickerComponent
+    */
     public getSelectedMonth(): string {
         return this.months[this.selectedDate.getMonth()];
     }
 
-    public getTempMonth() {
+    /**
+    * 
+    * @function getTempMonth - Gets the temporary selected date's name of month
+    * @returns {string} 
+    * @memberof DatePickerComponent
+    */
+    public getTempMonth(): string {
         return this.months[this.tempDate.getMonth()];
     }
-    public getTempYear() {
+
+    /**
+    * 
+    * @function getTempYear - Gets the temporary selected date's year
+    * @returns {number} 
+    * @memberof DatePickerComponent
+    */
+    public getTempYear(): number {
         return (this.tempDate || this.selectedDate).getFullYear();
     }
 
-    public getSelectedDate() {
+    /**
+    * 
+    * @function getSelectedDate - Gets selected date's date
+    * @returns {number} 
+    * @memberof DatePickerComponent
+    */
+    public getSelectedDate(): number {
         return (this.selectedDate || new Date()).getDate();
     }
 
-    public getSelectedYear() {
+    /**
+    * 
+    * @function getSelectedYear - Gets selected date's year
+    * @returns {number} 
+    * @memberof DatePickerComponent
+    */
+    public getSelectedYear(): number {
         return (this.selectedDate || new Date()).getFullYear();
     }
 
-
-    public onCancel(e: Event) {
+    /**
+     * 
+     * @function onCancel - activates on cancel and emits a cancel event
+     * @memberof DatePickerComponent
+     */
+    public onCancel(): void {
         if (this.config.date)
             this.selectedDate = this.config.date || new Date();
         this.config.ionCanceled.emit();
         this.viewCtrl.dismiss();
     };
 
-    public onDone(e: Event) {
+    /**
+    * 
+    * @function onDone - activates on done and emits date 
+    * @memberof DatePickerComponent
+    */
+    public onDone(): void {
         this.config.date = this.selectedDate;
         this.config.ionChanged.emit(this.config.date);
         this.viewCtrl.dismiss();
     };
 
-    public selectMonthOrYear() {
-        this.createDateList(this.tempDate);
-        if (this.isDisabled(this.tempDate)) return;
-        this.selectedDate = this.tempDate;
-    }
-
-    private areEqualDates(dateA: Date, dateB: Date) {
-        return dateA.getDate() === dateB.getDate() &&
-            dateA.getMonth() === dateB.getMonth() &&
-            dateA.getFullYear() === dateB.getFullYear();
-    }
+    /**
+     * 
+     * @function limitTo - removes part of the string depending on a language and its needs
+     * @param {(Array<string> | string)} arr - the array of strings to limit
+     * @param {number} limit - amount to limit
+     * @returns {(Array<string> | string)} 
+     * @memberof DatePickerComponent
+     */
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (this.DatepickerService.locale === 'custom') return arr;
         if (this.DatepickerService.locale === 'de') limit = 2;
@@ -370,9 +479,12 @@ export class DatePickerComponent {
             arr = arr.replace("星期", "")
         return (<string>arr).slice(0, limit);
     }
-    public getMonthRows(): {}[] {
-        return [];
-    }
+
+    /**
+     * 
+     * @function nextMonth - moves the calendar to the next month
+     * @memberof DatePickerComponent
+     */
     public nextMonth() {
         //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
         let testDate: Date = new Date(this.tempDate.getTime());
@@ -390,6 +502,12 @@ export class DatePickerComponent {
             this.createDateList(this.tempDate);
         }
     }
+
+    /**
+     * 
+     * @function prevMonth - moves the calendar to the previous month
+     * @memberof DatePickerComponent
+     */
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
         testDate.setDate(0);
@@ -399,5 +517,20 @@ export class DatePickerComponent {
             this.tempDate = testDate;
             this.createDateList(this.tempDate);
         }
+    }
+
+    /**
+     * 
+     * @function areEqualDates - compares 2 dates only by their month,date & year
+     * @private
+     * @param {Date} dateA - first date to compare
+     * @param {Date} dateB - second date to compare
+     * @returns 
+     * @memberof DatePickerComponent
+     */
+    private areEqualDates(dateA: Date, dateB: Date): boolean {
+        return dateA.getDate() === dateB.getDate() &&
+            dateA.getMonth() === dateB.getMonth() &&
+            dateA.getFullYear() === dateB.getFullYear();
     }
 }
