@@ -386,7 +386,7 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     public getSelectedWeekday(): string {
-        return this.weekdays[this.selectedDate.getDay()];
+        return this.weekdays[this.selectedDate.getDay() + (this.DatepickerService.doesStartFromMonday() ? -1 : 0)];
     }
 
     /**
