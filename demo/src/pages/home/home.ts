@@ -10,7 +10,11 @@ export class HomePage {
   public initDate: Date = new Date();
   public initDate2: Date = new Date(2015, 1, 1);
   public disabledDates: Date[] = [new Date(2017, 7, 14)];
-
+  public localeString = {
+    monday: true,
+    weekdays: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  };
   public maxDate: Date = new Date(new Date().setDate(new Date().getDate() + 30));
   public min: Date = new Date()
   constructor(public navCtrl: NavController) {
