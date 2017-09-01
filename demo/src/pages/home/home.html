@@ -1,20 +1,16 @@
 <ion-toolbar darkergraytoolbar
- class="toolbarPlan">
+             class="toolbarPlan">
 
-	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
-	<span ion-datepicker
-	 (ionChanged)="setDate($event);"
-	 [value]="initDate"
-	  [disabledDates]="disabledDates"
-	 [localeStrings]="{
-		 		monday:true,
-                weekdays: [ 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag','Sonntag'],
-                months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-                    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
-            }"
-	 clear
-	 class="ScheduleDate">
-		<span>{{initDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+  <!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
+  <span ion-datepicker
+        (ionChanged)="setDate($event);"
+        [max]="maxDate" [min]="initDate2"
+        [value]="initDate"
+        [showMaxAndMin]="true"
+        [disabledDates]="disabledDates"
+        clear
+        class="ScheduleDate">
+		<span>{{initDate | date}} <ion-icon name="clipboard" item-left></ion-icon> </span>
 	</span>
 
 </ion-toolbar>

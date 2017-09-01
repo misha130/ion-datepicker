@@ -25,16 +25,30 @@
     <div class="datepicker-calendar"
         [ngClass]="config.bodyClasses">
         <div class="row col datepicker-controls">
-            <button (click)="prevMonth()"
+            <button (click)="prevMonth()" [disabled]="previousDisabled"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
-                    <ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>            {{getTempMonth()}} {{getTempYear()}}
-            <button (click)="nextMonth()"
+                    <ion-icon name="arrow-back" role="img"
+                              class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back">
+
+                    </ion-icon></span><div class="button-effect"></div>
+            </button>
+            <select title="Month" name="equiptype" class="form-control" [formControl]="monthChanged" [(ngModel)]="selectedMonth" required>
+                <option></option>
+                <option *ngFor="let mon of months" [ngValue]="mon">{{mon}}</option>
+            </select>
+            <select title="Month" name="equiptype" class="form-control" [formControl]="yearChanged" [(ngModel)]="selectedYear" required>
+                <option></option>
+                <option *ngFor="let yea of yearsMaxMin" [ngValue]="yea">{{yea}}</option>
+            </select>
+            <button (click)="nextMonth()" [disabled]="nextDisabled"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
-                    <ion-icon name="arrow-forward" role="img" class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward"></ion-icon></span><div class="button-effect"></div></button>
+                    <ion-icon name="arrow-forward" role="img"
+                              class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward">
+                    </ion-icon></span><div class="button-effect"></div></button>
         </div>
         <div class="weekdays-row row">
             <span class="col calendar-cell"

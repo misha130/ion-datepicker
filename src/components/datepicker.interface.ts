@@ -4,6 +4,7 @@ import { languages } from './nls';
 export interface DatePickerData {
     okText?: string,
     cancelText?: string,
+    showMaxAndMin: boolean,
     min?: Date,
     max?: Date,
     ionChanged: EventEmitter<Date>,
