@@ -1,165 +1,202 @@
-import { Component, EventEmitter, ViewEncapsulation } from "@angular/core";
-import { NavParams, ViewController } from 'ionic-angular';
+import {Component, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {NavParams, ViewController} from 'ionic-angular';
 
-import { DateService } from './datepicker.service';
+import {DateService} from './datepicker.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
     template: `
-    <div class="datepicker-wrapper">
-    <div class="datepicker-header"
-        [ngClass]="config.headerClasses">
-        <div class="weekday-header">
-            <div class="weekday-title">{{getSelectedWeekday()}}</div>
-        </div>
-        <div class="date-header">
-            <div class="row">
-                <div class="col datepicker-month">
-                    {{limitTo(getSelectedMonth(),3)}}
+        <div class="datepicker-wrapper">
+            <div class="datepicker-header"
+                 [ngClass]="config.headerClasses">
+                <div class="weekday-header">
+                    <div class="weekday-title">{{getSelectedWeekday()}}</div>
+                </div>
+                <div class="date-header">
+                    <div class="row">
+                        <div class="col datepicker-month">
+                            {{limitTo(getSelectedMonth(), 3)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col datepicker-day-of-month ">
+                            {{selectedDate | date: 'd'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col datepicker-year ">
+                            {{selectedDate | date: 'yyyy'}}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col datepicker-day-of-month ">
-                    {{getSelectedDate()}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col datepicker-year ">
-                    {{ getSelectedYear()}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="datepicker-calendar"
-        [ngClass]="config.bodyClasses">
-        <div class="row col datepicker-controls">
-            <button (tap)="prevMonth()"
-                ion-button=""
-                class="disable-hover button button-ios button-default button-default-ios">
+            <div class="datepicker-calendar"
+                 [ngClass]="config.bodyClasses">
+                <div class="row col datepicker-controls">
+                    <button (click)="prevMonth()"
+                            ion-button=""
+                            class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
-                    <ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>            {{getTempMonth()}} {{getTempYear()}}
-            <button (tap)="nextMonth()"
-                ion-button=""
-                class="disable-hover button button-ios button-default button-default-ios">
+                    <ion-icon name="arrow-back" role="img"
+                              class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back">
+
+                    </ion-icon></span>
+                        <div class="button-effect"></div>
+                    </button>
+                    <select title="Month" name="equiptype" class="form-control" [formControl]="monthChanged" [(ngModel)]="selectedMonth" required>
+                        <option></option>
+                        <option *ngFor="let mon of months" [ngValue]="mon">{{mon}}</option>
+                    </select>
+                    <select title="Month" name="equiptype" class="form-control" [formControl]="yearChanged" [(ngModel)]="selectedYear" required>
+                        <option></option>
+                        <option *ngFor="let yea of yearsMaxMin" [ngValue]="yea">{{yea}}</option>
+                    </select>
+                    <button (click)="nextMonth()"
+                            ion-button=""
+                            class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
-                    <ion-icon name="arrow-forward" role="img" class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward"></ion-icon></span><div class="button-effect"></div></button>
-        </div>
-        <div class="weekdays-row row">
+                    <ion-icon name="arrow-forward" role="img"
+                              class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward">
+                    </ion-icon></span>
+                        <div class="button-effect"></div>
+                    </button>
+                </div>
+                <div class="weekdays-row row">
             <span class="col calendar-cell"
-                *ngFor="let dayOfWeek of weekdays">
-                    {{limitTo(dayOfWeek,3)}}
+                  *ngFor="let dayOfWeek of weekdays">
+                    {{limitTo(dayOfWeek, 3)}}
                 </span>
-        </div>
-        <div class="calendar-wrapper">
-            <div class="row calendar-row" *ngFor="let week of rows;let i = index;">
+                </div>
+                <div class="calendar-wrapper">
+                    <div class="row calendar-row"
+                         *ngFor="let week of rows;let i = index;">
                 <span class="col calendar-cell"
-                    *ngFor="let day of cols;let j=index;"
-                    [ngClass]="{
+                      *ngFor="let day of cols;let j=index;"
+                      [ngClass]="{
                   'datepicker-date-col': getDate(i, j) !== undefined,
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
-                  'datepicker-disabled': isDisabled(getDate(i, j)),
-                  'datepicker-mark' : isMark(getDate(i, j))
+                  'datepicker-disabled': isDisabled(getDate(i, j))
                   }"
-                    (tap)="selectDate(getDate(i, j))">
-					{{getDateAsDay(i, j)}}
+                      (click)="selectDate(getDate(i, j))">
+					{{getDate(i, j) | date:'d'}}
 				</span>
+                    </div>
+                </div>
+            </div>
+            <div class="datepicker-footer">
+                <button (click)="onCancel($event)"
+                        ion-button=""
+                        class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
+                    <span class="button-inner">{{config.cancelText || 'Cancel'}}</span>
+                    <div class="button-effect"></div>
+                </button>
+                <button (click)="onDone($event)"
+                        ion-button=""
+                        class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
+                    <span class="button-inner">{{config.okText || 'OK'}}</span>
+                    <div class="button-effect"></div>
+                </button>
             </div>
         </div>
-    </div>
-    <div class="datepicker-footer">
-        <button (tap)="onCancel($event)"
-            ion-button=""
-            class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.cancelText || 'Cancel'}}</span><div class="button-effect"></div></button>
-        <button (tap)="onDone($event)"
-            ion-button=""
-            class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.okText || 'OK'}}</span><div class="button-effect"></div></button>
-    </div>
-</div>
     `,
     styles: [`
-ionic2-datepicker .datepicker-wrapper {
-  height: 100%;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header {
-  color: white;
-  background-color: #009688;
-  display: flex;
-  flex-flow: column;
-  height: 35%;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header {
-  display: flex;
-  flex-flow: column;
-  text-align: center;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-day-of-month {
-  font-size: 60px;
-  font-weight: 700;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-year, ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-month {
-  font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header .weekday-header {
-  padding: 8px 10px;
-  background-color: #008d7f;
-}
-ionic2-datepicker .datepicker-wrapper .datepicker-header .weekday-header .weekday-title {
-  font-weight: bold;
-  text-align: center;
-}
-ionic2-datepicker .weekdays-row {
-  text-align: center;
-}
-ionic2-datepicker .datepicker-calendar {
-  height: calc(100% - (35% + 60px));
-}
-ionic2-datepicker .datepicker-calendar .datepicker-controls {
-  align-items: center;
-  justify-content: space-between;
-}
-ionic2-datepicker .datepicker-calendar .calendar-wrapper {
-  height: calc(100% - 60px - 40px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
+        ionic2-datepicker .datepicker-wrapper {
+            height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-mark {
-  background-color:#5b6c6b;
-  border-radius: 20px;
-}
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
-  background-color: #b6d9d6;
-  border-radius: 20px;
-}
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-current {
-  color: #3caa9f;
-  border-radius: 20px;
-}
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-disabled {
-  color: #aaaaaa;
-}
+        ionic2-datepicker .datepicker-wrapper .datepicker-header {
+            color: white;
+            background-color: #009688;
+            display: flex;
+            flex-flow: column;
+            height: 35%;
+        }
 
-ionic2-datepicker .datepicker-calendar .calendar-wrapper .calendar-cell {
-  flex-flow: row wrap;
-  text-align: center;
-}
-ionic2-datepicker .datepicker-footer {
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-}
-ionic2-datepicker .datepicker-footer button {
-  width: 100%;
-}
+        ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header {
+            display: flex;
+            flex-flow: column;
+            text-align: center;
+        }
+
+        ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-day-of-month {
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-year, ionic2-datepicker .datepicker-wrapper .datepicker-header .date-header .datepicker-month {
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        ionic2-datepicker .datepicker-wrapper .datepicker-header .weekday-header {
+            padding: 8px 10px;
+            background-color: #008d7f;
+        }
+
+        ionic2-datepicker .datepicker-wrapper .datepicker-header .weekday-header .weekday-title {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        ionic2-datepicker .weekdays-row {
+            text-align: center;
+        }
+
+        ionic2-datepicker .datepicker-calendar {
+            height: calc(100% - (35% + 60px));
+        }
+
+        ionic2-datepicker .datepicker-calendar .datepicker-controls {
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper {
+            height: calc(100% - 60px - 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-mark {
+            background-color: #5b6c6b;
+            border-radius: 20px;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
+            background-color: #b6d9d6;
+            border-radius: 20px;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-current {
+            color: #3caa9f;
+            border-radius: 20px;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-disabled {
+            color: #aaaaaa;
+        }
+
+        ionic2-datepicker .datepicker-calendar .calendar-wrapper .calendar-cell {
+            flex-flow: row wrap;
+            text-align: center;
+        }
+
+        ionic2-datepicker .datepicker-footer {
+            display: flex;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        ionic2-datepicker .datepicker-footer button {
+            width: 100%;
+        }
 
     `],
     selector: 'ionic2-datepicker',
@@ -180,6 +217,7 @@ export class DatePickerComponent {
         date: Date,
         disabledDates: Date[],
         markDates: Date[],
+        showMaxAndMin: boolean;
     };
     public selectedDate: Date = new Date();
     public dateList: Date[];
@@ -192,13 +230,20 @@ export class DatePickerComponent {
     private tempDate: Date;
     private today: Date = new Date();
 
-    constructor(
-        public viewCtrl: ViewController,
-        public navParams: NavParams,
-        public DatepickerService: DateService) {
+
+    public yearsMaxMin: number[];
+    public selectedMonth;
+    public selectedYear;
+    public monthChanged: FormControl;
+    public yearChanged: FormControl;
+
+    constructor(public viewCtrl: ViewController,
+                public navParams: NavParams,
+                public DatepickerService: DateService) {
         this.config = this.navParams.data;
         this.selectedDate = this.navParams.data.date;
         this.initialize();
+
     }
 
 
@@ -211,6 +256,48 @@ export class DatePickerComponent {
         this.weekdays = this.DatepickerService.getDaysOfWeek();
         this.months = this.DatepickerService.getMonths();
         this.years = this.DatepickerService.getYears();
+        this.initSelectBoxes();
+        this.initSelectBoxListener();
+    }
+
+    private initSelectBoxes() {
+        let maxDate = this.config.max;
+        let minDate = this.config.min;
+        let maxYear = Number.parseInt(this.years[this.years.length - 1]);
+        let minYear = Number.parseInt(this.years[0]);
+        if (maxDate) {
+            maxYear = maxDate.getFullYear();
+        }
+        if (minDate) {
+            minYear = minDate.getFullYear();
+        }
+        this.yearsMaxMin = [];
+        for (; minYear <= maxYear; minYear++) {
+            this.yearsMaxMin.push(minYear);
+        }
+
+
+        this.selectedMonth = this.getSelectedMonth();
+        this.selectedYear = this.getSelectedYear();
+    }
+
+    private initSelectBoxListener() {
+        this.monthChanged = new FormControl();
+        this.monthChanged.valueChanges
+            .subscribe(newVal => {
+                let testDate: Date = new Date(this.tempDate.getTime());
+                testDate.setMonth(this.months.indexOf(newVal));
+                this.tempDate = testDate;
+                this.createDateList(this.tempDate);
+            });
+        this.yearChanged = new FormControl();
+        this.yearChanged.valueChanges
+            .subscribe(newVal => {
+                let testDate: Date = new Date(this.tempDate.getTime());
+                testDate.setFullYear(newVal);
+                this.tempDate = testDate;
+                this.createDateList(this.tempDate);
+            });
     }
 
     /**
@@ -267,7 +354,7 @@ export class DatePickerComponent {
         return false;
     }
 
-    public isMark(date : Date): boolean {
+    public isMark(date: Date): boolean {
         if (!date) return false;
         if (this.config.markDates) {
             return this.config.markDates.some(markDate =>
@@ -303,7 +390,6 @@ export class DatePickerComponent {
     }
 
 
-
     public selectDate(date: Date): void {
         if (this.isDisabled(date)) return;
         this.selectedDate = date;
@@ -314,16 +400,21 @@ export class DatePickerComponent {
 
 
     public getSelectedWeekday(): string {
-        return this.weekdays[this.selectedDate.getDay()];
+        return this.weekdays[this.selectedDate.getDay() - 1];
     }
 
-    public getSelectedMonth(): string {
-        return this.months[this.selectedDate.getMonth()];
+    public getSelectedMonth(date?: Date): string {
+        if (!date) {
+            return this.months[this.selectedDate.getMonth()];
+        } else {
+            return this.months[date.getMonth()];
+        }
     }
 
     public getTempMonth() {
         return this.months[this.tempDate.getMonth()];
     }
+
     public getTempYear() {
         return (this.tempDate || this.selectedDate).getFullYear();
     }
@@ -361,18 +452,21 @@ export class DatePickerComponent {
             dateA.getMonth() === dateB.getMonth() &&
             dateA.getFullYear() === dateB.getFullYear();
     }
+
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (this.DatepickerService.locale === 'custom') return arr;
         if (this.DatepickerService.locale === 'de') limit = 2;
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
-            arr = arr.replace("星期", "")
+            arr = arr.replace('星期', '')
         return (<string>arr).slice(0, limit);
     }
+
     public getMonthRows(): {}[] {
         return [];
     }
+
     public nextMonth() {
         //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
         let testDate: Date = new Date(this.tempDate.getTime());
@@ -385,19 +479,25 @@ export class DatePickerComponent {
         else {
             testDate.setMonth(testDate.getMonth() + 1);
         }
-        if (!this.config.max || this.config.max >= testDate) {
-            this.tempDate = testDate;
-            this.createDateList(this.tempDate);
+        if ((!this.config.max || this.config.max >= testDate) || this.config.showMaxAndMin) {
+            this.setDateAfterSelection(testDate);
         }
     }
+
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
         testDate.setDate(0);
         // testDate.setDate(this.tempDate.getDate());
-        if (!this.config.min ||
-            (this.config.min <= testDate)) {
-            this.tempDate = testDate;
-            this.createDateList(this.tempDate);
+        if ((!this.config.min ||
+                (this.config.min <= testDate)) || this.config.showMaxAndMin) {
+            this.setDateAfterSelection(testDate);
         }
+    }
+
+    private setDateAfterSelection(testDate: Date) {
+        this.tempDate = testDate;
+        this.createDateList(this.tempDate);
+        this.selectedMonth = this.getSelectedMonth(this.tempDate);
+        this.selectedYear = this.tempDate.getFullYear();
     }
 }

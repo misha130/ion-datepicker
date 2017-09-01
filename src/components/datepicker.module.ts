@@ -1,14 +1,15 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { DatePickerComponent } from './datepicker.component';
-import { DatePickerController } from './datepicker.modal';
-import { DatePickerDirective } from './datepicker.directive';
-import { DateService } from './datepicker.service';
+import {CommonModule} from '@angular/common';
+import {DatePickerComponent} from './datepicker.component';
+import {DatePickerController} from './datepicker.modal';
+import {DatePickerDirective} from './datepicker.directive';
+import {DateService} from './datepicker.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule, FormsModule, ReactiveFormsModule
     ],
     exports: [
         DatePickerComponent,
@@ -23,4 +24,4 @@ import { DateService } from './datepicker.service';
     ]
 })
 export class DatePickerModule {
-};
+}
