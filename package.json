@@ -1,6 +1,6 @@
 {
   "name": "ionic3-datepicker",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A date picker for ionic 3 and 2 framework",
   "main": "index.js",
   "author": "Paulo Eduardo <pauloedsr@gmail.com>",
