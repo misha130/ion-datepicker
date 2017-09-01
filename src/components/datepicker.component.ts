@@ -33,7 +33,7 @@ import {FormControl} from '@angular/forms';
             <div class="datepicker-calendar"
                  [ngClass]="config.bodyClasses">
                 <div class="row col datepicker-controls">
-                    <button (click)="prevMonth()"
+                    <button (click)="prevMonth()" [disabled]="previousDisabled"
                             ion-button=""
                             class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
@@ -51,7 +51,7 @@ import {FormControl} from '@angular/forms';
                         <option></option>
                         <option *ngFor="let yea of yearsMaxMin" [ngValue]="yea">{{yea}}</option>
                     </select>
-                    <button (click)="nextMonth()"
+                    <button (click)="nextMonth()" [disabled]="nextDisabled"
                             ion-button=""
                             class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
@@ -236,6 +236,10 @@ export class DatePickerComponent {
     public selectedYear;
     public monthChanged: FormControl;
     public yearChanged: FormControl;
+    public nextDisabled: boolean = false;
+    public previousDisabled: boolean = false;
+    private maxYear: number;
+    private minYear: number;
 
     constructor(public viewCtrl: ViewController,
                 public navParams: NavParams,
@@ -260,44 +264,61 @@ export class DatePickerComponent {
         this.initSelectBoxListener();
     }
 
+    /**
+     * initializes the selectbox and considers max and min date
+     */
     private initSelectBoxes() {
         let maxDate = this.config.max;
         let minDate = this.config.min;
-        let maxYear = Number.parseInt(this.years[this.years.length - 1]);
-        let minYear = Number.parseInt(this.years[0]);
+        this.maxYear = Number.parseInt(this.years[this.years.length - 1]);
+        this.minYear = Number.parseInt(this.years[0]);
         if (maxDate) {
-            maxYear = maxDate.getFullYear();
+            this.maxYear = maxDate.getFullYear();
         }
         if (minDate) {
-            minYear = minDate.getFullYear();
+            this.minYear = minDate.getFullYear();
         }
         this.yearsMaxMin = [];
-        for (; minYear <= maxYear; minYear++) {
-            this.yearsMaxMin.push(minYear);
+        for (let _minYear = this.minYear; _minYear <= this.maxYear; _minYear++) {
+            this.yearsMaxMin.push(_minYear);
         }
-
-
         this.selectedMonth = this.getSelectedMonth();
         this.selectedYear = this.getSelectedYear();
     }
 
+    /**
+     * initializes the listener to change the dategrid if that changes
+     */
     private initSelectBoxListener() {
         this.monthChanged = new FormControl();
         this.monthChanged.valueChanges
-            .subscribe(newVal => {
+            .subscribe(selectedMonth => {
+                let monthAsNumber = this.months.indexOf(selectedMonth);
                 let testDate: Date = new Date(this.tempDate.getTime());
-                testDate.setMonth(this.months.indexOf(newVal));
+                testDate.setMonth(monthAsNumber);
                 this.tempDate = testDate;
                 this.createDateList(this.tempDate);
+                this.checkDisableButtons(monthAsNumber, testDate.getFullYear());
             });
         this.yearChanged = new FormControl();
         this.yearChanged.valueChanges
-            .subscribe(newVal => {
+            .subscribe(selectedYear => {
                 let testDate: Date = new Date(this.tempDate.getTime());
-                testDate.setFullYear(newVal);
+                testDate.setFullYear(selectedYear);
                 this.tempDate = testDate;
                 this.createDateList(this.tempDate);
+                this.checkDisableButtons(testDate.getMonth(), selectedYear);
             });
+    }
+
+    /**
+     * checks if the forward/previos buttons should be disabled or not
+     * @param selectedMonth
+     * @param selectedYear
+     */
+    checkDisableButtons(selectedMonth, selectedYear) {
+        this.nextDisabled = selectedMonth == 11 && this.maxYear === selectedYear;
+        this.previousDisabled = selectedMonth == 0 && this.minYear === selectedYear;
     }
 
     /**
@@ -400,7 +421,7 @@ export class DatePickerComponent {
 
 
     public getSelectedWeekday(): string {
-        return this.weekdays[this.selectedDate.getDay() - 1];
+        return this.weekdays[this.selectedDate.getDay()];
     }
 
     public getSelectedMonth(date?: Date): string {
@@ -467,6 +488,7 @@ export class DatePickerComponent {
         return [];
     }
 
+
     public nextMonth() {
         //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
         let testDate: Date = new Date(this.tempDate.getTime());
@@ -494,10 +516,15 @@ export class DatePickerComponent {
         }
     }
 
+    /**
+     * calls to create the days (list/grid) if applicable
+     * @param {Date} testDate
+     */
     private setDateAfterSelection(testDate: Date) {
         this.tempDate = testDate;
         this.createDateList(this.tempDate);
         this.selectedMonth = this.getSelectedMonth(this.tempDate);
         this.selectedYear = this.tempDate.getFullYear();
+        this.checkDisableButtons(this.tempDate.getMonth(), this.selectedYear);
     }
 }

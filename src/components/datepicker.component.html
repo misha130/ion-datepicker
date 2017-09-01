@@ -25,7 +25,7 @@
     <div class="datepicker-calendar"
         [ngClass]="config.bodyClasses">
         <div class="row col datepicker-controls">
-            <button (click)="prevMonth()"
+            <button (click)="prevMonth()" [disabled]="previousDisabled"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
@@ -42,8 +42,7 @@
                 <option></option>
                 <option *ngFor="let yea of yearsMaxMin" [ngValue]="yea">{{yea}}</option>
             </select>
-            {{getTempMonth()}} {{getTempYear()}}
-            <button (click)="nextMonth()"
+            <button (click)="nextMonth()" [disabled]="nextDisabled"
                 ion-button=""
                 class="disable-hover button button-ios button-default button-default-ios">
                 <span class="button-inner">
