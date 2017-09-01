@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { DatePickerDirective } from 'datepicker-ionic2';
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers:[DatePickerDirective],
 })
 export class HomePage {
+  @ViewChild(DatePickerDirective) public datepicker: DatePickerDirective;
   public localDate: Date = new Date();
   public initDate: Date = new Date();
   public initDate2: Date = new Date(2015, 1, 1);
@@ -20,7 +22,12 @@ export class HomePage {
   constructor(public navCtrl: NavController) {
 
   }
+  public ngOnInit() {
+
+  }
   public Log(stuff): void {
+    this.datepicker.open();
+    this.datepicker.changed.subscribe(() => console.log('test'));
     console.log(stuff);
   }
 

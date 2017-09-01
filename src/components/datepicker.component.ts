@@ -1,7 +1,7 @@
-import { Component, EventEmitter, ViewEncapsulation } from "@angular/core";
+import { Component, EventEmitter, ViewEncapsulation, ElementRef } from "@angular/core";
 import { NavParams, ViewController } from 'ionic-angular';
 
-import { DatePickerData } from './datepicker.interface';
+import { DatePickerData, DatePickerView } from './datepicker.interface';
 import { DateService } from '../services/datepicker.service';
 
 @Component({
@@ -14,23 +14,24 @@ import { DateService } from '../services/datepicker.service';
         </div>
         <div class="date-header">
             <div class="row">
-                <div class="col datepicker-month">
-                    {{limitTo(getSelectedMonth(),3)}}
+                <div (tap)="setView(views.Month, getTempMonth(), months.length, yearScroll)" class="col datepicker-month">
+                    {{limitTo(getTempMonth(),3)}}
                 </div>
             </div>
             <div class="row">
-                <div class="col datepicker-day-of-month ">
-                    {{getSelectedDate()}}
+                <div (tap)="setView(views.Day, getTempDate(),getDayList().length, dayScroll)" class="col datepicker-day-of-month ">
+                    {{getTempDate()}}
                 </div>
             </div>
             <div class="row">
-                <div class="col datepicker-year ">
-                    {{ getSelectedYear()}}
+                <div  (tap)="setView(views.Year, getTempYear() - 1901, years.length, yearScroll)" class="col datepicker-year ">
+                    {{ getTempYear()}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="datepicker-calendar"
+    <div class="datepicker-calendar" 
+    *ngIf="view === views.Calendar"
         [ngClass]="config.bodyClasses">
         <div class="row col datepicker-controls">
             <button (tap)="prevMonth()"
@@ -59,6 +60,7 @@ import { DateService } from '../services/datepicker.service';
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
                   'datepicker-disabled': isDisabled(getDate(i, j)),
+                  'datepicker-temp': isTempDate(getDate(i, j)),
                   'datepicker-mark' : isMark(getDate(i, j))
                   }"
                     (tap)="selectDate(getDate(i, j))">
@@ -66,6 +68,27 @@ import { DateService } from '../services/datepicker.service';
 				</span>
             </div>
         </div>
+    </div>
+    <div [hidden]="view !== views.Year" #yearScroll class="datepicker-rows">
+        <ng-container  *ngFor="let year of years">    
+            <div  *ngIf="testYear(year) && view === views.Year" (tap)="setSelectedYear(year)" [class.active]="getTempYear() === year" [class.selected]="getSelectedYear() === year" class="row">
+                {{year}}
+            </div>
+        </ng-container>
+    </div>
+        <div [hidden]="view !== views.Month" #monthScroll class="datepicker-rows">
+        <ng-container *ngFor="let month of months;let i = index">
+            <div  *ngIf="testMonth(i)  && view === views.Month" (tap)="setSelectedMonth(i)" [class.active]="getTempMonth() === month" [class.selected]="getSelectedMonth() === month"   class="row">
+                {{month}}
+            </div>
+        </ng-container>
+    </div>
+    <div [hidden]="view !== views.Day" #dayScroll class="datepicker-rows">
+       <ng-container *ngFor="let day of getDayList()">
+            <div class="row" *ngIf="testDay(day)  && view === views.Day" [class.active]="getTempDate() === day" [class.selected]="getSelectedDate() === day" (tap)="setSelectedDay(day)" >
+                {{day}}
+            </div>
+        </ng-container>
     </div>
     <div class="datepicker-footer">
         <button (tap)="onCancel($event)"
@@ -122,6 +145,34 @@ ionic2-datepicker .weekdays-row {
 ionic2-datepicker .datepicker-calendar {
   height: calc(100% - (35% + 60px));
 }
+
+ionic2-datepicker .datepicker-rows {
+    height: calc(100% - (35% + 60px));
+    overflow-y:scroll;
+    display:flex;
+   flex-direction:column;
+    align-items:center;
+}
+ionic2-datepicker .datepicker-rows .row {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+ionic2-datepicker .datepicker-rows .row.selected {
+    background-color: #b6d9d6;
+    border-radius: 20px;
+}
+
+ionic2-datepicker .datepicker-rows .row.active {
+    background-color: #b6c2d9;
+    border-radius: 20px;
+}
+
 ionic2-datepicker .datepicker-calendar .datepicker-controls {
   align-items: center;
   justify-content: space-between;
@@ -141,6 +192,12 @@ ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-selected {
   background-color: #b6d9d6;
   border-radius: 20px;
 }
+
+ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-temp {
+    background-color: #b6c2d9;
+    border-radius: 20px;
+}
+
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-current {
   color: #3caa9f;
   border-radius: 20px;
@@ -226,12 +283,27 @@ export class DatePickerComponent {
      */
     public years: number[];
     /**
+    * 
+    * @type {DatePickerView}
+    * @description - Current view of picker
+    * @memberof DatePickerComponent
+    */
+    public view: DatePickerView = DatePickerView.Calendar;
+    /**
+    * 
+    * @type {tyepof DatePickerView}
+    * @description - List of view types
+    * @memberof DatePickerComponent
+    */
+    public views: typeof DatePickerView = DatePickerView;
+    /**
      * 
      * @private
      * @type {Date}
      * @description - The selected date after opening the datepicker
      * @memberof DatePickerComponent
      */
+
     private tempDate: Date;
     /**
      * 
@@ -254,6 +326,8 @@ export class DatePickerComponent {
         public navParams: NavParams,
         public DatepickerService: DateService) {
         this.config = this.navParams.data;
+        if (!this.config.calendar)
+            this.view = this.views.Day;
         this.selectedDate = this.navParams.data.date;
         this.initialize();
     }
@@ -264,6 +338,10 @@ export class DatePickerComponent {
      * @function initialize - Initializes date variables
      */
     public initialize(): void {
+        if (this.config.min)
+            this.config.min.setHours(0, 0, 0, 0);
+        if (this.config.max)
+            this.config.max.setHours(0, 0, 0, 0);
         this.tempDate = this.selectedDate;
         this.createDateList(this.selectedDate);
         this.weekdays = this.DatepickerService.getDaysOfWeek();
@@ -326,6 +404,40 @@ export class DatePickerComponent {
         }
         return false;
     }
+
+    /**
+    * 
+    * @function testYear - Checks whether the year should be disabled or not
+    * @param year - the year to test against
+    */
+    public testYear(year: number): boolean {
+        if (!year) return false;
+        let testDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+        return !this.isDisabled(testDate);
+    }
+
+    /**
+    * 
+    * @function testMonth - Checks whether the year should be disabled or not
+    * @param month - the month to test against
+    */
+    public testMonth(month: number): boolean {
+        if (!month) return false;
+        let testDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+        return !this.isDisabled(testDate);
+    }
+
+    /**
+    * 
+    * @function testMonth - Checks whether the year should be disabled or not
+    * @param month - the month to test against
+    */
+    public testDay(day: number): boolean {
+        if (!day) return false;
+        let testDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
+        return !this.isDisabled(testDate);
+    }
+
     /**
      * 
      * @function isMark - Checks whether the date should be marked
@@ -366,6 +478,18 @@ export class DatePickerComponent {
     }
 
     /**
+    * 
+    * @function isTempDate - Checks whether the date is the selected date.
+    * @param {Date} date - date to check
+    * @returns {boolean} 
+    * @memberof DatePickerComponent
+    */
+    public isTempDate(date: Date): boolean {
+        if (!date) return false;
+        return this.areEqualDates(date, this.tempDate);
+    }
+
+    /**
      * 
      * @function selectDate - selects a date and emits back the date
      * @param {Date} date - date to select
@@ -374,9 +498,8 @@ export class DatePickerComponent {
      */
     public selectDate(date: Date): void {
         if (this.isDisabled(date)) return;
-        this.selectedDate = date;
-        this.selectedDate.setHours(0, 0, 0, 0);
-        this.tempDate = this.selectedDate;
+        this.tempDate = date;
+        this.tempDate.setHours(0, 0, 0, 0);
         this.config.ionSelected.emit(this.tempDate);
     }
     /**
@@ -386,7 +509,7 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     public getSelectedWeekday(): string {
-        return this.weekdays[this.selectedDate.getDay() + (this.DatepickerService.doesStartFromMonday() ? -1 : 0)];
+        return this.weekdays[this.tempDate.getDay() + (this.DatepickerService.doesStartFromMonday() ? -1 : 0)];
     }
 
     /**
@@ -396,7 +519,24 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public getSelectedMonth(): string {
-        return this.months[this.selectedDate.getMonth()];
+        return this.months[this.tempDate.getMonth()];
+    }
+
+
+    /**
+    * 
+    * @function getDayList - Gets the list of days
+    * @returns {string[]} 
+    * @memberof DatePickerComponent
+    */
+    public getDayList(): string[] {
+        var date = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), 1);
+        var days = [];
+        while (date.getMonth() === this.tempDate.getMonth()) {
+            days.push(new Date(date).getDate());
+            date.setDate(date.getDate() + 1);
+        }
+        return days;
     }
 
     /**
@@ -421,6 +561,16 @@ export class DatePickerComponent {
 
     /**
     * 
+    * @function getTempDate - Gets the temporary selected date's day
+    * @returns {number} 
+    * @memberof DatePickerComponent
+    */
+    public getTempDate(): number {
+        return (this.tempDate || this.selectedDate).getDate();
+    }
+
+    /**
+    * 
     * @function getSelectedDate - Gets selected date's date
     * @returns {number} 
     * @memberof DatePickerComponent
@@ -440,6 +590,53 @@ export class DatePickerComponent {
     }
 
     /**
+    * 
+    * @function setSelectedMonth - Sets the selected month
+    * @memberof DatePickerComponent
+    */
+    public setSelectedMonth(month: number): void {
+        this.tempDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+        if (this.config.calendar)
+            this.view = this.views.Calendar;
+    }
+
+    /**
+    * 
+    * @function setSelectedMonth - Sets the selected month
+    * @memberof DatePickerComponent
+    */
+    public setSelectedDay(day: number): void {
+        this.tempDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
+        if (this.config.calendar)
+            this.view = this.views.Calendar;
+    }
+
+    /**
+    * 
+    * @function setSelectedYear - Sets the selected year
+    * @memberof DatePickerComponent
+    */
+    public setSelectedYear(year: number): void {
+        this.tempDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+        if (this.config.calendar)
+            this.view = this.views.Calendar;
+    }
+    /**
+    * 
+    * @function setView - Sets the view and scrolls to the relevant row
+    * @param {DatePickerView} view - the view to set
+    * @param {number} index - index of date/month/year
+    * @param {number} total - total amount of items
+    * @param {HTMLElement} scrolledElement - element to scroll upon
+    * @memberof DatePickerComponent
+    */
+    public setView(view: DatePickerView, index: number, total: number, scrolledElement: HTMLElement): void {
+        this.view = view;
+        setTimeout(() => {
+            scrolledElement.scrollTop = (scrolledElement.scrollHeight / total) * (index - 1);
+        }, 10);
+    }
+    /**
      * 
      * @function onCancel - activates on cancel and emits a cancel event
      * @memberof DatePickerComponent
@@ -457,7 +654,7 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public onDone(): void {
-        this.config.date = this.selectedDate;
+        this.config.date = this.tempDate;
         this.config.ionChanged.emit(this.config.date);
         this.viewCtrl.dismiss();
     };

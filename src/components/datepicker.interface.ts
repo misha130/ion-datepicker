@@ -14,5 +14,13 @@ export interface DatePickerData {
     date?: Date
     locale?: languages;
     disabledDates: Date[];
+    calendar: boolean;
     markDates: Date[];
+}
+
+export enum DatePickerView {
+    Calendar,
+    Year,
+    Month,
+    Day
 }

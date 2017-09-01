@@ -51,6 +51,8 @@
 
  `[disabledDates]` - An array of dates that should be disabled (not required)
 
+ `[calendar]` - A boolean that determines whether to show calendar or not. Defaults to true.
+
  `[markDates]` - An array of dates that should be marked with background color (not required)
 
  `(ionChanged)` - an event emitter that returns the date as a $event.
