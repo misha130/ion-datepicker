@@ -76,7 +76,8 @@ import {FormControl} from '@angular/forms';
                   'datepicker-date-col': getDate(i, j) !== undefined,
                   'datepicker-selected': isSelectedDate(getDate(i, j)),
                   'datepicker-current' : isActualDate(getDate(i, j)),
-                  'datepicker-disabled': isDisabled(getDate(i, j))
+                  'datepicker-disabled': isDisabled(getDate(i, j)),
+                  'datepicker-mark' : isMark(getDate(i, j))
                   }"
                       (click)="selectDate(getDate(i, j))">
 					{{getDate(i, j) | date:'d'}}
