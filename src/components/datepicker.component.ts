@@ -103,6 +103,30 @@ import { DateService } from '../services/datepicker.service';
 </div>
     `,
     styles: [`
+    .col {
+        padding: 5px;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        min-height: 1px;
+        -webkit-flex-basis: 0;
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+    .row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
 ionic2-datepicker .datepicker-wrapper {
   height: 100%;
   background-color: white;

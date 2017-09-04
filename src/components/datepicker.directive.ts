@@ -1,6 +1,7 @@
 import { App, ModalOptions, ViewController } from 'ionic-angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DatePickerController, DatePickerDisplayer } from './datepicker.modal';
+import { DatePickerController } from './datepicker.modal';
+import { DatePickerDisplayer } from './datepicker.displayer';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation, forwardRef } from "@angular/core";
 
 import { DatePickerData } from './datepicker.interface';
