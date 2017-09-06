@@ -103,7 +103,7 @@ import { DateService } from '../services/datepicker.service';
 </div>
     `,
     styles: [`
-    .col {
+    ionic2-datepicker .col {
         padding: 5px;
         position: relative;
         width: 100%;
@@ -118,7 +118,7 @@ import { DateService } from '../services/datepicker.service';
         flex-grow: 1;
         max-width: 100%;
     }
-    .row {
+    ionic2-datepicker .row {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
