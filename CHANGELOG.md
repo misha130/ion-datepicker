@@ -1,3 +1,9 @@
+2.6.3 / 2017-09-06
+==================
+
+  * Added readme to the new NPM package, renamed to ion-datepicker
+
+
 2.6.2 / 2017-09-06
 ==================
 

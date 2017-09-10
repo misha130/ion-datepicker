@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { DatePickerDirective } from 'datepicker-ionic2';
+import { DatePickerDirective } from 'ion-datepicker';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
