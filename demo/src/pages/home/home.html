@@ -3,8 +3,7 @@
 
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
 	<span ion-datepicker
-	 (ionChanged)="setDate($event);"
-	 [value]="initDate"
+	 [(value)]="initDate"
 	 [disabledDates]="disabledDates"
 	 [localeStrings]="localeString"
 	 [min]="min"

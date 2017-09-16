@@ -1,3 +1,9 @@
+2.6.4 / 2017-09-16
+==================
+
+  * Made value property to be two way bindable. So [(value)]="data" can be used.
+
+
 2.6.3 / 2017-09-06
 ==================
 

@@ -33,6 +33,7 @@ export class DatePickerDirective {
   @Input() public headerClasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
+  @Output() public valueChange: EventEmitter<string | Date> = this.changed;
   @Input() public disabledDates: Date[] = [];
   @Input() public markDates: Date[] = [];
   @Input() public calendar: boolean = true;
