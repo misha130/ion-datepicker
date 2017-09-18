@@ -26,7 +26,9 @@
     "dev": "tsc --watch"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "serve-static": "^1.12.4"
+  },
   "devDependencies": {
     "@angular/common": "4.1.3",
     "@angular/compiler": "4.1.3",
