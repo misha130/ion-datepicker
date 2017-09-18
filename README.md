@@ -1,8 +1,5 @@
 
-## Demo
-```
-https://ion-datepicker.herokuapp.com/
-```
+## [Demo](https://ion-datepicker.herokuapp.com/)
 
 ## How to use ###
 
