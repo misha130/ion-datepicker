@@ -1,3 +1,9 @@
+2.6.6 / 2017-09-18
+==================
+
+  * Added Japanese locale courtesy of https://github.com/kuchida/datepicker-ionic2
+
+
 2.6.5 / 2017-09-18
 ==================
 

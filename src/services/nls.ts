@@ -40,7 +40,7 @@ export module nls {
                 monday: true,
                 weekdays: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
                 months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-            },                
+            },
             'zh-CN': {
                 weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
                 months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
@@ -48,6 +48,10 @@ export module nls {
             'zh-TW': {
                 weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
                 months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            'ja-JP': {
+                weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
             }
         };
 
@@ -66,4 +70,4 @@ export module nls {
         return keys.some(key => key === locale);
     }
 }
-export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'fr-FR' | 'zh-TW' | 'zh-CN' | 'custom';
+export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'fr-FR' | 'zh-TW' | 'zh-CN' | 'ja-JP' | 'custom';
