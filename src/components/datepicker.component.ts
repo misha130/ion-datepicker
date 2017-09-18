@@ -620,6 +620,7 @@ export class DatePickerComponent {
     */
     public setSelectedMonth(month: number): void {
         this.tempDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+        this.createDateList(this.tempDate);
         if (this.config.calendar)
             this.view = this.views.Calendar;
     }
@@ -642,6 +643,7 @@ export class DatePickerComponent {
     */
     public setSelectedYear(year: number): void {
         this.tempDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+        this.createDateList(this.tempDate);
         if (this.config.calendar)
             this.view = this.views.Calendar;
     }
