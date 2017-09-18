@@ -28,7 +28,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "serve-static": "^1.12.4"
+    "serve-static": "^1.12.4",
+    "connect": "^3.6.3",
   },
   "devDependencies": {
     "@angular/common": "4.1.3",
