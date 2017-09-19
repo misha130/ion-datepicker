@@ -41,7 +41,7 @@
     
 ```
 
-## Please note en-US locale starts the calendar with monday and en-UK starts it with sunday ###
+## Options ###
 
 
  `[value]` - defines the initial value, can be two bindable as in [(value)].
@@ -66,7 +66,7 @@
 
  `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
- `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, fr-FR, zh-TW, zh-CN, ja-JP
+ `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, fr-FR, zh-TW, zh-CN, ja-JP. Please note en-US locale starts the calendar with monday and en-UK starts it with sunday
 
  `[localeStrings]` - if you dont want to use the built translations - accepts an object { weekdays: string[], months: string[], monday:boolean },
 For example: 
