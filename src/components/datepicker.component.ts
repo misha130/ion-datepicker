@@ -435,7 +435,7 @@ export class DatePickerComponent {
     * @param year - the year to test against
     */
     public testYear(year: number): boolean {
-        if (!year) return false;
+        if (year === undefined) return false;
         let testDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
         return !this.isDisabled(testDate);
     }
@@ -446,7 +446,7 @@ export class DatePickerComponent {
     * @param month - the month to test against
     */
     public testMonth(month: number): boolean {
-        if (!month) return false;
+        if (month  === undefined) return false;
         let testDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
         return !this.isDisabled(testDate);
     }
@@ -457,7 +457,7 @@ export class DatePickerComponent {
     * @param month - the month to test against
     */
     public testDay(day: number): boolean {
-        if (!day) return false;
+        if (day  === undefined) return false;
         let testDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
         return !this.isDisabled(testDate);
     }

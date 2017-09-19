@@ -1,3 +1,8 @@
+2.6.7 / 2017-09-19
+==================
+
+  * Fixed months selection starting from February
+
 2.6.6 / 2017-09-18
 ==================
 
