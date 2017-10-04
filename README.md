@@ -36,7 +36,7 @@
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
     public closeDatepicker(){
-        this.datepickerDirective.dismiss();
+        this.datepickerDirective.modal.dismiss();
     }
     
 ```
