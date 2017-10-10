@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "^2.1.4",
+    "ionic": "3.12.0",
     "typescript": "~2.3.4"
   },
   "description": "demo-datepicker-ionic2: An Ionic project"

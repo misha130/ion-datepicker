@@ -60,6 +60,8 @@
 
  `(ionCanceled)` - an event that is raised when the cancel button is activated. Returns no data.
 
+ `(ionSelected)` - an event that is raised when a date is selected
+
  `[headerClasses]` - a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
  `[bodyClasses]` - a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)

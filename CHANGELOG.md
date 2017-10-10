@@ -1,3 +1,17 @@
+2.7.0 / 2017-10-09
+==================
+
+  * Merge pull request [#52](https://github.com/misha130/datepicker-ionic2/issues/52) from niklilland/ionSelect-fix
+
+    Added ionSelected event that is raised when date is selected
+
+  * Merge pull request [#53](https://github.com/misha130/datepicker-ionic2/issues/53) from anxorl/master
+  
+    Added Spanish language
+    
+    Added Galician language
+
+
 2.6.7 / 2017-09-19
 ==================
 
