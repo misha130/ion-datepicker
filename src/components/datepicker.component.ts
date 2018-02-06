@@ -15,7 +15,7 @@ import { DateService } from '../services/datepicker.service';
         <div class="date-header">
             <div class="row">
                 <div (tap)="setView(views.Month, getTempMonth(), months.length, yearScroll)" class="col datepicker-month">
-                    {{limitTo(getTempMonth(),3)}}
+                    {{monthShort(getTempMonth())}}
                 </div>
             </div>
             <div class="row">
@@ -48,7 +48,7 @@ import { DateService } from '../services/datepicker.service';
         <div class="weekdays-row row">
             <span class="col calendar-cell"
                 *ngFor="let dayOfWeek of weekdays">
-                    {{limitTo(dayOfWeek,3)}}
+                    {{dayOfWeekShort(dayOfWeek)}}
                 </span>
         </div>
         <div class="calendar-wrapper">
@@ -695,13 +695,37 @@ export class DatePickerComponent {
      */
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (this.DatepickerService.locale === 'custom') return arr;
-        if (this.DatepickerService.locale === 'de') limit = 2;
+        
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
             arr = arr.replace("星期", "")
         return (<string>arr).slice(0, limit);
     }
+
+     /**
+     * 
+     * @function monthShort - returns the abbreviated month name
+     * @param {(Array<string> | string)} arr - the array of strings to limit
+     * @returns {(Array<string> | string)} 
+     * @memberof DatePickerComponent
+     */
+    public monthShort(arr: Array<string> | string): Array<string> | string {
+        return this.limitTo(arr, 3);
+    }
+
+     /**
+     * 
+     * @function dayOfWeekShort - returns the abbreviated day of week
+     * @param {(Array<string> | string)} arr - the array of strings to limit
+     * @returns {(Array<string> | string)} 
+     * @memberof DatePickerComponent
+     */
+    public dayOfWeekShort(arr: Array<string> | string): Array<string> | string {
+        let limit = 3;
+        if (this.DatepickerService.locale === 'de') limit = 2;
+        return this.limitTo(arr, limit);
+    }    
 
     /**
      * 
