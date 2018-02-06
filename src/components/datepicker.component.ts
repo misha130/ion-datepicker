@@ -44,11 +44,9 @@ import {FormControl} from '@angular/forms';
                         <div class="button-effect"></div>
                     </button>
                     <select title="Month" name="equiptype" class="form-control" [formControl]="monthChanged" [(ngModel)]="selectedMonth" required>
-                        <option></option>
                         <option *ngFor="let mon of months" [ngValue]="mon">{{mon}}</option>
                     </select>
                     <select title="Month" name="equiptype" class="form-control" [formControl]="yearChanged" [(ngModel)]="selectedYear" required>
-                        <option></option>
                         <option *ngFor="let yea of yearsMaxMin" [ngValue]="yea">{{yea}}</option>
                     </select>
                     <button (click)="nextMonth()" [disabled]="nextDisabled"
