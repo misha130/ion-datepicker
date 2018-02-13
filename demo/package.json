@@ -8,26 +8,26 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@angular/common": "4.4.3",
-    "@angular/compiler": "4.4.3",
-    "@angular/compiler-cli": "4.4.3",
-    "@angular/core": "4.4.3",
-    "@angular/forms": "4.4.3",
-    "@angular/http": "4.4.3",
-    "@angular/platform-browser": "4.4.3",
-    "@angular/platform-browser-dynamic": "4.4.3",
-    "cordova-browser": "^4.1.0",
-    "ion-datepicker": "^2.7.0",
-    "ionic-angular": "^3.7.1-201710061612",
+    "@angular/common": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
+    "@angular/forms": "5.0.0",
+    "@angular/http": "5.0.0",
+    "@angular/platform-browser": "5.0.0",
+    "@angular/platform-browser-dynamic": "5.0.0",
+    "ion-datepicker": "^2.7.2",
+    "ionic-angular": "^3.9.2",
     "ionicons": "3.0.0",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "cordova-browser": "~5.0.3"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^2.1.4",
+    "@ionic/app-scripts": "^3.1.8",
     "ionic": "3.19.1",
-    "typescript": "~2.3.4"
+    "typescript": "~2.7.1"
   },
   "description": "demo-datepicker-ionic2: An Ionic project",
   "cordova": {
