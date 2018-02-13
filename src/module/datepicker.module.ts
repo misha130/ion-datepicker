@@ -7,10 +7,12 @@ import { ModalCmp } from '../components/modal.component';
 import { DatePickerController } from '../components/datepicker.modal';
 import { DatePickerDirective } from '../components/datepicker.directive';
 import { DateService } from '../services/datepicker.service';
+import { IonicModule } from 'ionic-angular';
 
 @NgModule({
     imports: [
         CommonModule,
+        IonicModule,
     ],
     exports: [
         DatePickerComponent,

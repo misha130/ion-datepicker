@@ -34,16 +34,13 @@ import { DateService } from '../services/datepicker.service';
     *ngIf="view === views.Calendar"
         [ngClass]="config.bodyClasses">
         <div class="row col datepicker-controls">
-            <button (tap)="prevMonth()"
-                ion-button=""
-                class="disable-hover button button-ios button-default button-default-ios">
-                <span class="button-inner">
-                    <ion-icon name="arrow-back" role="img" class="icon icon-ios ion-ios-arrow-back" aria-label="arrow-back" ng-reflect-name="arrow-back"></ion-icon></span><div class="button-effect"></div></button>            {{getTempMonth()}} {{getTempYear()}}
-            <button (tap)="nextMonth()"
-                ion-button=""
-                class="disable-hover button button-ios button-default button-default-ios">
-                <span class="button-inner">
-                    <ion-icon name="arrow-forward" role="img" class="icon icon-ios ion-ios-arrow-forward" aria-label="arrow-forward" ng-reflect-name="arrow-forward"></ion-icon></span><div class="button-effect"></div></button>
+            <button (tap)="prevMonth()" ion-button>
+                    <ion-icon name="arrow-back"></ion-icon>
+                </button>            
+                {{getTempMonth()}} {{getTempYear()}}
+            <button (tap)="nextMonth()"ion-button>
+                    <ion-icon name="arrow-forward"></ion-icon>
+            </button>
         </div>
         <div class="weekdays-row row">
             <span class="col calendar-cell"
@@ -92,13 +89,11 @@ import { DateService } from '../services/datepicker.service';
     </div>
     <div class="datepicker-footer">
         <button (tap)="onCancel($event)"
-            ion-button=""
-            class="button button-clear button-small col-offset-33 disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.cancelText || 'Cancel'}}</span><div class="button-effect"></div></button>
+            ion-button>
+            {{config.cancelText || 'Cancel'}}</button>
         <button (tap)="onDone($event)"
-            ion-button=""
-            class="button button-clear button-small disable-hover button button-ios button-default button-default-ios">
-            <span class="button-inner">{{config.okText || 'OK'}}</span><div class="button-effect"></div></button>
+            ion-button>
+            {{config.okText || 'OK'}}</button>
     </div>
 </div>
     `,
@@ -446,7 +441,7 @@ export class DatePickerComponent {
     * @param month - the month to test against
     */
     public testMonth(month: number): boolean {
-        if (month  === undefined) return false;
+        if (month === undefined) return false;
         let testDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
         return !this.isDisabled(testDate);
     }
@@ -457,7 +452,7 @@ export class DatePickerComponent {
     * @param month - the month to test against
     */
     public testDay(day: number): boolean {
-        if (day  === undefined) return false;
+        if (day === undefined) return false;
         let testDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
         return !this.isDisabled(testDate);
     }
@@ -695,7 +690,7 @@ export class DatePickerComponent {
      */
     public limitTo(arr: Array<string> | string, limit: number): Array<string> | string {
         if (this.DatepickerService.locale === 'custom') return arr;
-        
+
         if (Array.isArray(arr))
             return arr.splice(0, limit);
         if (this.DatepickerService.locale === 'zh-CN' || this.DatepickerService.locale === 'zh-TW')
@@ -703,29 +698,29 @@ export class DatePickerComponent {
         return (<string>arr).slice(0, limit);
     }
 
-     /**
-     * 
-     * @function monthShort - returns the abbreviated month name
-     * @param {(Array<string> | string)} arr - the array of strings to limit
-     * @returns {(Array<string> | string)} 
-     * @memberof DatePickerComponent
-     */
+    /**
+    * 
+    * @function monthShort - returns the abbreviated month name
+    * @param {(Array<string> | string)} arr - the array of strings to limit
+    * @returns {(Array<string> | string)} 
+    * @memberof DatePickerComponent
+    */
     public monthShort(arr: Array<string> | string): Array<string> | string {
         return this.limitTo(arr, 3);
     }
 
-     /**
-     * 
-     * @function dayOfWeekShort - returns the abbreviated day of week
-     * @param {(Array<string> | string)} arr - the array of strings to limit
-     * @returns {(Array<string> | string)} 
-     * @memberof DatePickerComponent
-     */
+    /**
+    * 
+    * @function dayOfWeekShort - returns the abbreviated day of week
+    * @param {(Array<string> | string)} arr - the array of strings to limit
+    * @returns {(Array<string> | string)} 
+    * @memberof DatePickerComponent
+    */
     public dayOfWeekShort(arr: Array<string> | string): Array<string> | string {
         let limit = 3;
         if (this.DatepickerService.locale === 'de') limit = 2;
         return this.limitTo(arr, limit);
-    }    
+    }
 
     /**
      * 
