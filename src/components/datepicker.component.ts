@@ -528,7 +528,14 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     public getSelectedWeekday(): string {
-        return this.weekdays[this.tempDate.getDay() + (this.DatepickerService.doesStartFromMonday() ? -1 : 0)];
+        let day = this.tempDate.getDay();
+        let dayAdjust = 0;
+        // go back to sunday which is 6
+        // TODO: FIND BETTER WAY TO DO THIS. LIKE A ROTATE ARRAY
+        if (this.DatepickerService.doesStartFromMonday() && day === 0) dayAdjust = 6;
+        // go back one day
+        else if (this.DatepickerService.doesStartFromMonday()) dayAdjust = -1;
+        return this.weekdays[day + dayAdjust];
     }
 
     /**
@@ -752,7 +759,8 @@ export class DatePickerComponent {
      */
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setDate(0);
+        testDate.setDate(1);
+        testDate.setMonth(testDate.getMonth() - 1);
         // testDate.setDate(this.tempDate.getDate());
         if (!this.config.min ||
             (this.config.min <= testDate)) {
