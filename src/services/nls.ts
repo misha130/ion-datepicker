@@ -18,6 +18,16 @@ export module nls {
                 weekdays: ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'],
                 months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
             },
+            'es-ES': {
+                monday: true,
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            },
+            'gl-ES': {
+                monday:true,
+                weekdays: ['Domingo', 'Luns', 'Martes', 'Mércores', 'Xoves', 'Venres', 'Sábado'],
+                months: ['Xaneiro', 'Febreiro', 'Marzo', 'Abril', 'Maio', 'Xuño', 'Xullo', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Decembro']
+            },
             'he-IL': {
                 weekdays: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'],
                 months: ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
@@ -27,7 +37,8 @@ export module nls {
                 months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
             },
             'de': {
-                weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                monday: true,
+                weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
                 months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
                     'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
             },
@@ -70,4 +81,4 @@ export module nls {
         return keys.some(key => key === locale);
     }
 }
-export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'fr-FR' | 'zh-TW' | 'zh-CN' | 'ja-JP' | 'custom';
+export type languages = string | 'en-US' | 'en-UK' | 'pt-BR' | 'es-ES' | 'gl-ES' | 'he-IL' | 'ru-RU' | 'de' | 'fi' | 'fr-FR' | 'zh-TW' | 'zh-CN' | 'ja-JP' | 'custom';

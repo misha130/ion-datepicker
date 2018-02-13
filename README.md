@@ -1,4 +1,5 @@
 
+### [Demo](https://ion-datepicker.herokuapp.com/)
 
 ## How to use ###
 
@@ -35,12 +36,12 @@
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
     public closeDatepicker(){
-        this.datepickerDirective.dismiss();
+        this.datepickerDirective.modal.dismiss();
     }
     
 ```
 
-## Please note en-US locale starts the calendar with monday and en-UK starts it with sunday ###
+## Options ###
 
 
  `[value]` - defines the initial value, can be two bindable as in [(value)].
@@ -59,13 +60,15 @@
 
  `(ionCanceled)` - an event that is raised when the cancel button is activated. Returns no data.
 
+ `(ionSelected)` - an event that is raised when a date is selected
+
  `[headerClasses]` - a bridge to the header classes of the directive using ngClass (string, array or object)  (not required)
 
  `[bodyClasses]` - a bridge to the date classes of the directive using ngClass (string, array or object)  (not required)
 
  `[modalOptions]` - a modal is used to display the picker to configure the animation or other options you may use this
 
- `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, fr-FR, zh-TW, zh-CN, ja-JP
+ `[locale]` - for translating the calendar. Avaliable local is en-US, en-UK, he-IL, pt-BR, ru-RU, de, fi, fr-FR, zh-TW, zh-CN, ja-JP. Please note en-US locale starts the calendar with monday and en-UK starts it with sunday
 
  `[localeStrings]` - if you dont want to use the built translations - accepts an object { weekdays: string[], months: string[], monday:boolean },
 For example: 

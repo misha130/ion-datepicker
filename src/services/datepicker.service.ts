@@ -31,7 +31,7 @@ export class DateService {
      */
     public set locale(val: languages) {
         if (!nls.checkExists(val)) {
-            throw 'Locale not recognized as a valid value. Only en-US/he-IL/ru-RU/pt-BR/de/fi/fr-FR/zh-CN/zh-TW/ja-JP avaliable';
+            throw 'Locale not recognized as a valid value. Only ' + Object.keys(nls._nls).join('/') + ' avaliable';
         }
         DateService._local = val;
     }

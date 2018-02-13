@@ -11,6 +11,7 @@ import { DateService } from '../services/datepicker.service';
   selector: 'ion-datepicker,[ion-datepicker]',
 })
 export class DatePickerDirective {
+  @Output('ionSelected') public selected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   @Output('ionChanged') public changed: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   @Output('ionCanceled') public canceled: EventEmitter<void> = new EventEmitter<void>();
 
@@ -37,7 +38,6 @@ export class DatePickerDirective {
   @Input() public disabledDates: Date[] = [];
   @Input() public markDates: Date[] = [];
   @Input() public calendar: boolean = true;
-  public dateSelected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
   public modal: DatePickerDisplayer;
   private _fn: any;
   constructor(
@@ -61,7 +61,7 @@ export class DatePickerDirective {
       headerClasses: this.headerClasses,
       ionChanged: this.changed,
       ionCanceled: this.canceled,
-      ionSelected: this.dateSelected,
+      ionSelected: this.selected,
       date: this.value,
       okText: this.okText,
       cancelText: this.cancelText,
