@@ -1,3 +1,21 @@
+
+2.7.2 / 2018-02-13
+==================
+
+* Updated to Ionic 3.9.2 and Angular 5.0.0
+
+* Fixed buttons having hard coded classes [#48](https://github.com/misha130/datepicker-ionic2/issues/48)
+
+* Fixed weekday display on monday on first of month and prev month goes to first
+
+2.7.1 / 2018-02-06
+==================
+
+* Merge pull request [#57](https://github.com/misha130/datepicker-ionic2/issues/57) from 
+  Jetro223/master
+
+  Changes to de language to start from monday
+
 2.7.0 / 2017-10-09
 ==================
 
