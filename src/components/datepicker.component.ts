@@ -658,10 +658,10 @@ export class DatePickerComponent {
     * @param {HTMLElement} scrolledElement - element to scroll upon
     * @memberof DatePickerComponent
     */
-    public setView(view: DatePickerView, index: number, total: number, scrolledElement: HTMLElement): void {
+    public setView(view: DatePickerView, index: number | string, total: number | string, scrolledElement: HTMLElement): void {
         this.view = view;
         setTimeout(() => {
-            scrolledElement.scrollTop = (scrolledElement.scrollHeight / total) * (index - 1);
+            scrolledElement.scrollTop = (scrolledElement.scrollHeight / +total) * (+index - 1);
         }, 10);
     }
     /**
