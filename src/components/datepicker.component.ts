@@ -88,10 +88,10 @@ import { DateService } from '../services/datepicker.service';
         </ng-container>
     </div>
     <div class="datepicker-footer">
-        <button (tap)="onCancel($event)"
+        <button (tap)="onCancel()"
             ion-button>
             {{config.cancelText || 'Cancel'}}</button>
-        <button (tap)="onDone($event)"
+        <button (tap)="onDone()"
             ion-button>
             {{config.okText || 'OK'}}</button>
     </div>
