@@ -16,7 +16,7 @@
     "@angular/http": "5.0.0",
     "@angular/platform-browser": "5.0.0",
     "@angular/platform-browser-dynamic": "5.0.0",
-    "ion-datepicker": "^2.7.2",
+    "ion-datepicker": "^2.7.3",
     "ionic-angular": "^3.9.2",
     "ionicons": "3.0.0",
     "rxjs": "5.4.3",
