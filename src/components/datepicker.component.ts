@@ -737,7 +737,6 @@ export class DatePickerComponent {
     public nextMonth() {
         //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
         let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setDate(1);
 
         if (testDate.getMonth() === 11) {
             testDate.setFullYear(testDate.getFullYear() + 1);
@@ -746,7 +745,22 @@ export class DatePickerComponent {
         else {
             testDate.setMonth(testDate.getMonth() + 1);
         }
-        if (!this.config.max || this.config.max >= testDate) {
+        if (testDate.getDate() !== this.tempDate.getDate()) {
+            // something went wrong with the dates, oh oh.
+            testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
+        }
+        let maxTestDate: Date;
+        if (this.config.max) {
+            maxTestDate = new Date(this.config.max);
+            maxTestDate.setDate(0);
+            maxTestDate.setMonth(maxTestDate.getMonth() + 1);
+        }
+        if (!maxTestDate || maxTestDate >= testDate) {
+            if (maxTestDate.getMonth() === testDate.getMonth()) {
+                if (this.config.max.getDate() < testDate.getDate()) {
+                    testDate.setDate(this.config.max.getDate());
+                }
+            }
             this.tempDate = testDate;
             this.createDateList(this.tempDate);
         }
@@ -759,11 +773,23 @@ export class DatePickerComponent {
      */
     public prevMonth() {
         let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setDate(1);
         testDate.setMonth(testDate.getMonth() - 1);
         // testDate.setDate(this.tempDate.getDate());
-        if (!this.config.min ||
-            (this.config.min <= testDate)) {
+        if (testDate.getDate() !== this.tempDate.getDate()) {
+            // something went wrong with the dates, oh oh.
+            testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
+        }
+        let minTestDate: Date;
+        if (this.config.min) {
+            minTestDate = new Date(this.config.min);
+            minTestDate.setDate(1);
+        }
+        if (!minTestDate || minTestDate <= testDate) {
+            if (minTestDate.getMonth() === testDate.getMonth()) {
+                if (this.config.min.getDate() > testDate.getDate()) {
+                    testDate.setDate(this.config.min.getDate());
+                }
+            }
             this.tempDate = testDate;
             this.createDateList(this.tempDate);
         }

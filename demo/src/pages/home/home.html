@@ -6,9 +6,11 @@
 	 [(value)]="initDate"
 	 [disabledDates]="disabledDates"
 	 locale="en-US"
+	 [min]="minDate"
+	 [max]="maxDate"
 	 clear
 	 class="ScheduleDate">
-		<span>{{initDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+		<span>{{initDate | date}}<ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 
 </ion-toolbar>
