@@ -4,10 +4,7 @@
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
 	<span ion-datepicker
 	 [(value)]="initDate"
-	 [disabledDates]="disabledDates"
 	 locale="en-US"
-	 [min]="minDate"
-	 [max]="maxDate"
 	 clear
 	 class="ScheduleDate">
 		<span>{{initDate | date}}<ion-icon name="clipboard" item-left ></ion-icon> </span>

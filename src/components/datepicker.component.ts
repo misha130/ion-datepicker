@@ -756,7 +756,7 @@ export class DatePickerComponent {
             maxTestDate.setMonth(maxTestDate.getMonth() + 1);
         }
         if (!maxTestDate || maxTestDate >= testDate) {
-            if (maxTestDate.getMonth() === testDate.getMonth()) {
+            if (maxTestDate && maxTestDate.getMonth() === testDate.getMonth()) {
                 if (this.config.max.getDate() < testDate.getDate()) {
                     testDate.setDate(this.config.max.getDate());
                 }
@@ -785,7 +785,7 @@ export class DatePickerComponent {
             minTestDate.setDate(1);
         }
         if (!minTestDate || minTestDate <= testDate) {
-            if (minTestDate.getMonth() === testDate.getMonth()) {
+            if (minTestDate && minTestDate.getMonth() === testDate.getMonth()) {
                 if (this.config.min.getDate() > testDate.getDate()) {
                     testDate.setDate(this.config.min.getDate());
                 }
