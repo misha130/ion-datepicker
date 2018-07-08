@@ -1,13 +1,18 @@
 <ion-toolbar darkergraytoolbar
- class="toolbarPlan">
+             class="toolbarPlan">
 
 	<!--<ion   #dateTime [(ngModel)]="hiddenDate" [hidden]="true"></ion>-->
 	<span ion-datepicker
-	 [(value)]="initDate"
-	 locale="en-US"
-	 clear
-	 class="ScheduleDate">
-		<span>{{initDate | date}}<ion-icon name="clipboard" item-left ></ion-icon> </span>
+	      [(value)]="initDate"
+	      mode="multiple"
+	      locale="en-US"
+	      clear
+	      class="ScheduleDate">
+		<span>
+			<ng-container *ngFor="let date of initDate">{{date | date}}</ng-container>
+			<ion-icon name="clipboard"
+			          item-left></ion-icon>
+		</span>
 	</span>
 
 </ion-toolbar>

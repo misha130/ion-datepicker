@@ -34,6 +34,7 @@ export class DatePickerDirective {
   @Input() public headerClasses: Array<string>;
   @Input() public modalOptions: ModalOptions;
   @Input() public value: Date = new Date();
+  @Input() public mode: 'single' | 'multiple' | 'range' = 'single';
   @Output() public valueChange: EventEmitter<string | Date> = this.changed;
   @Input() public disabledDates: Date[] = [];
   @Input() public markDates: Date[] = [];
@@ -54,15 +55,19 @@ export class DatePickerDirective {
   }
 
   public open() {
+    if (this.mode !== undefined && this.mode !== 'single' && this.mode !== 'multiple' && this.mode !== 'range') {
+      throw new Error('Unrecognized mode in datepicker');
+    }
     const data = <DatePickerData>{
       min: this.min,
       max: this.max,
+      mode: this.mode,
       bodyClasses: this.bodyClasses,
       headerClasses: this.headerClasses,
       ionChanged: this.changed,
       ionCanceled: this.canceled,
       ionSelected: this.selected,
-      date: this.value,
+      date: Array.isArray(this.value) ? [...this.value] : Object.assign({}, this.value),
       okText: this.okText,
       cancelText: this.cancelText,
       disabledDates: this.disabledDates,

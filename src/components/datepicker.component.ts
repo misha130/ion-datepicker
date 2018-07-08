@@ -7,25 +7,25 @@ import { DateService } from '../services/datepicker.service';
 @Component({
     template: `
     <div class="datepicker-wrapper">
-    <div class="datepicker-header"
+    <div class="datepicker-header" *ngIf="mode === 'single'"
         [ngClass]="config.headerClasses">
         <div class="weekday-header">
-            <div class="weekday-title">{{getSelectedWeekday()}}</div>
+            <div class="weekday-title">{{getWeekday(selectedDate)}}</div>
         </div>
-        <div class="date-header">
+        <div class="date-header" >
             <div class="row">
-                <div (tap)="setView(views.Month, getTempMonth(), months.length, yearScroll)" class="col datepicker-month">
-                    {{monthShort(getTempMonth())}}
+                <div (tap)="setView(views.Month, getMonth(tempDate), months.length, yearScroll)" class="col datepicker-month">
+                    {{monthShort(getMonth(tempDate))}}
                 </div>
             </div>
             <div class="row">
-                <div (tap)="setView(views.Day, getTempDate(),getDayList().length, dayScroll)" class="col datepicker-day-of-month ">
-                    {{getTempDate()}}
+                <div (tap)="setView(views.Day, getDay(tempDate),getDayList().length, dayScroll)" class="col datepicker-day-of-month ">
+                    {{getDay(tempDate)}}
                 </div>
             </div>
             <div class="row">
-                <div  (tap)="setView(views.Year, getTempYear() - 1901, years.length, yearScroll)" class="col datepicker-year ">
-                    {{ getTempYear()}}
+                <div  (tap)="setView(views.Year, getYear(tempDate) - 1901, years.length, yearScroll)" class="col datepicker-year ">
+                    {{ getYear(tempDate)}}
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ import { DateService } from '../services/datepicker.service';
             <button (tap)="prevMonth()" ion-button>
                     <ion-icon name="arrow-back"></ion-icon>
                 </button>            
-                {{getTempMonth()}} {{getTempYear()}}
+                {{getMonth(tempDate)}} {{getYear(tempDate)}}
             <button (tap)="nextMonth()"ion-button>
                     <ion-icon name="arrow-forward"></ion-icon>
             </button>
@@ -48,7 +48,7 @@ import { DateService } from '../services/datepicker.service';
                     {{dayOfWeekShort(dayOfWeek)}}
                 </span>
         </div>
-        <div class="calendar-wrapper">
+        <div class="calendar-wrapper" [class.multi]="mode !== 'single'">
             <div class="row calendar-row" *ngFor="let week of rows;let i = index;">
                 <span class="col calendar-cell"
                     *ngFor="let day of cols;let j=index;"
@@ -68,21 +68,21 @@ import { DateService } from '../services/datepicker.service';
     </div>
     <div [hidden]="view !== views.Year" #yearScroll class="datepicker-rows">
         <ng-container  *ngFor="let year of years">    
-            <div  *ngIf="testYear(year) && view === views.Year" (tap)="setSelectedYear(year)" [class.active]="getTempYear() === year" [class.selected]="getSelectedYear() === year" class="row">
+            <div  *ngIf="testYear(year) && view === views.Year" (tap)="setSelectedYear(year)" [class.active]="getYear(tempDate) === year" [class.selected]="getYear(selectedDate) === year" class="row">
                 {{year}}
             </div>
         </ng-container>
     </div>
         <div [hidden]="view !== views.Month" #monthScroll class="datepicker-rows">
         <ng-container *ngFor="let month of months;let i = index">
-            <div  *ngIf="testMonth(i)  && view === views.Month" (tap)="setSelectedMonth(i)" [class.active]="getTempMonth() === month" [class.selected]="getSelectedMonth() === month"   class="row">
+            <div  *ngIf="testMonth(i)  && view === views.Month" (tap)="setSelectedMonth(i)" [class.active]="getMonth(selectedDate) === month" [class.selected]="getMonth(selectedDate) === month"   class="row">
                 {{month}}
             </div>
         </ng-container>
     </div>
     <div [hidden]="view !== views.Day" #dayScroll class="datepicker-rows">
        <ng-container *ngFor="let day of getDayList()">
-            <div class="row" *ngIf="testDay(day)  && view === views.Day" [class.active]="getTempDate() === day" [class.selected]="getSelectedDate() === day" (tap)="setSelectedDay(day)" >
+            <div class="row" *ngIf="testDay(day)  && view === views.Day" [class.active]="getDay(tempDate) === day" [class.selected]="getDay(selectedDate) === day" (tap)="setSelectedDay(day)" >
                 {{day}}
             </div>
         </ng-container>
@@ -197,11 +197,15 @@ ionic2-datepicker .datepicker-calendar .datepicker-controls {
   justify-content: space-between;
 }
 ionic2-datepicker .datepicker-calendar .calendar-wrapper {
-  height: calc(100% - 60px - 40px);
+  height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
+
+ionic2-datepicker .datepicker-calendar .calendar-wrapper.multi {
+    height: 100%;
+  }
 
 ionic2-datepicker .datepicker-calendar .calendar-wrapper .datepicker-mark {
   background-color:#5b6c6b;
@@ -258,7 +262,7 @@ export class DatePickerComponent {
      * @description - The currently selected date when opening the datepicker
      * @memberof DatePickerComponent
      */
-    public selectedDate: Date = new Date();
+    public selectedDate: Date | Date[] = new Date();
     /**
      * 
      * @type {Date[]}
@@ -273,6 +277,9 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     public cols: number[];
+
+
+    public rangeStatus: 'empty' | 'from' | 'to' = 'empty';
     /**
      * 
      * @type {number[]}
@@ -323,7 +330,7 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
 
-    private tempDate: Date;
+    private tempDate: Date | Date[];
     /**
      * 
      * @private
@@ -332,6 +339,12 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     private today: Date = new Date();
+
+    /**
+     * Current date of the displayed calendar
+     */
+    private currentDisplayedDate: Date;
+
     /**
      * 
      * Creates an instance of DatePickerComponent.
@@ -347,6 +360,9 @@ export class DatePickerComponent {
         this.config = this.navParams.data;
         if (!this.config.calendar)
             this.view = this.views.Day;
+        if (this.config.mode !== 'single' && !Array.isArray(this.navParams.data.date)) {
+            this.navParams.data.date = [this.navParams.data.date];
+        }
         this.selectedDate = this.navParams.data.date;
         this.initialize();
     }
@@ -357,11 +373,23 @@ export class DatePickerComponent {
      * @function initialize - Initializes date variables
      */
     public initialize(): void {
-        if (this.config.min)
+        if (this.config.min) {
             this.config.min.setHours(0, 0, 0, 0);
-        if (this.config.max)
+        }
+        if (this.config.max) {
             this.config.max.setHours(0, 0, 0, 0);
-        this.tempDate = this.selectedDate;
+        }
+        if (Array.isArray(this.selectedDate)) {
+            this.tempDate = [...this.selectedDate];
+        } else {
+            this.tempDate = this.selectedDate;
+
+        }
+        if (Array.isArray(this.tempDate)) {
+            this.currentDisplayedDate = this.tempDate[this.tempDate.length - 1];
+        } else {
+            this.currentDisplayedDate = this.tempDate;
+        }
         this.createDateList(this.selectedDate);
         this.weekdays = this.DatepickerService.getDaysOfWeek();
         this.months = this.DatepickerService.getMonths();
@@ -373,8 +401,9 @@ export class DatePickerComponent {
      * @function createDateList - creates the list of dates
      * @param selectedDate - creates the list based on the currently selected date
      */
-    public createDateList(selectedDate: Date): void {
-        this.dateList = this.DatepickerService.createDateList(selectedDate);
+    public createDateList(selectedDate: Date | Date[]): void {
+        this.dateList = this.DatepickerService.createDateList(Array.isArray(selectedDate)
+            ? (selectedDate.length > 0 ? selectedDate[0] : new Date()) : selectedDate);
         this.cols = new Array(7);
         this.rows = new Array(Math.ceil(this.dateList.length / this.cols.length));
     }
@@ -431,8 +460,15 @@ export class DatePickerComponent {
     */
     public testYear(year: number): boolean {
         if (year === undefined) return false;
-        let testDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
-        return !this.isDisabled(testDate);
+        if (!Array.isArray(this.tempDate)) {
+            let testDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+            return !this.isDisabled(testDate);
+        } else {
+            return this.tempDate.some(tempDate => {
+                let testDate = new Date(year, tempDate.getMonth(), tempDate.getDate());
+                return !this.isDisabled(testDate);
+            });
+        }
     }
 
     /**
@@ -442,8 +478,15 @@ export class DatePickerComponent {
     */
     public testMonth(month: number): boolean {
         if (month === undefined) return false;
-        let testDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
-        return !this.isDisabled(testDate);
+        if (!Array.isArray(this.tempDate)) {
+            let testDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+            return !this.isDisabled(testDate);
+        } else {
+            return this.tempDate.some(tempDate => {
+                let testDate = new Date(tempDate.getFullYear(), month, tempDate.getDate());
+                return !this.isDisabled(testDate);
+            });
+        }
     }
 
     /**
@@ -453,8 +496,15 @@ export class DatePickerComponent {
     */
     public testDay(day: number): boolean {
         if (day === undefined) return false;
-        let testDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
-        return !this.isDisabled(testDate);
+        if (!Array.isArray(this.tempDate)) {
+            let testDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
+            return !this.isDisabled(testDate);
+        } else {
+            return this.tempDate.some(tempDate => {
+                let testDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), day);
+                return !this.isDisabled(testDate);
+            });
+        }
     }
 
     /**
@@ -493,7 +543,13 @@ export class DatePickerComponent {
     */
     public isSelectedDate(date: Date): boolean {
         if (!date) return false;
-        return this.areEqualDates(date, this.selectedDate);
+        if (!Array.isArray(this.selectedDate)) {
+            return this.areEqualDates(date, this.selectedDate);
+        } else {
+            return this.selectedDate.some(selectedDate => {
+                return this.areEqualDates(date, selectedDate);
+            });
+        }
     }
 
     /**
@@ -505,7 +561,13 @@ export class DatePickerComponent {
     */
     public isTempDate(date: Date): boolean {
         if (!date) return false;
-        return this.areEqualDates(date, this.tempDate);
+        if (!Array.isArray(this.tempDate)) {
+            return this.areEqualDates(date, this.tempDate);
+        } else {
+            return this.tempDate.some(tempDate => {
+                return this.areEqualDates(date, tempDate);
+            });
+        }
     }
 
     /**
@@ -517,37 +579,49 @@ export class DatePickerComponent {
      */
     public selectDate(date: Date): void {
         if (this.isDisabled(date)) return;
-        this.tempDate = date;
-        this.tempDate.setHours(0, 0, 0, 0);
+        if (this.config.mode === 'single' && !Array.isArray(this.tempDate)) {
+            this.tempDate = date;
+            this.tempDate.setHours(0, 0, 0, 0);
+        } else if (Array.isArray(this.tempDate)) {
+            if (this.config.mode === 'range') {
+                if (this.rangeStatus === 'empty' || this.rangeStatus === 'from') {
+                    this.tempDate[0] = date;
+                    this.rangeStatus = 'to';
+                } else {
+                    this.tempDate[1] = date;
+                    this.rangeStatus = 'from';
+                }
+            } else if (this.config.mode === 'multiple') {
+                let indexDate = this.tempDate.findIndex(d => this.areEqualDates(d, date));
+                if (indexDate === -1) {
+                    this.tempDate.push(date);
+                } else {
+                    this.tempDate.splice(indexDate, 1);
+                }
+            }
+        }
         this.config.ionSelected.emit(this.tempDate);
     }
     /**
      * 
-     * @function getSelectedWeekday - Gets the selected date's weekday
+     * @function getWeekday - Gets the selected date's weekday
      * @returns {string} 
      * @memberof DatePickerComponent
      */
-    public getSelectedWeekday(): string {
-        let day = this.tempDate.getDay();
-        let dayAdjust = 0;
-        // go back to sunday which is 6
-        // TODO: FIND BETTER WAY TO DO THIS. LIKE A ROTATE ARRAY
-        if (this.DatepickerService.doesStartFromMonday() && day === 0) dayAdjust = 6;
-        // go back one day
-        else if (this.DatepickerService.doesStartFromMonday()) dayAdjust = -1;
-        return this.weekdays[day + dayAdjust];
+    public getWeekday(date: Date | Date[]): string {
+        if (Array.isArray(date)) {
+            return this.getWeekday(date[date.length - 1]);
+        } else {
+            let day = date.getDay();
+            let dayAdjust = 0;
+            // go back to sunday which is 6
+            // TODO: FIND BETTER WAY TO DO THIS. LIKE A ROTATE ARRAY
+            if (this.DatepickerService.doesStartFromMonday() && day === 0) dayAdjust = 6;
+            // go back one day
+            else if (this.DatepickerService.doesStartFromMonday()) dayAdjust = -1;
+            return this.weekdays[day + dayAdjust];
+        }
     }
-
-    /**
-    * 
-    * @function getSelectedMonth - Gets the selected date's name of month
-    * @returns {string} 
-    * @memberof DatePickerComponent
-    */
-    public getSelectedMonth(): string {
-        return this.months[this.tempDate.getMonth()];
-    }
-
 
     /**
     * 
@@ -556,9 +630,9 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public getDayList(): string[] {
-        var date = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), 1);
+        var date = new Date(this.currentDisplayedDate.getFullYear(), this.currentDisplayedDate.getMonth(), 1);
         var days = [];
-        while (date.getMonth() === this.tempDate.getMonth()) {
+        while (date.getMonth() === this.currentDisplayedDate.getMonth()) {
             days.push(new Date(date).getDate());
             date.setDate(date.getDate() + 1);
         }
@@ -567,52 +641,44 @@ export class DatePickerComponent {
 
     /**
     * 
-    * @function getTempMonth - Gets the temporary selected date's name of month
+    * @function getMonth - Gets the date's name of month
     * @returns {string} 
     * @memberof DatePickerComponent
     */
-    public getTempMonth(): string {
-        return this.months[this.tempDate.getMonth()];
+    public getMonth(date: Date | Date[]): string {
+        if (Array.isArray(date)) {
+            return this.getMonth(date[date.length - 1]);
+        } else {
+            return this.months[date.getMonth()];
+        }
     }
 
     /**
     * 
-    * @function getTempYear - Gets the temporary selected date's year
+    * @function getYear - Gets the date's year
     * @returns {number} 
     * @memberof DatePickerComponent
     */
-    public getTempYear(): number {
-        return (this.tempDate || this.selectedDate).getFullYear();
+    public getYear(date: Date | Date[]): number | string {
+        if (Array.isArray(date)) {
+            return this.getYear(date[date.length - 1]);
+        } else {
+            return (date).getFullYear();
+        }
     }
 
     /**
     * 
-    * @function getTempDate - Gets the temporary selected date's day
+    * @function getDay - Gets the date's day
     * @returns {number} 
     * @memberof DatePickerComponent
     */
-    public getTempDate(): number {
-        return (this.tempDate || this.selectedDate).getDate();
-    }
-
-    /**
-    * 
-    * @function getSelectedDate - Gets selected date's date
-    * @returns {number} 
-    * @memberof DatePickerComponent
-    */
-    public getSelectedDate(): number {
-        return (this.selectedDate || new Date()).getDate();
-    }
-
-    /**
-    * 
-    * @function getSelectedYear - Gets selected date's year
-    * @returns {number} 
-    * @memberof DatePickerComponent
-    */
-    public getSelectedYear(): number {
-        return (this.selectedDate || new Date()).getFullYear();
+    public getDay(date: Date | Date[]): number | string {
+        if (Array.isArray(date)) {
+            return this.getDay(date[date.length - 1]);
+        } else {
+            return (date).getDate();
+        }
     }
 
     /**
@@ -621,7 +687,9 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public setSelectedMonth(month: number): void {
-        this.tempDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+        if (this.config.mode === 'single' && !Array.isArray(this.tempDate)) {
+            this.tempDate = new Date(this.tempDate.getFullYear(), month, this.tempDate.getDate());
+        }
         this.createDateList(this.tempDate);
         if (this.config.calendar)
             this.view = this.views.Calendar;
@@ -629,11 +697,13 @@ export class DatePickerComponent {
 
     /**
     * 
-    * @function setSelectedMonth - Sets the selected month
+    * @function setSelectedDay - Sets the selected month
     * @memberof DatePickerComponent
     */
     public setSelectedDay(day: number): void {
-        this.tempDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
+        if (this.config.mode === 'single' && !Array.isArray(this.tempDate)) {
+            this.tempDate = new Date(this.tempDate.getFullYear(), this.tempDate.getMonth(), day);
+        }
         if (this.config.calendar)
             this.view = this.views.Calendar;
     }
@@ -644,7 +714,9 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public setSelectedYear(year: number): void {
-        this.tempDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+        if (this.config.mode === 'single' && !Array.isArray(this.tempDate)) {
+            this.tempDate = new Date(year, this.tempDate.getMonth(), this.tempDate.getDate());
+        }
         this.createDateList(this.tempDate);
         if (this.config.calendar)
             this.view = this.views.Calendar;
@@ -671,7 +743,8 @@ export class DatePickerComponent {
      */
     public onCancel(): void {
         if (this.config.date)
-            this.selectedDate = this.config.date || new Date();
+            this.selectedDate = this.config.date ||
+                this.config.mode === 'single' ? new Date() : [new Date()];
         this.config.ionCanceled.emit();
         this.viewCtrl.dismiss();
     };
@@ -682,7 +755,7 @@ export class DatePickerComponent {
     * @memberof DatePickerComponent
     */
     public onDone(): void {
-        this.config.date = this.tempDate;
+        this.config.date = Array.isArray(this.tempDate) ? [...this.tempDate] : this.tempDate;
         this.config.ionChanged.emit(this.config.date);
         this.viewCtrl.dismiss();
     };
@@ -736,34 +809,52 @@ export class DatePickerComponent {
      */
     public nextMonth() {
         //if (this.max.getMonth() < this.tempDate.getMonth() + 1 && this.min.getFullYear() === this.tempDate.getFullYear()) return;
-        let testDate: Date = new Date(this.tempDate.getTime());
+        let testCanMove = (tempDate): { canMove: boolean, newDate: Date } => {
+            let testDate: Date = new Date(tempDate.getTime());
 
-        if (testDate.getMonth() === 11) {
-            testDate.setFullYear(testDate.getFullYear() + 1);
-            testDate.setMonth(0);
-        }
-        else {
-            testDate.setMonth(testDate.getMonth() + 1);
-        }
-        if (testDate.getDate() !== this.tempDate.getDate()) {
-            // something went wrong with the dates, oh oh.
-            testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
-        }
-        let maxTestDate: Date;
-        if (this.config.max) {
-            maxTestDate = new Date(this.config.max);
-            maxTestDate.setDate(0);
-            maxTestDate.setMonth(maxTestDate.getMonth() + 1);
-        }
-        if (!maxTestDate || maxTestDate >= testDate) {
-            if (maxTestDate && maxTestDate.getMonth() === testDate.getMonth()) {
-                if (this.config.max.getDate() < testDate.getDate()) {
-                    testDate.setDate(this.config.max.getDate());
+            if (testDate.getMonth() === 11) {
+                testDate.setFullYear(testDate.getFullYear() + 1);
+                testDate.setMonth(0);
+            }
+            else {
+                testDate.setMonth(testDate.getMonth() + 1);
+            }
+            if (testDate.getDate() !== tempDate.getDate()) {
+                // something went wrong with the dates, oh oh.
+                testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
+            }
+            let maxTestDate: Date;
+            if (this.config.max) {
+                maxTestDate = new Date(this.config.max);
+                maxTestDate.setDate(0);
+                maxTestDate.setMonth(maxTestDate.getMonth() + 1);
+            }
+            if (!maxTestDate || maxTestDate >= testDate) {
+                if (maxTestDate && maxTestDate.getMonth() === testDate.getMonth()) {
+                    if (this.config.max.getDate() < testDate.getDate()) {
+                        testDate.setDate(this.config.max.getDate());
+                    }
+                }
+                return {
+                    canMove: true, newDate: testDate
                 }
             }
-            this.tempDate = testDate;
-            this.createDateList(this.tempDate);
+            return { canMove: false, newDate: tempDate };
         }
+        if (!Array.isArray(this.tempDate)) {
+            let result = testCanMove(this.tempDate);
+            if (result.canMove) {
+                this.tempDate = this.currentDisplayedDate = result.newDate;
+            }
+        } else {
+            if (!this.tempDate.every(tempDate => {
+                return testCanMove(tempDate).canMove;
+            })) {
+                this.currentDisplayedDate = testCanMove(this.tempDate[this.tempDate.length - 1]).newDate;
+                return;
+            }
+        }
+        this.createDateList(this.tempDate);
     }
 
     /**
@@ -772,27 +863,45 @@ export class DatePickerComponent {
      * @memberof DatePickerComponent
      */
     public prevMonth() {
-        let testDate: Date = new Date(this.tempDate.getTime());
-        testDate.setMonth(testDate.getMonth() - 1);
-        // testDate.setDate(this.tempDate.getDate());
-        if (testDate.getDate() !== this.tempDate.getDate()) {
-            // something went wrong with the dates, oh oh.
-            testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
-        }
-        let minTestDate: Date;
-        if (this.config.min) {
-            minTestDate = new Date(this.config.min);
-            minTestDate.setDate(1);
-        }
-        if (!minTestDate || minTestDate <= testDate) {
-            if (minTestDate && minTestDate.getMonth() === testDate.getMonth()) {
-                if (this.config.min.getDate() > testDate.getDate()) {
-                    testDate.setDate(this.config.min.getDate());
+        let testCanMove = (tempDate): { canMove: boolean, newDate: Date } => {
+            let testDate: Date = new Date(tempDate.getTime());
+            testDate.setMonth(testDate.getMonth() - 1);
+            // testDate.setDate(this.tempDate.getDate());
+            if (testDate.getDate() !== tempDate.getDate()) {
+                // something went wrong with the dates, oh oh.
+                testDate = new Date(testDate.getFullYear(), testDate.getMonth(), 0);
+            }
+            let minTestDate: Date;
+            if (this.config.min) {
+                minTestDate = new Date(this.config.min);
+                minTestDate.setDate(1);
+            }
+            if (!minTestDate || minTestDate <= testDate) {
+                if (minTestDate && minTestDate.getMonth() === testDate.getMonth()) {
+                    if (this.config.min.getDate() > testDate.getDate()) {
+                        testDate.setDate(this.config.min.getDate());
+                    }
+                }
+                return {
+                    canMove: true, newDate: testDate
                 }
             }
-            this.tempDate = testDate;
-            this.createDateList(this.tempDate);
+            return { canMove: false, newDate: tempDate };
         }
+        if (!Array.isArray(this.tempDate)) {
+            let result = testCanMove(this.tempDate);
+            if (result.canMove) {
+                this.tempDate = result.newDate;
+            }
+        } else {
+            if (!this.tempDate.every(tempDate => {
+                return testCanMove(tempDate).canMove;
+            })) {
+                this.currentDisplayedDate = testCanMove(this.tempDate[this.tempDate.length - 1]).newDate;
+                return;
+            }
+        }
+        this.createDateList(this.tempDate);
     }
 
     /**

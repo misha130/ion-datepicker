@@ -9,7 +9,7 @@ import { DatePickerDirective } from 'ion-datepicker';
 export class HomePage {
   @ViewChild(DatePickerDirective) public datepicker: DatePickerDirective;
   public localDate: Date = new Date();
-  public initDate: Date = new Date();
+  public initDate: Date[] = [new Date()];
   public initDate2: Date = new Date(2015, 1, 1);
   public minDate: Date = new Date(2018, 2, 31);
   public maxDate: Date = new Date(2018, 11, 10);
@@ -37,8 +37,7 @@ export class HomePage {
   public event(data: Date): void {
     this.localDate = data;
   }
-  setDate(date: Date) {
-    console.log(date);
+  setDate(date: Date[]) {
     this.initDate = date;
   }
 

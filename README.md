@@ -50,6 +50,8 @@
 
  `[max]` - maximum date that user is allowed to select.  (not required)
 
+ `mode` - the mode the datepicker operates in, default as single. Can be range and multiple. Range will make the datepicker return an array of 2 and multiple will return an array of selected dates. single returns a single Date object.
+
  `[disabledDates]` - An array of dates that should be disabled (not required)
 
  `[calendar]` - A boolean that determines whether to show calendar or not. Defaults to true.
