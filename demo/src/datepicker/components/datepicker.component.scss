@@ -1,0 +1,103 @@
+$headerHeight:35%;
+$bodyheight:1;
+$footerheight:60px;
+ionic2-datepicker{
+  .datepicker-wrapper{
+    height: 100%;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .datepicker-header{
+      color:white;
+      background-color: #009688;
+      display:flex;
+      flex-flow: column;
+      height:$headerHeight;
+      .date-header{
+        display:flex;
+        flex-flow: column;
+        text-align: center;
+          .datepicker-day-of-month {
+            font-size: 60px;
+            font-weight: 700
+          }
+          .datepicker-year, .datepicker-month {
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+      }
+      .weekday-header{
+          padding: 8px 10px;
+          background-color: #008d7f;
+          .weekday-title{
+            font-weight: bold;
+            text-align: center;
+          }
+      }
+    }
+  }
+
+.weekdays-row{
+  text-align:center;
+}
+
+  .datepicker-calendar{
+    height:calc(100% - (#{$headerHeight} + #{$footerheight}));
+        .datepicker-controls{
+          align-items: center;
+          justify-content: space-between;
+        }
+        .calendar-wrapper{
+          height:calc(100% - #{$footerheight} - 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        .datepicker-date-col:hover {
+          background-color: rgba(56, 126, 245, .5);
+          border-radius: 20px;
+        }
+
+        .datepicker-selected {
+          background-color: rgba(182, 217, 214, 1);
+          border-radius:20px;
+        }
+        
+        .datepicker-mark {
+          background-color: rgba(202, 157, 14, 1);
+          border-radius:20px;
+        }
+
+        .datepicker-current {
+          color: rgba(60, 170, 159, 1);
+          border-radius:20px;
+        }
+
+        .datepicker-disabled {
+          color: rgba(170, 170, 170, 1)
+        }
+
+        .datepicker-disabled:hover {
+          background-color: transparent;
+          cursor: default
+        }
+
+        .calendar-cell {
+          flex-flow:row wrap;
+          text-align: center;
+
+        }
+      }
+  }
+
+  .datepicker-footer{
+    display:flex;
+    justify-content: space-between;
+    height:$footerheight;
+    button{
+      width:100%;
+    }
+  }
+
+}
