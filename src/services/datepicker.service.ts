@@ -119,4 +119,26 @@ export class DateService {
 
         return dateList;
     }
+
+    /**
+     *
+     * @function getMonthAvailableDays - returns the list of available dates for the month of the current date
+     * @param {Date} currentDate - use to get the month for the list
+     * @param {Date[]} disabledDates - the disabled dates
+     * @returns {Date[]}
+     * @memberof DateService
+     */
+    public getMonthAvailableDays(currentDate: Date, disabledDates: Date[]): Date[] {
+      // get the disabled dates of the month
+      let disabledMonthDates = disabledDates.filter(date => date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth());
+
+      let dateList = this.createDateList(currentDate);
+
+      // remove the empty dates
+      while (dateList.length > 0 && !dateList[0]) {
+          dateList.shift();
+      }
+
+      return dateList.filter(date => -1 === disabledMonthDates.findIndex(disabledDate => disabledDate.getDate() === date.getDate()));
+    }
 }
