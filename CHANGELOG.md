@@ -1,3 +1,10 @@
+2.8.0 / 2019-03-22
+==================
+
+* Disabled months don't appear when moving between months
+
+* Further language support
+
 
 2.7.2 / 2018-02-13
 ==================
