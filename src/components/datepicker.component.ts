@@ -762,6 +762,19 @@ export class DatePickerComponent {
                 }
             }
             this.tempDate = testDate;
+
+            let availableDates = this.DatepickerService.getMonthAvailableDays(testDate, this.config.disabledDates);
+
+            if (availableDates.length === 0) {
+                this.tempDate = testDate;
+                this.nextMonth();
+                return;
+            }
+            // if the current day is a disabled one, just take the first available day
+            if (-1 === availableDates.findIndex(date => date.getDate() === this.tempDate.getDate())) {
+                this.tempDate = availableDates[0];
+            }
+
             this.createDateList(this.tempDate);
         }
     }
@@ -791,6 +804,19 @@ export class DatePickerComponent {
                 }
             }
             this.tempDate = testDate;
+
+            let availableDates = this.DatepickerService.getMonthAvailableDays(testDate, this.config.disabledDates);
+
+            if (availableDates.length === 0) {
+                this.tempDate = testDate;
+                this.prevMonth();
+                return;
+            }
+            // if the current day is a disabled one, just take the last available day
+            if (-1 === availableDates.findIndex(date => date.getDate() === this.tempDate.getDate())) {
+                this.tempDate = availableDates[availableDates.length - 1];
+            }
+
             this.createDateList(this.tempDate);
         }
     }
