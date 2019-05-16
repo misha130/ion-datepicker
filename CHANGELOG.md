@@ -1,3 +1,8 @@
+2.8.1 / 2019-05-16
+==================
+
+* Fixed a bug that would allow the user to select a date later than the maximum possible date when switching to the next month.
+
 2.8.0 / 2019-03-22
 ==================
 
