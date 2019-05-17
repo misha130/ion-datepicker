@@ -751,9 +751,7 @@ export class DatePickerComponent {
         }
         let maxTestDate: Date;
         if (this.config.max) {
-            maxTestDate = new Date(this.config.max);
-            maxTestDate.setMonth(maxTestDate.getMonth() + 1);
-            maxTestDate.setDate(0);
+            maxTestDate = new Date(this.config.max.getFullYear(), this.config.max.getMonth() + 1, 0);
         }
         if (!maxTestDate || maxTestDate >= testDate) {
             if (maxTestDate && maxTestDate.getMonth() === testDate.getMonth()) {
