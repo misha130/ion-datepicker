@@ -1,6 +1,6 @@
 {
   "name": "ion-datepicker",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "A date picker for ionic",
   "main": "index.js",
   "author": "Misha Tarnorutksy <misha130@gmail.com>",
