@@ -1,5 +1,5 @@
 
-var fs = require('fs');
+var fs = require('fs-extra');
 
 var packageJson = require('../package.json');
 if (! packageJson) {
