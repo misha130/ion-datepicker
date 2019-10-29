@@ -3,13 +3,13 @@
 ### 1) Install using npm ###
 
 ```
-    npm i ion-date-picker --save
+    npm i ionic-date-picker-fix-default --save
 ```
 
 ### 2) Add it to your ngModule in app.module ###
 
 ```
- import { DatePickerModule } from 'ion-date-picker';
+ import { DatePickerModule } from 'ionic-date-picker-fix-default';
 ```
 ```
    imports: [
@@ -19,7 +19,7 @@
 ```
 ### 3) Use the directive ion-date-picker in your html  ###
 ```
-	<span ion-date-picker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
+	<span ion-date-picker-fix-default  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
 		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 ```
@@ -28,7 +28,7 @@
 
 ```
 
-    import { DatePickerDirective } from 'ion-date-picker';
+    import { DatePickerDirective } from 'ionic-date-picker-fix-default';
 
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
