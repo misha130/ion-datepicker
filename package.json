@@ -1,6 +1,6 @@
 {
   "name": "ionic-date-picker-fix-default",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A date picker for ionic",
   "main": "index.js",
   "author": "James McRay Johnson III <james@uptownjimmy.com>",
