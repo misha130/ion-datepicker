@@ -1,21 +1,14 @@
 {
-  "name": "ion-datepicker-enclara",
-  "version": "1.0.1",
+  "name": "ion-date-picker",
+  "version": "1.0.2",
   "description": "A date picker for ionic",
   "main": "index.js",
   "author": "James McRay Johnson III <james@uptownjimmy.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uptownjimmy/ion-datepicker-enclara.git"
+    "url": "git+https://github.com/uptownjimmy/ion-date-picker.git"
   },
-  "keywords": [
-    "datepicker-ionic-enclara",
-    "ionic datepicker",
-    "datepicker",
-    "datepicker ionic",
-    "datepicker for ionic",
-    "datepicker for ionic framework"
-  ],
+  "keywords": [],
   "scripts": {
     "ngc": "ngc",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 -u",
@@ -44,7 +37,7 @@
     "@angular/compiler-cli": "~5.0.0"
   },
   "bugs": {
-    "url": "https://github.com/uptownjimmy/ion-datepicker-enclara/issues"
+    "url": "https://github.com/uptownjimmy/ion-date-picker/issues"
   },
-  "homepage": "https://github.com/uptownjimmy/ion-datepicker#readme"
+  "homepage": "https://github.com/uptownjimmy/ion-date-picker#readme"
 }

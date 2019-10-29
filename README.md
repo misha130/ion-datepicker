@@ -1,18 +1,15 @@
-
-### [Demo](https://ion-datepicker.herokuapp.com/)
-
 ## How to use ###
 
 ### 1) Install using npm ###
 
 ```
-    npm i ion-datepicker --save
+    npm i ion-date-picker --save
 ```
 
 ### 2) Add it to your ngModule in app.module ###
 
 ```
- import { DatePickerModule } from 'ion-datepicker';
+ import { DatePickerModule } from 'ion-date-picker';
 ```
 ```
    imports: [
@@ -20,9 +17,9 @@
         DatePickerModule,
     ],
 ```
-### 3) Use the directive ion-datepicker in your html  ###
+### 3) Use the directive ion-date-picker in your html  ###
 ```
-	<span ion-datepicker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
+	<span ion-date-picker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
 		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 ```
@@ -31,7 +28,7 @@
 
 ```
 
-    import { DatePickerDirective } from 'ion-datepicker';
+    import { DatePickerDirective } from 'ion-date-picker';
 
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
@@ -85,6 +82,3 @@ For example:
  `[cancelText]` - text for the cancel button
 
 
-### 4) Pictures ###
-
-<img src="https://i.gyazo.com/0caf3169c08777da99bf98ba7f328c41.png" height="450">

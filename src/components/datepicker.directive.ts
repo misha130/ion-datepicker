@@ -8,7 +8,7 @@ import { DatePickerData } from './datepicker.interface';
 import { DateService } from '../services/datepicker.service';
 
 @Directive({
-  selector: 'ion-datepicker,[ion-datepicker]',
+  selector: 'ion-date-picker,[ion-date-picker]',
 })
 export class DatePickerDirective {
   @Output('ionSelected') public selected: EventEmitter<string | Date> = new EventEmitter<string | Date>();
