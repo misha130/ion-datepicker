@@ -1,7 +1,0 @@
-{
-  "name": "demo-datepicker-ionic2",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular"
-}
