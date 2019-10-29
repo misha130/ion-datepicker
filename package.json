@@ -6,7 +6,7 @@
   "author": "James McRay Johnson III <james@uptownjimmy.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uptownjimmy/ion-date-picker.git"
+    "url": "git+https://github.com/uptownjimmy/ionic-date-picker-fix-default.git"
   },
   "keywords": [],
   "scripts": {
@@ -37,7 +37,7 @@
     "@angular/compiler-cli": "~5.0.0"
   },
   "bugs": {
-    "url": "https://github.com/uptownjimmy/ion-date-picker/issues"
+    "url": "https://github.com/uptownjimmy/ionic-date-picker-fix-default/issues"
   },
-  "homepage": "https://github.com/uptownjimmy/ion-date-picker#readme"
+  "homepage": "https://github.com/uptownjimmy/ionic-date-picker-fix-default#readme"
 }
