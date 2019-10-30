@@ -756,7 +756,7 @@ export class DatePickerComponent {
         if (!maxTestDate || maxTestDate >= testDate) {
             if (maxTestDate && maxTestDate.getMonth() === testDate.getMonth()) {
                 if (this.config.max.getDate() < testDate.getDate()) {
-                    testDate.setDate(this.config.max.getDate());
+                    testDate.setDate(this.today.getDate());
                 }
             }
             this.tempDate = testDate;

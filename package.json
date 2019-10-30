@@ -1,23 +1,14 @@
 {
-  "name": "ion-datepicker",
-  "version": "2.8.2",
+  "name": "ionic-date-picker-fix-default",
+  "version": "1.0.3",
   "description": "A date picker for ionic",
   "main": "index.js",
-  "author": "Misha Tarnorutksy <misha130@gmail.com>",
+  "author": "James McRay Johnson III <james@uptownjimmy.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/misha130/ion-datepicker"
+    "url": "git+https://github.com/uptownjimmy/ionic-date-picker-fix-default.git"
   },
-  "keywords": [
-    "datepicker-ionic3",
-    "ionic3",
-    "ionic2",
-    "ionic3 datepicker",
-    "datepicker",
-    "datepicker ionic3",
-    "datepicker for ionic3",
-    "datepicker for ionic3 framework"
-  ],
+  "keywords": [],
   "scripts": {
     "ngc": "ngc",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 -u",
@@ -44,5 +35,9 @@
     "typescript": "~2.4.2",
     "@angular/compiler": "~5.0.0",
     "@angular/compiler-cli": "~5.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/uptownjimmy/ionic-date-picker-fix-default/issues"
+  },
+  "homepage": "https://github.com/uptownjimmy/ionic-date-picker-fix-default#readme"
 }

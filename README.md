@@ -1,18 +1,28 @@
+## This repo was forked in order to deal with the following scenario: ##
 
-### [Demo](https://ion-datepicker.herokuapp.com/)
+Makes current day (instead of the the max possible day) the default selected day when:
+
+- user opens datepicker modal
+- user selects a day that will be past the maxTestDate if user then selects nextMonth
+- user clicks nextMonth
+
+Notes: previous functionality would have selected the highest possible day, which is confusing. Ideally, no day would be selected under these circumstances, but that seems difficult given the nature of the code logic.
+
+
+
 
 ## How to use ###
 
 ### 1) Install using npm ###
 
 ```
-    npm i ion-datepicker --save
+    npm i ionic-date-picker-fix-default --save
 ```
 
 ### 2) Add it to your ngModule in app.module ###
 
 ```
- import { DatePickerModule } from 'ion-datepicker';
+ import { DatePickerModule } from 'ionic-date-picker-fix-default';
 ```
 ```
    imports: [
@@ -20,9 +30,9 @@
         DatePickerModule,
     ],
 ```
-### 3) Use the directive ion-datepicker in your html  ###
+### 3) Use the directive ion-date-picker in your html  ###
 ```
-	<span ion-datepicker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
+	<span ion-date-picker-fix-default  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
 		<span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
 	</span>
 ```
@@ -31,7 +41,7 @@
 
 ```
 
-    import { DatePickerDirective } from 'ion-datepicker';
+    import { DatePickerDirective } from 'ionic-date-picker-fix-default';
 
 	@ViewChild(DatePickerDirective) private datepickerDirective:DatePickerDirective;
 
@@ -85,6 +95,3 @@ For example:
  `[cancelText]` - text for the cancel button
 
 
-### 4) Pictures ###
-
-<img src="https://i.gyazo.com/0caf3169c08777da99bf98ba7f328c41.png" height="450">
