@@ -1,4 +1,4 @@
-## This was forked in order to deal with the following scenario ( this is copied directly from a pull request that was ignored): ##
+## This repo was forked in order to deal with the following scenario ( this is copied directly from a pull request that was ignored): ##
 
 Makes current day (instead of the the max possible day) the default selected day when:
 
