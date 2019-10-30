@@ -1,3 +1,16 @@
+## This was forked in order to deal with the following scenario, copied directly from a pull request that was ignored: ##
+
+Makes current day (instead of the the max possible day) the default selected day when:
+
+- user opens datepicker modal
+- user selects a day that will be past the maxTestDate if user then selects nextMonth
+- user clicks nextMonth
+
+Notes: previous functionality would have selected the highest possible day, which is confusing. Ideally, no day would be selected under these circumstances, but that seems difficult given the nature of the code logic.
+
+
+
+
 ## How to use ###
 
 ### 1) Install using npm ###
